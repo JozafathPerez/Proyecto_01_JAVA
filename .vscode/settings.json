@@ -3,6 +3,11 @@
         "lib/**/*.jar",
         "proyecto_bingo/lib/javax.mail.jar",
         "proyecto_bingo/lib/javax.activation-1.2.0.jar",
-        "proyecto_bingo/lib/itextpdf-5.5.13.3.jar"
+        "proyecto_bingo/lib/itextpdf-5.5.13.3.jar",
+        "proyecto_bingo/lib/commons-pool2-2.12.0.jar",
+        "proyecto_bingo/lib/pdfbox-3.0.0.jar",
+        "proyecto_bingo/lib/pdfbox-io-3.0.0.jar",
+        "proyecto_bingo/lib/fontbox-3.0.0.jar",
+        "proyecto_bingo/lib/commons-logging-1.2.jar"
     ]
 }

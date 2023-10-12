@@ -1,8 +1,13 @@
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class CartonBingo {
   private String identificador;
@@ -15,6 +20,7 @@ public class CartonBingo {
     matrizMarcado = new int[5][5];
     identificador = generarIdentificadorUnico();
     generarCarton();
+    generarPNG();
   }
 
   private void generarCarton() {
@@ -50,7 +56,7 @@ public class CartonBingo {
     String formatoContador = String.format("%03d", contadorId);
     contadorId++;
     
-    return "PEN" + formatoContador;
+    return "JJO" + formatoContador; // Joza, Jeff, Oscar
   }
 
   // Getters y setters (métodos para acceder y modificar los atributos)
@@ -66,32 +72,67 @@ public class CartonBingo {
     return matrizMarcado;
 }
 
-private void generarPDF() {
-    Document document = new Document();
+public void generarPNG() {
+    int width = 634; // Ancho de la imagen
+    int height = 748; // Alto de la imagen
+
+    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d = image.createGraphics();
+
+    // Generar un número aleatorio del 1 al 3
+    Random random = new Random();
+    int numeroAleatorio = random.nextInt(3) + 1;
+
+    // Determinar el nombre de la imagen según el número aleatorio
+    String nombreImagen;
+    if (numeroAleatorio == 1) {
+        nombreImagen = "ImagenesDeCartones/CartonNaranja.png";
+    } else if (numeroAleatorio == 2) {
+        nombreImagen = "ImagenesDeCartones/CartonAzul.png";
+    } else {
+        nombreImagen = "ImagenesDeCartones/CartonVerde.png";
+    }
+
+    // Cargar la imagen de fondo
     try {
-        PdfWriter.getInstance(document, new FileOutputStream(identificador + ".pdf"));
-        document.open();
+        BufferedImage background = ImageIO.read(new File(nombreImagen));
 
-        // Crea una tabla para representar el cartón de bingo
-        PdfPTable table = new PdfPTable(5);
-        table.setWidthPercentage(100);
-        BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
-
-        for (int fila = 0; fila < 5; fila++) {
-            for (int columna = 0; columna < 5; columna++) {
-                PdfPCell cell = new PdfPCell();
-                cell.setPhrase(new Phrase(Integer.toString(matriz[fila][columna]), new Font(baseFont, 16)));
-                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                table.addCell(cell);
-            }
-        }
-
-        document.add(table);
-    } catch (DocumentException | IOException e) {
+        // Dibuja la imagen de fondo
+        g2d.drawImage(background, 0, 0, null);
+    } catch (IOException e) {
         e.printStackTrace();
-    } finally {
-        document.close();
+    }
+
+    // Configura la fuente y el color para los números
+    g2d.setColor(Color.BLACK);
+    g2d.setFont(new Font("Arial", Font.BOLD, 56));
+
+    // Dibuja los números en la imagen
+    for (int fila = 0; fila < 5; fila++) {
+        for (int columna = 0; columna < 5; columna++) {
+            int numero = matriz[fila][columna];
+            String numeroStr = String.valueOf(numero);
+            int x = columna * (561 / 5) + 66; // Ajustar la horizontal
+            int y = fila * (580 / 5) + 177; // Ajusta la posición vertical
+
+            g2d.drawString(numeroStr, x, y);
+        }
+    }
+
+    // Dibuja el identificador abajo
+    g2d.setColor(Color.BLACK);
+    g2d.setFont(new Font("Arial", Font.PLAIN, 26));
+    g2d.drawString(identificador, 271, 720); // Ajusta la posición vertical
+
+    g2d.dispose();
+
+    try {
+        String pngFileName = "cartones/" + identificador + ".png";
+        File outputFile = new File(pngFileName);
+        outputFile.getParentFile().mkdirs(); // Crea el directorio si no existe
+        ImageIO.write(image, "png", outputFile);
+    } catch (IOException e) {
+        e.printStackTrace();
     }
 }
 }
