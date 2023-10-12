@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "proyecto_bingo/lib/javax.mail.jar"
+    ]
+}
