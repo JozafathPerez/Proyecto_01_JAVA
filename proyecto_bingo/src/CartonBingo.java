@@ -1,7 +1,14 @@
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class CartonBingo {
   private String identificador;
   private int[][] matriz;
   private int[][] matrizMarcado;
+  private static int contadorId = 0;
 
   public CartonBingo() {
     matriz = new int[5][5];
@@ -40,11 +47,13 @@ public class CartonBingo {
   }
 
   private String generarIdentificadorUnico() {
-    // Implementa la lógica para generar un identificador único
-    // Debe ser 3 letras y 3 numeros
-    return "PENE" + (int) (Math.random() * 1000); 
+    String formatoContador = String.format("%03d", contadorId);
+    contadorId++;
+    
+    return "PEN" + formatoContador;
   }
 
+  // Getters y setters (métodos para acceder y modificar los atributos)
   public String getIdentificador() {
     return identificador;
  }
@@ -55,5 +64,34 @@ public class CartonBingo {
 
  public int[][] getMatrizMarcado() {
     return matrizMarcado;
+}
+
+private void generarPDF() {
+    Document document = new Document();
+    try {
+        PdfWriter.getInstance(document, new FileOutputStream(identificador + ".pdf"));
+        document.open();
+
+        // Crea una tabla para representar el cartón de bingo
+        PdfPTable table = new PdfPTable(5);
+        table.setWidthPercentage(100);
+        BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.NOT_EMBEDDED);
+
+        for (int fila = 0; fila < 5; fila++) {
+            for (int columna = 0; columna < 5; columna++) {
+                PdfPCell cell = new PdfPCell();
+                cell.setPhrase(new Phrase(Integer.toString(matriz[fila][columna]), new Font(baseFont, 16)));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                table.addCell(cell);
+            }
+        }
+
+        document.add(table);
+    } catch (DocumentException | IOException e) {
+        e.printStackTrace();
+    } finally {
+        document.close();
+    }
 }
 }

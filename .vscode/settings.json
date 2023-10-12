@@ -2,6 +2,7 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "proyecto_bingo/lib/javax.mail.jar",
-        "proyecto_bingo/lib/javax.activation-1.2.0.jar"
+        "proyecto_bingo/lib/javax.activation-1.2.0.jar",
+        "proyecto_bingo/lib/itextpdf-5.5.13.3.jar"
     ]
 }
