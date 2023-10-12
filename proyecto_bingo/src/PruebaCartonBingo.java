@@ -1,7 +1,7 @@
 
 public class PruebaCartonBingo {
     public static void main(String[] args) {
-        int cantidadCartones = 10; // Cantidad de cartones a generar
+        int cantidadCartones = 5; // Cantidad de cartones a generar
 
         for (int i = 0; i < cantidadCartones; i++) {
             CartonBingo carton = new CartonBingo();
