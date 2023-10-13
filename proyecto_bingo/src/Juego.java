@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Random;
 
 import javax.xml.stream.StreamFilter;
 
@@ -73,6 +74,12 @@ public class Juego {
       try {
         List<String[]> datos = reader.readAll(); // Leer todos los datos
 
+        // Verificar si el archivo CSV está vacío
+        if (datos.isEmpty()) {
+          System.out.println("El archivo CSV está vacío. No se cargaron jugadores.");
+          return;
+        }
+
         for (String[] fila : datos) {
           String nombre = fila[0];
           String correo = fila[1];
@@ -97,9 +104,38 @@ public class Juego {
     }
   }
 
-  // public int cantarNumero() {
-  //   // Generar un número aleatorio y agregarlo a la lista de números cantados
-  // }
+  public void cantarNumero() {
+    // Generar un número aleatorio y agregarlo a la lista de números cantados
+    int numero;
+    do {
+        numero = (int) (Math.random() * (75 - 1 + 1)) + 1; 
+      } while (validarNumCantado(numero));
+    System.out.println(numero);
+    numerosCantados.add(numero);
+  }
+
+  private boolean validarNumCantado(int numero) {
+    for(int numCantado : numerosCantados) {
+      if (numCantado == numero) {
+        return true; // El número ya existe en la columna
+      }
+    }
+    return false; // El número no existe en la columna
+  }
+
+  public void marcarCarton (CartonBingo carton, int numero) {
+    int matriz[][] = carton.getMatriz(); // Obtener el valor de la matriz
+    // Recorrer las filas
+    for (int fila = 0; fila < 5; fila += 1) {
+      // Recorrer por columnas
+      for (int columna = 0; columna < 5; columna += 1) {
+        // Compara si hay coincidencias con el numero marcado
+        if (matriz[fila][columna] == numero) {
+          carton.setValorCasilla(fila, columna, 1);
+        }
+      }
+    }
+  }
 
   public void verificarCartones() {
     // Implementa la lógica para verificar los cartones y marcar los números

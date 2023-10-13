@@ -138,6 +138,10 @@ public class CartonBingo {
     return matrizMarcado;
   }
 
+  public void setValorCasilla(int fila, int columna, int nuevoValor) {
+    matrizMarcado[fila][columna] = nuevoValor;
+  }
+
   public static String obtenerIdentificadorPorIndice(int indice) {
     if (indice >= 0 && indice < totalCartones) {
         return "JJO" + String.format("%03d", indice);
