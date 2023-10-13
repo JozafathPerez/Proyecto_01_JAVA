@@ -23,7 +23,6 @@ public class Juego {
   private ArrayList<Integer> numerosCantados; 
   private String modo;
   private double premio;
-  // private List<N> numerosCantados; NO SE QUE TIPO PONER
 
   public Juego() {
     cartones = new ArrayList<>();
@@ -40,6 +39,10 @@ public class Juego {
   public void agregarCarton(CartonBingo carton) {
     cartones.add(carton);
   }
+
+    /*
+   * Implementacion de la agregar jugador
+   */
 
   public boolean validarJugador(String nombre, String correo, String cedula) {
     System.out.println(cedula);
@@ -145,6 +148,10 @@ public class Juego {
     // Implementa la lógica para mostrar al ganador y entregar el premio
   }
 
+      /*
+   * Implementacion de la funcion consultar Carton
+   */
+
   // public void consultarCarton(String identificadorCarton) {
   //   String rutaCarton = "cartones/" + identificadorCarton + ".png";
 
@@ -156,15 +163,10 @@ public class Juego {
   //     System.err.println("Error al cargar el cartón: " + e.getMessage());
   // }
 
-  public boolean agregarCartonAJuego(String identificadorCarton) {
-    // Verificar si el cartón ya ha sido asignado
-    if (!cartonesEnJuego.contains(identificadorCarton)) {
-        cartonesEnJuego.add(identificadorCarton);
-        return true;
-    } else {
-      return false;
-    }
-  }
+
+  /*
+   * Implementacion de la funcion enviar carton
+   */
 
   public void enviarCartonAJugador(int cantCartones, String cedula) {
     // Reemplaza con tu dirección de correo electrónico
@@ -207,7 +209,7 @@ public class Juego {
     String[] archivosAdjuntos = new String[cartonesEnviados.size()];
     int index = 0;
     for (String identificador : cartonesEnviados) {
-        archivosAdjuntos[index] = "cartones/" + identificador + ".png";
+        archivosAdjuntos[index] = "proyecto_bingo/cartones/" + identificador + ".png";
         index++;
     }
 
@@ -235,5 +237,14 @@ public class Juego {
     // poner errores de si no se encontro el jugardor en la interfaz
   }
 
+  public boolean agregarCartonAJuego(String identificadorCarton) {
+    // Verificar si el cartón ya ha sido asignado
+    if (!cartonesEnJuego.contains(identificadorCarton)) {
+        cartonesEnJuego.add(identificadorCarton);
+        return true;
+    } else {
+      return false;
+    }
+  }
 
 }

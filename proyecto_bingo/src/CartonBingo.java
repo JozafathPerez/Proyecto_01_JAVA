@@ -116,7 +116,7 @@ public class CartonBingo {
     g2d.dispose();
   
     try {
-      String pngFileName = "cartones/" + identificador + ".png";
+      String pngFileName = "proyecto_bingo/cartones/" + identificador + ".png";
       File outputFile = new File(pngFileName);
       outputFile.getParentFile().mkdirs(); // Crea el directorio si no existe
       ImageIO.write(image, "png", outputFile);
