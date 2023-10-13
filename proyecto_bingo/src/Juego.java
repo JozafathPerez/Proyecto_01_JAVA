@@ -1,7 +1,11 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -15,12 +19,14 @@ public class Juego {
   private ArrayList<Integer> numerosCantados; 
   private String modo;
   private double premio;
-  // private List<N> numerosCantados; NO SE QUE TIPO PONER 
+  // private List<N> numerosCantados; NO SE QUE TIPO PONER
+  public Set<String> cartonesEnviados;
 
   public Juego() {
     cartones = new ArrayList<>();
     jugadores = new ArrayList<>();
     numerosCantados = new ArrayList<>();
+    cartonesEnviados = new HashSet<>();
   }
 
   public void configurarJuego(String modo, double premio) {
@@ -83,14 +89,85 @@ public class Juego {
   public void mostrarGanador() {
     // Implementa la lógica para mostrar al ganador y entregar el premio
   }
-  public void consultarCarton(String identificadorCarton) {
-    String rutaCarton = "cartones/" + identificadorCarton + ".png";
 
-    // Cargar y mostrar la imagen del cartón
-    try {
-      BufferedImage cartonImage = ImageIO.read(new File(rutaCarton));
-         // Ver el carton en el panel que estamos
-    } catch (IOException e) {
-      System.err.println("Error al cargar el cartón: " + e.getMessage());
+  // public void consultarCarton(String identificadorCarton) {
+  //   String rutaCarton = "cartones/" + identificadorCarton + ".png";
+
+  //   // Cargar y mostrar la imagen del cartón
+  //   try {
+  //     BufferedImage cartonImage = ImageIO.read(new File(rutaCarton));
+  //        // Ver el carton en el panel que estamos
+  //   } catch (IOException e) {
+  //     System.err.println("Error al cargar el cartón: " + e.getMessage());
+  // }
+
+  public void enviarCartonAJugador(int cantCartones, String cedula) {
+    // Reemplaza con tu dirección de correo electrónico
+    String remitente = "bingosocialmold@gmail.com";
+
+    // Crea una instancia de CuentaCorreo
+    CuentaCorreo cuenta = new CuentaCorreo(remitente);
+
+    // Obtiene la dirección de correo del jugador con la cédula
+    String destinatario = obtenerCorreoPorCedula(cedula);
+
+    // Datos del correo
+    String asunto = "Cartones solicitados";
+    String cuerpo = "Este es un correo de Bingo Tico desde Java.";
+
+    Jugador jugador = obtenerJugadorPorCedula(cedula);
+    
+    // Tener un registro de cartones enviados
+    Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
+
+    while (cartonesEnviados.size() < cantCartones) { 
+        // hacer validacion que si cartonesEnviados.size() es > 5... ERROR
+    
+        // Genera un número aleatorio entre 0 y el total de cartones disponibles
+        int numeroAleatorio;
+        String identificador;
+
+        do {
+            numeroAleatorio = (int) (Math.random() * CartonBingo.totalCartones);
+            identificador = CartonBingo.obtenerIdentificadorPorIndice(numeroAleatorio);
+        } while (cartonesEnviados.contains(identificador));
+
+
+        cartonesEnviados.add(identificador);
+        jugador.agregarCarton(identificador);
+    }
+
+    // Fuera del bucle, envía el correo con todos los archivos adjuntos
+    String[] archivosAdjuntos = new String[cartonesEnviados.size()];
+    int index = 0;
+    for (String identificador : cartonesEnviados) {
+        archivosAdjuntos[index] = "cartones/" + identificador + ".png";
+        index++;
+    }
+
+    cuenta.enviarCorreo(destinatario, asunto, cuerpo, archivosAdjuntos);
   }
+
+
+  private String obtenerCorreoPorCedula(String cedula) {
+    for (Jugador jugador : jugadores) {
+        if (jugador.getCedula().equals(cedula)) {
+            return jugador.getCorreo();
+        }
+    }
+    return ""; // Devuelve una cadena vacía si no se encuentra la cédula
+    // poner errores de si no se encontro el jugardor en la interfaz
+  }
+
+  private Jugador obtenerJugadorPorCedula(String cedula) {
+    for (Jugador jugador : jugadores) {
+        if (jugador.getCedula().equals(cedula)) {
+            return jugador;
+        }
+    }
+    return null; // Devuelve nulo si no se encuentra la cédula
+    // poner errores de si no se encontro el jugardor en la interfaz
+  }
+
+
 }
