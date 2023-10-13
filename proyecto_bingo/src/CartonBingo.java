@@ -14,6 +14,7 @@ public class CartonBingo {
   private int[][] matriz;
   private int[][] matrizMarcado;
   private static int contadorId = 0;
+  public static int totalCartones = 0;
 
   public CartonBingo() {
     matriz = new int[5][5];
@@ -21,6 +22,7 @@ public class CartonBingo {
     identificador = generarIdentificadorUnico();
     generarCarton();
     generarPNG();
+    totalCartones++;
   }
 
   private void generarCarton() {
@@ -135,4 +137,11 @@ public class CartonBingo {
   public int[][] getMatrizMarcado() {
     return matrizMarcado;
   }
+
+  public static String obtenerIdentificadorPorIndice(int indice) {
+    if (indice >= 0 && indice < totalCartones) {
+        return "JJO" + String.format("%03d", indice);
+    }
+    return null; // Devuelve nulo si el índice está fuera de rango
+ }
 }
