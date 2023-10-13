@@ -20,5 +20,10 @@ public class PruebaBingo {
         //juego.enviarCartonAJugador(5, "102340756"); // Envia 5 cartones al jugador 1
         juego.enviarCartonAJugador(5, "703060281"); // Envia 5 cartones al jugador 2
         juego.enviarCartonAJugador(5, "706750854"); // Envia 5 cartones al jugador 3
+
+        for (int i = 0; i < 10; i++) {
+            CartonBingo carton = new CartonBingo();
+            juego.agregarCarton(carton);
+        }
     }
 }

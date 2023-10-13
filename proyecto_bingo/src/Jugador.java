@@ -64,7 +64,7 @@ public Jugador(String nombre, String correo, String cedula) {
     System.out.println("Cedula: " + cedula);
   }
 
-  public void agregarCarton(String identificadorCarton) {
+  public void agregarCartonAjugador(String identificadorCarton) {
     // Verificar si el cartón ya ha sido asignado
     if (!cartonesAsignados.contains(identificadorCarton)) {
         cartonesAsignados.add(identificadorCarton);

@@ -18,17 +18,17 @@ import javax.swing.JLabel;
 public class Juego {
   private ArrayList<CartonBingo> cartones;
   private ArrayList<Jugador> jugadores;
+  private List<String> cartonesEnJuego;
   private ArrayList<Integer> numerosCantados; 
   private String modo;
   private double premio;
   // private List<N> numerosCantados; NO SE QUE TIPO PONER
-  public Set<String> cartonesEnviados;
 
   public Juego() {
     cartones = new ArrayList<>();
     jugadores = new ArrayList<>();
     numerosCantados = new ArrayList<>();
-    cartonesEnviados = new HashSet<>();
+    cartonesEnJuego = new ArrayList<>();
   }
 
   public void configurarJuego(String modo, double premio) {
@@ -120,6 +120,16 @@ public class Juego {
   //     System.err.println("Error al cargar el cartón: " + e.getMessage());
   // }
 
+  public boolean agregarCartonAJuego(String identificadorCarton) {
+    // Verificar si el cartón ya ha sido asignado
+    if (!cartonesEnJuego.contains(identificadorCarton)) {
+        cartonesEnJuego.add(identificadorCarton);
+        return true;
+    } else {
+      return false;
+    }
+  }
+
   public void enviarCartonAJugador(int cantCartones, String cedula) {
     // Reemplaza con tu dirección de correo electrónico
     String remitente = "bingosocialmold@gmail.com";
@@ -140,7 +150,6 @@ public class Juego {
     Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
 
     while (cartonesEnviados.size() < cantCartones) { 
-        // hacer validacion que si cartonesEnviados.size() es > 5... ERROR
     
         // Genera un número aleatorio entre 0 y el total de cartones disponibles
         int numeroAleatorio;
@@ -152,8 +161,10 @@ public class Juego {
         } while (cartonesEnviados.contains(identificador));
 
 
-        cartonesEnviados.add(identificador);
-        jugador.agregarCarton(identificador);
+        if (agregarCartonAJuego(identificador) == (true)) {
+          cartonesEnviados.add(identificador);
+          jugador.agregarCartonAjugador(identificador);
+        }
     }
 
     // Fuera del bucle, envía el correo con todos los archivos adjuntos
