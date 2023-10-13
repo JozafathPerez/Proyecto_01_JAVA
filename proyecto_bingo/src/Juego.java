@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import javax.xml.stream.StreamFilter;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
@@ -38,45 +39,62 @@ public class Juego {
     cartones.add(carton);
   }
 
+  public boolean validarJugador(String nombre, String correo, String cedula) {
+    System.out.println(cedula);
+    for(Jugador objeto : jugadores) {
+      System.out.println(objeto.getCedula());
+      if (objeto.getCedula().equals(cedula)) {
+        
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void registrarJugador(String nombre, String correo, String cedula) {
-    Jugador jugador = new Jugador(nombre, correo, cedula);
-    jugador.agregarJugadorACSV();
-    jugadores.add(jugador);
+    if ( validarJugador(nombre, correo, cedula) == false) {
+      Jugador jugador = new Jugador(nombre, correo, cedula);
+      jugador.agregarJugadorACSV();
+      jugadores.add(jugador);
+      System.out.println("Jugador agregado al registro de jugadores");
+    } else {
+      System.out.println("Error, la cedula esta duplicada");
+    }
   }
 
   /*
    * Cargar jugadores
    */
   public void cargarJugadoresDesdeCSV() {
-        String csvFile = "Jugadores.csv";
-        
-        try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
-            try {
-                List<String[]> datos = reader.readAll(); // Leer todos los datos
+    String csvFile = "Jugadores.csv";
+    
+    try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
+      try {
+        List<String[]> datos = reader.readAll(); // Leer todos los datos
 
-                for (String[] fila : datos) {
-                    String nombre = fila[0];
-                    String correo = fila[1];
-                    String cedula = fila[2];
+        for (String[] fila : datos) {
+          String nombre = fila[0];
+          String correo = fila[1];
+          String cedula = fila[2];
 
-                    Jugador jugador = new Jugador(nombre, correo, cedula);
-                    jugadores.add(jugador);
-                }
-            } catch (CsvException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+          Jugador jugador = new Jugador(nombre, correo, cedula);
+          jugadores.add(jugador);
         }
-    }
-
-    public void imprimir() {
-      for(Jugador ob : jugadores) {
-        ob.imprimir();
+      } catch (CsvException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+  }
+
+  public void imprimir() {
+    for(Jugador ob : jugadores) {
+      ob.imprimir();
+    }
+  }
 
   // public int cantarNumero() {
   //   // Generar un número aleatorio y agregarlo a la lista de números cantados
