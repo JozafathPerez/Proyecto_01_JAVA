@@ -19,7 +19,7 @@ import javax.activation.DataHandler;        // para recuperar el archivo que adj
  */
 public class CuentaCorreo {
   private String usuario;
-  private String clave = "[AQUI VA EL TOKEN]"; // por obvias razones no está...
+  private String clave = "ibwnbsesoikhqgcq"; 
   private String servidor = "smtp.gmail.com";
   private String puerto = "587"; 
   private Properties propiedades;

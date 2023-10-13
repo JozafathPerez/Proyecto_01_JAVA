@@ -1,5 +1,11 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Juego {
   private ArrayList<CartonBingo> cartones;
@@ -37,5 +43,15 @@ public class Juego {
 
   public void mostrarGanador() {
     // Implementa la lógica para mostrar al ganador y entregar el premio
+  }
+  public void consultarCarton(String identificadorCarton) {
+    String rutaCarton = "cartones/" + identificadorCarton + ".png";
+
+    // Cargar y mostrar la imagen del cartón
+    try {
+      BufferedImage cartonImage = ImageIO.read(new File(rutaCarton));
+         // Ver el carton en el panel que estamos
+    } catch (IOException e) {
+      System.err.println("Error al cargar el cartón: " + e.getMessage());
   }
 }
