@@ -12,24 +12,24 @@ public class Jugador {
     // Implementar esta picha, playos, yo no voy hacer nada, ya voy a mimir. post.. Manden porno
   }
 
-public Jugador(String nombre, String correo, String cedula) {
-  this.nombre = nombre;
-  this.correo = correo;
-  this.cedula = cedula;
-}
+  public Jugador(String nombre, String correo, String cedula) {
+    this.nombre = nombre;
+    this.correo = correo;
+    this.cedula = cedula;
+  }
 
-public void agregarJugadorACSV() {
-  String csvFile = "Jugadores.csv"; // Nombre del archivo csv
-  try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile, true))) {
-    String[] datos = {
-      this.nombre,
-      this.correo,
-      this.cedula
-    };
-    writer.writeNext(datos);
-  } catch (IOException e) {
-    e.printStackTrace();
-    }
+  public void agregarJugadorACSV() {
+    String csvFile = "Jugadores.csv"; // Nombre del archivo csv
+    try (CSVWriter writer = new CSVWriter(new FileWriter(csvFile, true))) {
+      String[] datos = {
+        this.nombre,
+        this.correo,
+        this.cedula
+      };
+      writer.writeNext(datos);
+    } catch (IOException e) {
+      e.printStackTrace();
+      }
   }
 
   // Getters y setters (métodos para acceder y modificar los atributos)
