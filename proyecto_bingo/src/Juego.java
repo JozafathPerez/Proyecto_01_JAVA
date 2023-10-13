@@ -1,7 +1,9 @@
-import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -10,6 +12,7 @@ import javax.swing.JLabel;
 public class Juego {
   private ArrayList<CartonBingo> cartones;
   private ArrayList<Jugador> jugadores;
+  private ArrayList<Integer> numerosCantados; 
   private String modo;
   private double premio;
   // private List<N> numerosCantados; NO SE QUE TIPO PONER 
@@ -29,13 +32,49 @@ public class Juego {
     cartones.add(carton);
   }
 
-  public void agregarJugador(Jugador jugador) {
+  public void registrarJugador(String nombre, String correo, String cedula) {
+    Jugador jugador = new Jugador(nombre, correo, cedula);
+    jugador.agregarJugadorACSV();
     jugadores.add(jugador);
   }
 
-  public int cantarNumero() {
-    // Generar un número aleatorio y agregarlo a la lista de números cantados
-  }
+  /*
+   * Cargar jugadores
+   */
+  public void cargarJugadoresDesdeCSV() {
+        String csvFile = "Jugadores.csv";
+        
+        try (CSVReader reader = new CSVReader(new FileReader(csvFile))) {
+            try {
+                List<String[]> datos = reader.readAll(); // Leer todos los datos
+
+                for (String[] fila : datos) {
+                    String nombre = fila[0];
+                    String correo = fila[1];
+                    String cedula = fila[2];
+
+                    Jugador jugador = new Jugador(nombre, correo, cedula);
+                    jugadores.add(jugador);
+                }
+            } catch (CsvException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void imprimir() {
+      for(Jugador ob : jugadores) {
+        ob.imprimir();
+      }
+    }
+
+  // public int cantarNumero() {
+  //   // Generar un número aleatorio y agregarlo a la lista de números cantados
+  // }
 
   public void verificarCartones() {
     // Implementa la lógica para verificar los cartones y marcar los números
