@@ -147,5 +147,16 @@ public class CartonBingo {
         return "JJO" + String.format("%03d", indice);
     }
     return null; // Devuelve nulo si el índice está fuera de rango
- }
+  }
+
+  public void imprimirMatrizMarcado() {
+    System.out.println("Matriz de Marcado para el cartón " + identificador + ":");
+    for (int fila = 0; fila < 5; fila++) {
+        for (int columna = 0; columna < 5; columna++) {
+            System.out.print(matrizMarcado[fila][columna] + " ");
+        }
+        System.out.println(); // Salto de línea para la siguiente fila
+    }
+  }
+
 }

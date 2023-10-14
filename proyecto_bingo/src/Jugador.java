@@ -57,13 +57,6 @@ public Jugador(String nombre, String correo, String cedula) {
     this.cedula = cedula;
   }
 
-  // Para test
-  public void imprimir() {
-    System.out.println("Nombre: " + nombre);
-    System.out.println("Correo: " + correo);
-    System.out.println("Cedula: " + cedula);
-  }
-
   public void agregarCartonAjugador(String identificadorCarton) {
     // Verificar si el cartón ya ha sido asignado
     if (!cartonesAsignados.contains(identificadorCarton)) {
@@ -75,4 +68,7 @@ public Jugador(String nombre, String correo, String cedula) {
     return cartonesAsignados;
   }
   
+  public boolean tieneCarton(String identificadorCarton) {
+    return cartonesAsignados.contains(identificadorCarton);
+  }
 }
