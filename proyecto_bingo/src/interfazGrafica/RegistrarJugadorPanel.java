@@ -42,6 +42,16 @@ public class RegistrarJugadorPanel extends JPanel {
             }
         });
         add(registrarButton);
+
+        // Botón para regresar al menú principal
+        JButton regresarMenuButton = new JButton("Regresar al Menú Principal");
+        regresarMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.cambiarEscena("menu"); // Método para volver al menú principal
+            }
+        });
+        add(regresarMenuButton);
     }
 
     // Método para registrar al jugador

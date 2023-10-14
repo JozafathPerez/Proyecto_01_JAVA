@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
 
 public class ConsultarCartonPanel extends JPanel {
     private JTextField nombreImagenField;
@@ -38,6 +37,16 @@ public class ConsultarCartonPanel extends JPanel {
         imagenLabel = new JLabel();
         imagenLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(imagenLabel);
+
+        // Botón para regresar al menú principal
+        JButton regresarMenuButton = new JButton("Regresar al Menú Principal");
+        regresarMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.cambiarEscena("menu"); // Método para volver al menú principal
+            }
+        });
+        add(regresarMenuButton);
     }
 
     // Método para ver la imagen
