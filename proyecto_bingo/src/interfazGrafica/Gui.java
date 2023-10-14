@@ -31,9 +31,7 @@ public class Gui{
         registraEscena(crearCartonesPanel, "crearCartones");
         
         // Panel para enviar cartones
-        JPanel enviarCartonesPanel = new JPanel();
-        enviarCartonesPanel.add(new JLabel("Enviar Cartones de Bingo"));
-        enviarCartonesPanel.add(new JButton("Enviar Nuevo Cartón"));
+        EnviarCartonesPanel enviarCartonesPanel = new EnviarCartonesPanel();
         registraEscena(enviarCartonesPanel, "enviarCartones");
         
         // Panel para consultar cartones
@@ -41,9 +39,7 @@ public class Gui{
         registraEscena(consultarCartonPanel, "consultarCartones");
 
         // Panel para configurar premios
-        JPanel registrarJugadorPanel = new JPanel();
-        registrarJugadorPanel.add(new JLabel("Regsitrar Jugador"));
-        registrarJugadorPanel.add(new JButton("Registrar"));
+        RegistrarJugadorPanel registrarJugadorPanel = new RegistrarJugadorPanel();
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
         // Panel para las estadisticas
