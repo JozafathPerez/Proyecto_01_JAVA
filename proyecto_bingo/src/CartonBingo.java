@@ -116,7 +116,7 @@ public class CartonBingo {
     g2d.dispose();
   
     try {
-      String pngFileName = "cartones/" + identificador + ".png";
+      String pngFileName = "proyecto_bingo/cartones/" + identificador + ".png";
       File outputFile = new File(pngFileName);
       outputFile.getParentFile().mkdirs(); // Crea el directorio si no existe
       ImageIO.write(image, "png", outputFile);
@@ -136,6 +136,10 @@ public class CartonBingo {
 
   public int[][] getMatrizMarcado() {
     return matrizMarcado;
+  }
+
+  public void setValorCasilla(int fila, int columna, int nuevoValor) {
+    matrizMarcado[fila][columna] = nuevoValor;
   }
 
   public static String obtenerIdentificadorPorIndice(int indice) {

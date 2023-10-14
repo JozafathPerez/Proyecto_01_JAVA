@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Random;
 
 import javax.xml.stream.StreamFilter;
 
@@ -17,17 +19,16 @@ import javax.swing.JLabel;
 public class Juego {
   private ArrayList<CartonBingo> cartones;
   private ArrayList<Jugador> jugadores;
+  private List<String> cartonesEnJuego;
   private ArrayList<Integer> numerosCantados; 
   private String modo;
   private double premio;
-  // private List<N> numerosCantados; NO SE QUE TIPO PONER
-  public Set<String> cartonesEnviados;
 
   public Juego() {
     cartones = new ArrayList<>();
     jugadores = new ArrayList<>();
     numerosCantados = new ArrayList<>();
-    cartonesEnviados = new HashSet<>();
+    cartonesEnJuego = new ArrayList<>();
   }
 
   public void configurarJuego(String modo, double premio) {
@@ -38,6 +39,10 @@ public class Juego {
   public void agregarCarton(CartonBingo carton) {
     cartones.add(carton);
   }
+
+    /*
+   * Implementacion de la agregar jugador
+   */
 
   public boolean validarJugador(String nombre, String correo, String cedula) {
     System.out.println(cedula);
@@ -72,6 +77,12 @@ public class Juego {
       try {
         List<String[]> datos = reader.readAll(); // Leer todos los datos
 
+        // Verificar si el archivo CSV está vacío
+        if (datos.isEmpty()) {
+          System.out.println("El archivo CSV está vacío. No se cargaron jugadores.");
+          return;
+        }
+
         for (String[] fila : datos) {
           String nombre = fila[0];
           String correo = fila[1];
@@ -96,9 +107,38 @@ public class Juego {
     }
   }
 
-  // public int cantarNumero() {
-  //   // Generar un número aleatorio y agregarlo a la lista de números cantados
-  // }
+  public void cantarNumero() {
+    // Generar un número aleatorio y agregarlo a la lista de números cantados
+    int numero;
+    do {
+        numero = (int) (Math.random() * (75 - 1 + 1)) + 1; 
+      } while (validarNumCantado(numero));
+    System.out.println(numero);
+    numerosCantados.add(numero);
+  }
+
+  private boolean validarNumCantado(int numero) {
+    for(int numCantado : numerosCantados) {
+      if (numCantado == numero) {
+        return true; // El número ya existe en la columna
+      }
+    }
+    return false; // El número no existe en la columna
+  }
+
+  public void marcarCarton (CartonBingo carton, int numero) {
+    int matriz[][] = carton.getMatriz(); // Obtener el valor de la matriz
+    // Recorrer las filas
+    for (int fila = 0; fila < 5; fila += 1) {
+      // Recorrer por columnas
+      for (int columna = 0; columna < 5; columna += 1) {
+        // Compara si hay coincidencias con el numero marcado
+        if (matriz[fila][columna] == numero) {
+          carton.setValorCasilla(fila, columna, 1);
+        }
+      }
+    }
+  }
 
   public void verificarCartones() {
     // Implementa la lógica para verificar los cartones y marcar los números
@@ -107,6 +147,10 @@ public class Juego {
   public void mostrarGanador() {
     // Implementa la lógica para mostrar al ganador y entregar el premio
   }
+
+      /*
+   * Implementacion de la funcion consultar Carton
+   */
 
   // public void consultarCarton(String identificadorCarton) {
   //   String rutaCarton = "cartones/" + identificadorCarton + ".png";
@@ -118,6 +162,11 @@ public class Juego {
   //   } catch (IOException e) {
   //     System.err.println("Error al cargar el cartón: " + e.getMessage());
   // }
+
+
+  /*
+   * Implementacion de la funcion enviar carton
+   */
 
   public void enviarCartonAJugador(int cantCartones, String cedula) {
     // Reemplaza con tu dirección de correo electrónico
@@ -139,7 +188,6 @@ public class Juego {
     Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
 
     while (cartonesEnviados.size() < cantCartones) { 
-        // hacer validacion que si cartonesEnviados.size() es > 5... ERROR
     
         // Genera un número aleatorio entre 0 y el total de cartones disponibles
         int numeroAleatorio;
@@ -151,15 +199,17 @@ public class Juego {
         } while (cartonesEnviados.contains(identificador));
 
 
-        cartonesEnviados.add(identificador);
-        jugador.agregarCarton(identificador);
+        if (agregarCartonAJuego(identificador) == (true)) {
+          cartonesEnviados.add(identificador);
+          jugador.agregarCartonAjugador(identificador);
+        }
     }
 
     // Fuera del bucle, envía el correo con todos los archivos adjuntos
     String[] archivosAdjuntos = new String[cartonesEnviados.size()];
     int index = 0;
     for (String identificador : cartonesEnviados) {
-        archivosAdjuntos[index] = "cartones/" + identificador + ".png";
+        archivosAdjuntos[index] = "proyecto_bingo/cartones/" + identificador + ".png";
         index++;
     }
 
@@ -187,5 +237,14 @@ public class Juego {
     // poner errores de si no se encontro el jugardor en la interfaz
   }
 
+  public boolean agregarCartonAJuego(String identificadorCarton) {
+    // Verificar si el cartón ya ha sido asignado
+    if (!cartonesEnJuego.contains(identificadorCarton)) {
+        cartonesEnJuego.add(identificadorCarton);
+        return true;
+    } else {
+      return false;
+    }
+  }
 
 }
