@@ -7,6 +7,13 @@ public class Gui{
     private static JFrame ventana;
     private static JPanel cards;
     private static CardLayout cardLayout;
+    private MenuPanel menuPanel;
+    private IniciarJuegoPanel jugarPanel;
+    private JuegoPanel juegoPanel;
+    private CrearCartonesPanel crearCartonesPanel;
+    private EnviarCartonesPanel enviarCartonesPanel;
+    private ConsultarCartonPanel consultarCartonPanel;
+    private RegistrarJugadorPanel registrarJugadorPanel;
     
     public Gui() {
         ventana = new JFrame("Menú de Bingo");
@@ -17,29 +24,30 @@ public class Gui{
         cards = new JPanel(cardLayout);
         
         // Panel para el menú principal
-        MenuPanel menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel();
         registraEscena(menuPanel, "menu");
         
         // Panel para jugar Bingo
-        JPanel jugarPanel = new JPanel();
-        jugarPanel.add(new JLabel("¡Bienvenido al juego de Bingo!"));
-        jugarPanel.add(new JButton("Iniciar Juego"));
+        jugarPanel = new IniciarJuegoPanel();
         registraEscena(jugarPanel, "jugar");
+
+        juegoPanel = new JuegoPanel();
+        registraEscena(juegoPanel, "juego");
         
         // Panel para crear cartones
-        GenerarCartonPanel crearCartonesPanel = new GenerarCartonPanel();
+        crearCartonesPanel = new CrearCartonesPanel();
         registraEscena(crearCartonesPanel, "crearCartones");
         
         // Panel para enviar cartones
-        EnviarCartonesPanel enviarCartonesPanel = new EnviarCartonesPanel();
+        enviarCartonesPanel = new EnviarCartonesPanel();
         registraEscena(enviarCartonesPanel, "enviarCartones");
         
         // Panel para consultar cartones
-        ConsultarCartonPanel consultarCartonPanel = new ConsultarCartonPanel();
+        consultarCartonPanel = new ConsultarCartonPanel();
         registraEscena(consultarCartonPanel, "consultarCartones");
 
         // Panel para configurar premios
-        RegistrarJugadorPanel registrarJugadorPanel = new RegistrarJugadorPanel();
+        registrarJugadorPanel = new RegistrarJugadorPanel();
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
         // Panel para las estadisticas

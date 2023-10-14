@@ -11,12 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class GenerarCartonPanel extends JPanel{
+public class CrearCartonesPanel extends JPanel{
     private JTextField cantidadCartonesField;
     private JButton crearCartonesButton;
     private JButton regresarMenuButton;
     
-    public GenerarCartonPanel() {
+    public CrearCartonesPanel() {
         // Configura el diseño del panel
         setLayout(new GridLayout(4, 1));
 
