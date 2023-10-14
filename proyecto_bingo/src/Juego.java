@@ -1,26 +1,20 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Random;
-
-import javax.xml.stream.StreamFilter;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class Juego {
   private ArrayList<CartonBingo> cartones;
   private ArrayList<Jugador> jugadores;
   private List<String> cartonesEnJuego;
   private ArrayList<Integer> numerosCantados; 
+  private List<String> ganadores;
+  public int[][] matrizVerificadora;
   private String modo;
   private double premio;
 
@@ -28,12 +22,54 @@ public class Juego {
     cartones = new ArrayList<>();
     jugadores = new ArrayList<>();
     numerosCantados = new ArrayList<>();
+    ganadores = new ArrayList<>();
     cartonesEnJuego = new ArrayList<>();
+    matrizVerificadora = new int[5][5];
   }
 
   public void configurarJuego(String modo, double premio) {
     this.modo = modo;
     this.premio = premio;
+
+    if (modo.equals("Jugar en X")) {
+        matrizVerificadora = new int[][] {
+            {1, 0, 0, 0, 1},
+            {0, 1, 0, 1, 0},
+            {0, 0, 1, 0, 0},
+            {0, 1, 0, 1, 0},
+            {1, 0, 0, 0, 1}
+        };
+    }
+
+    if (modo.equals("Cuatro esquinas")) {
+        matrizVerificadora = new int[][] {
+            {1, 0, 0, 0, 1},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 1}
+        };
+    }
+
+    if (modo.equals("Carton lleno")) {
+        matrizVerificadora = new int[][] {
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1}
+        };
+    }
+
+    if (modo.equals("Jugar en Z")) {
+        matrizVerificadora = new int[][] {
+            {1, 1, 1, 1, 1},
+            {0, 0, 0, 1, 0},
+            {0, 0, 1, 0, 0},
+            {0, 1, 0, 0, 0},
+            {1, 1, 1, 1, 1}
+        };
+    }
   }
 
   public void agregarCarton(CartonBingo carton) {
@@ -45,9 +81,7 @@ public class Juego {
    */
 
   public boolean validarJugador(String nombre, String correo, String cedula) {
-    System.out.println(cedula);
     for(Jugador objeto : jugadores) {
-      System.out.println(objeto.getCedula());
       if (objeto.getCedula().equals(cedula)) {
         
         return true;
@@ -56,14 +90,14 @@ public class Juego {
     return false;
   }
 
-  public void registrarJugador(String nombre, String correo, String cedula) {
+  public boolean registrarJugador(String nombre, String correo, String cedula) {
     if ( validarJugador(nombre, correo, cedula) == false) {
       Jugador jugador = new Jugador(nombre, correo, cedula);
       jugador.agregarJugadorACSV();
       jugadores.add(jugador);
-      System.out.println("Jugador agregado al registro de jugadores");
+      return true;
     } else {
-      System.out.println("Error, la cedula esta duplicada");
+      return false; // Si retorna false significa que la cedula esta duplicada
     }
   }
 
@@ -79,7 +113,6 @@ public class Juego {
 
         // Verificar si el archivo CSV está vacío
         if (datos.isEmpty()) {
-          System.out.println("El archivo CSV está vacío. No se cargaron jugadores.");
           return;
         }
 
@@ -101,11 +134,6 @@ public class Juego {
     }
   }
 
-  public void imprimir() {
-    for(Jugador ob : jugadores) {
-      ob.imprimir();
-    }
-  }
 
   public void cantarNumero() {
     // Generar un número aleatorio y agregarlo a la lista de números cantados
@@ -113,8 +141,8 @@ public class Juego {
     do {
         numero = (int) (Math.random() * (75 - 1 + 1)) + 1; 
       } while (validarNumCantado(numero));
-    System.out.println(numero);
     numerosCantados.add(numero);
+    marcarCarton(numero);
   }
 
   private boolean validarNumCantado(int numero) {
@@ -126,43 +154,69 @@ public class Juego {
     return false; // El número no existe en la columna
   }
 
-  public void marcarCarton (CartonBingo carton, int numero) {
-    int matriz[][] = carton.getMatriz(); // Obtener el valor de la matriz
-    // Recorrer las filas
-    for (int fila = 0; fila < 5; fila += 1) {
-      // Recorrer por columnas
-      for (int columna = 0; columna < 5; columna += 1) {
-        // Compara si hay coincidencias con el numero marcado
-        if (matriz[fila][columna] == numero) {
-          carton.setValorCasilla(fila, columna, 1);
+  public void marcarCarton (int numero) {
+    for (String identificador : cartonesEnJuego) {
+
+      CartonBingo carton = encontrarCartonPorIdentificador(identificador);
+
+      int[][] matriz = carton.getMatriz(); // Obtener el valor de la matriz
+      // Recorrer las filas
+      for (int fila = 0; fila < 5; fila += 1) {
+        // Recorrer por columnas
+        for (int columna = 0; columna < 5; columna += 1) {
+          // Compara si hay coincidencias con el numero marcado
+          if (matriz[fila][columna] == numero) {
+            if (matrizVerificadora[fila][columna] == 1) {
+              carton.setValorCasilla(fila, columna, 1);
+              break;
+            }
+          }
         }
       }
     }
   }
 
+  private CartonBingo encontrarCartonPorIdentificador(String identificador) {
+    for (CartonBingo carton : cartones) {
+        if (carton.getIdentificador().equals(identificador)) {
+            return carton;
+        }
+    }
+    return null; // Devuelve null si no se encuentra el cartón con el identificador
+  }
+
   public void verificarCartones() {
-    // Implementa la lógica para verificar los cartones y marcar los números
+    for (String identificador : cartonesEnJuego) {
+        // Encuentra el cartón correspondiente por su identificador
+        CartonBingo carton = encontrarCartonPorIdentificador(identificador);
+
+        int[][] matrizMarcado = carton.getMatrizMarcado();
+
+        // Compara la matriz de marcado del cartón con la matriz verificadora
+        if (matricesSonIguales(matrizMarcado, matrizVerificadora)) {
+            ganadores.add(identificador);
+            carton.imprimirMatrizMarcado();
+        }
+    }
   }
 
-  public void mostrarGanador() {
-    // Implementa la lógica para mostrar al ganador y entregar el premio
+  private boolean matricesSonIguales(int[][] matriz1, int[][] matriz2) {
+
+    for (int i = 0; i < matriz1.length; i++) {
+        for (int j = 0; j < matriz1[0].length; j++) {
+            if (matriz1[i][j] != matriz2[i][j]) {
+                return false; // Las matrices no son iguales
+            }
+        }
+    }
+
+    return true; // Las matrices son iguales
   }
 
-      /*
-   * Implementacion de la funcion consultar Carton
-   */
 
-  // public void consultarCarton(String identificadorCarton) {
-  //   String rutaCarton = "cartones/" + identificadorCarton + ".png";
-
-  //   // Cargar y mostrar la imagen del cartón
-  //   try {
-  //     BufferedImage cartonImage = ImageIO.read(new File(rutaCarton));
-  //        // Ver el carton en el panel que estamos
-  //   } catch (IOException e) {
-  //     System.err.println("Error al cargar el cartón: " + e.getMessage());
-  // }
-
+  public boolean mostrarGanador() {
+    return !ganadores.isEmpty();
+  }
 
   /*
    * Implementacion de la funcion enviar carton
@@ -247,4 +301,22 @@ public class Juego {
     }
   }
 
+  public Jugador obtenerJugadorPorIdentificadorCarton(String identificadorCarton) {
+    for (Jugador jugador : jugadores) {
+        if (jugador.tieneCarton(identificadorCarton)) {
+            return jugador;
+        }
+    }
+    return null; // Devuelve null si no se encuentra el jugador
+  }
+
+      // Método para obtener la lista de números cantados
+  public List<Integer> getNumerosCantados() {
+    return numerosCantados;
+  }
+
+    // Método para obtener la lista de ganadores
+  public List<String> getGanadores() {
+    return ganadores;
+  }
 }
