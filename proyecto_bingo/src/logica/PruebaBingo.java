@@ -1,3 +1,4 @@
+package logica;
 
 public class PruebaBingo {
     public static void main(String[] args) {

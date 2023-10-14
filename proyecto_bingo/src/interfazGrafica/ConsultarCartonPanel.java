@@ -1,6 +1,7 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +10,12 @@ public class ConsultarCartonPanel extends JPanel {
     private JTextField nombreImagenField;
     private JButton verImagenButton;
     private JLabel imagenLabel;
+    private Juego logica;
 
-    public ConsultarCartonPanel() {
+    public ConsultarCartonPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(4, 1));
 
@@ -28,7 +33,7 @@ public class ConsultarCartonPanel extends JPanel {
         verImagenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                verImagen(); // Método para ver la imagen
+                consultar(); // Método para ver la imagen
             }
         });
         add(verImagenButton);
@@ -50,7 +55,7 @@ public class ConsultarCartonPanel extends JPanel {
     }
 
     // Método para ver la imagen
-    private void verImagen() {
+    private void consultar() {
         String nombreImagen = nombreImagenField.getText();
         if (nombreImagen.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingresa un nombre de imagen válido.");

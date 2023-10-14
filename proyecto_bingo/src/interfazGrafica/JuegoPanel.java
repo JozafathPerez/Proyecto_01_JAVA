@@ -1,6 +1,7 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,8 +15,12 @@ public class JuegoPanel extends JPanel {
     private JLabel numerosCantadosLabel;
     private JTextArea numerosCantadosArea;
     private JButton cantarNumeroButton;
+    private Juego logica;
 
-    public JuegoPanel() {
+    public JuegoPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(6, 1));
 

@@ -1,3 +1,5 @@
+package logica;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,6 +76,13 @@ public class Juego {
 
   public void agregarCarton(CartonBingo carton) {
     cartones.add(carton);
+  }
+
+  public void crearCartones(int pCantidad) {
+    for (int i = 0; i < pCantidad; i++) {
+      CartonBingo carton = new CartonBingo();
+      agregarCarton(carton);
+    }
   }
 
     /*
@@ -174,7 +183,7 @@ public class Juego {
         }
       }
     }
-  }
+  } // QUE HORROR VER TANTA VARA ANIDADA.......
 
   private CartonBingo encontrarCartonPorIdentificador(String identificador) {
     for (CartonBingo carton : cartones) {

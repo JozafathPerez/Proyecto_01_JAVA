@@ -1,6 +1,7 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +10,12 @@ public class EnviarCartonesPanel extends JPanel {
     private JTextField cantidadCartonesField;
     private JTextField cedulaField;
     private JButton enviarCartonesButton;
+    private Juego logica;
 
-    public EnviarCartonesPanel() {
+    public EnviarCartonesPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(4, 1));
 
@@ -54,13 +59,22 @@ public class EnviarCartonesPanel extends JPanel {
 
         // Validación de la cédula (debe ser un número)
         try {
-            int cedula = Integer.parseInt(cedulaStr);
+            Integer.parseInt(cedulaStr);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "La cédula debe ser un número válido.");
             return;
         }
 
-        // la funcion para eso va a aquiquiquiquiquiquiq
+        // Validación de la cantidad (debe ser un número)
+        int cantidadCartones;
+        try {
+            cantidadCartones = Integer.parseInt(cantidadCartonesStr);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "La cantidad de cartones a enviar debe ser un número válido.");
+            return;
+        }
+
+        logica.enviarCartonAJugador(cantidadCartones, cedulaStr);;
         JOptionPane.showMessageDialog(this, "Enviando " + cantidadCartonesStr + " cartones al jugador con cédula: " + cedulaStr);
     }
 }
