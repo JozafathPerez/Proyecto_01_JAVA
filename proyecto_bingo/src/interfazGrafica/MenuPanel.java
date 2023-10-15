@@ -12,7 +12,7 @@ public class MenuPanel extends JPanel{
     /**
      * 
      */
-    public MenuPanel(Juego pLogica) {
+    public MenuPanel(Gui gui, Juego pLogica) {
         // asignar la clase logica de la interfaz
         logica = pLogica;
 
@@ -20,6 +20,7 @@ public class MenuPanel extends JPanel{
         botonJugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gui.getJugarPanel().setGui();
                 Gui.cambiarEscena("jugar");
             }
         });

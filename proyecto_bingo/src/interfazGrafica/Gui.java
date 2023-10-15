@@ -25,30 +25,31 @@ public class Gui{
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
         
-        // Panel para el menú principal
-        menuPanel = new MenuPanel(pLogica);
+        // Panel para el menú principal #1
+        menuPanel = new MenuPanel(this, pLogica);
         registraEscena(menuPanel, "menu");
         
-        // Panel para jugar Bingo
-        jugarPanel = new IniciarJuegoPanel(pLogica);
+        // Panel para configurar el juego #2
+        jugarPanel = new IniciarJuegoPanel(this, pLogica);
         registraEscena(jugarPanel, "jugar");
 
+        // Panel para jugar #3
         juegoPanel = new JuegoPanel(pLogica);
         registraEscena(juegoPanel, "juego");
         
-        // Panel para crear cartones
+        // Panel para crear cartones #4
         crearCartonesPanel = new CrearCartonesPanel(pLogica);
         registraEscena(crearCartonesPanel, "crearCartones");
         
-        // Panel para enviar cartones
+        // Panel para enviar cartones #5
         enviarCartonesPanel = new EnviarCartonesPanel(pLogica);
         registraEscena(enviarCartonesPanel, "enviarCartones");
         
-        // Panel para consultar cartones
+        // Panel para consultar cartones #6
         consultarCartonPanel = new ConsultarCartonPanel(pLogica);
         registraEscena(consultarCartonPanel, "consultarCartones");
 
-        // Panel para configurar premios
+        // Panel para configurar premios #7
         registrarJugadorPanel = new RegistrarJugadorPanel(pLogica);
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
@@ -69,4 +70,33 @@ public class Gui{
     public static void cambiarEscena(String nombre) {
         cardLayout.show(cards, nombre);
     }
+
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
+    }
+
+    public IniciarJuegoPanel getJugarPanel() {
+        return jugarPanel;
+    }
+
+    public JuegoPanel getJuegoPanel() {
+        return juegoPanel;
+    }
+
+    public CrearCartonesPanel getCrearCartonesPanel() {
+        return crearCartonesPanel;
+    }
+
+    public EnviarCartonesPanel getEnviarCartonesPanel() {
+        return enviarCartonesPanel;
+    }
+
+    public ConsultarCartonPanel getConsultarCartonPanel() {
+        return consultarCartonPanel;
+    }
+
+    public RegistrarJugadorPanel getRegistrarJugadorPanel() {
+        return registrarJugadorPanel;
+    }
+
 }

@@ -11,10 +11,12 @@ public class IniciarJuegoPanel extends JPanel {
     private JTextField montoPremioField;
     private JButton iniciarJuegoButton;
     private Juego logica;
+    private Gui gui;
 
-    public IniciarJuegoPanel(Juego pLogica) {
+    public IniciarJuegoPanel(Gui pGui, Juego pLogica) {
         // asignar la clase logica de la interfaz
         logica = pLogica;
+        gui = pGui;
 
         // Configura el diseño del panel
         setLayout(new GridLayout(5, 1));
@@ -60,9 +62,15 @@ public class IniciarJuegoPanel extends JPanel {
             // inicio de juego
             logica.configurarJuego(configuracionJuego, montoPremio);
             JOptionPane.showMessageDialog(this, "Iniciando juego con configuración: " + configuracionJuego + " y premio de $" + montoPremio);
+            
+            gui.getJuegoPanel().setGui();
             Gui.cambiarEscena("juego");
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Ingresa un monto de premio válido.");
         }
+    }
+
+    public void setGui() {
+        montoPremioField.setText("");
     }
 }

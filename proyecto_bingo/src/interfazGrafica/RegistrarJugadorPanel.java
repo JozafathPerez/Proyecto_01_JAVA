@@ -77,8 +77,15 @@ public class RegistrarJugadorPanel extends JPanel {
             
             logica.registrarJugador(nombreCompleto, correoElectronico, cedulaStr);
             JOptionPane.showMessageDialog(this, "Registrando jugador: " + nombreCompleto);
+            setGui();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "La cédula debe ser un número válido.");
         }
+    }
+
+    public void setGui() {
+        cedulaField.setText("");
+        correoField.setText("");
+        nombreCompletoField.setText("");
     }
 }

@@ -76,5 +76,11 @@ public class EnviarCartonesPanel extends JPanel {
 
         logica.enviarCartonAJugador(cantidadCartones, cedulaStr);;
         JOptionPane.showMessageDialog(this, "Enviando " + cantidadCartonesStr + " cartones al jugador con cédula: " + cedulaStr);
+        setGui();
+    }
+
+    public void setGui() {
+        cantidadCartonesField.setText("");
+        cedulaField.setText("");
     }
 }
