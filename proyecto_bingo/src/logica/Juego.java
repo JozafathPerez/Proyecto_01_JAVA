@@ -74,6 +74,14 @@ public class Juego {
     }
   }
 
+  public String getModo() {
+    return modo;
+  }
+
+  public double getPremio() {
+    return premio;
+  }
+
   public void agregarCarton(CartonBingo carton) {
     cartones.add(carton);
   }
