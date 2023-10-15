@@ -85,7 +85,7 @@ public class Juego {
     }
   }
 
-    /*
+  /*
    * Implementacion de la agregar jugador
    */
 
@@ -144,7 +144,7 @@ public class Juego {
   }
 
 
-  public void cantarNumero() {
+  public int cantarNumero() {
     // Generar un número aleatorio y agregarlo a la lista de números cantados
     int numero;
     do {
@@ -152,6 +152,8 @@ public class Juego {
       } while (validarNumCantado(numero));
     numerosCantados.add(numero);
     marcarCarton(numero);
+    
+    return numero;
   }
 
   private boolean validarNumCantado(int numero) {
@@ -194,7 +196,8 @@ public class Juego {
     return null; // Devuelve null si no se encuentra el cartón con el identificador
   }
 
-  public void verificarCartones() {
+  public boolean verificarCartones() {
+    boolean hayGanadores = false;
     for (String identificador : cartonesEnJuego) {
         // Encuentra el cartón correspondiente por su identificador
         CartonBingo carton = encontrarCartonPorIdentificador(identificador);
@@ -205,8 +208,10 @@ public class Juego {
         if (matricesSonIguales(matrizMarcado, matrizVerificadora)) {
             ganadores.add(identificador);
             carton.imprimirMatrizMarcado();
+            hayGanadores = true;
         }
     }
+    return hayGanadores;
   }
 
   private boolean matricesSonIguales(int[][] matriz1, int[][] matriz2) {
