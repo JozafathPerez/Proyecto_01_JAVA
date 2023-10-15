@@ -421,7 +421,7 @@ public class Juego {
     for (String identificador : ganadores) {
       String ganador = obtenerJugadorPorIdentificadorCarton(identificador).getCedula();
       if (ganador != null) {
-          jugadoresGanadores.add(ganador);
+        jugadoresGanadores.add(ganador);
       }
   }
     StringBuilder ganadoresStr = new StringBuilder();
@@ -467,4 +467,13 @@ public class Juego {
   public List<String> getGanadores() {
     return ganadores;
   }
+
+  public List<String> getCartonesEnJuego() {
+    return cartonesEnJuego;
+  }
+
+  public List<Jugador> getJugadores() {
+    return jugadores;
+  }
+
 }

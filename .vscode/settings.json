@@ -12,6 +12,8 @@
         "proyecto_bingo/lib/opencsv-5.8.jar",
         "proyecto_bingo/lib/commons-lang3-3.13.0.jar",
         "proyecto_bingo/lib/jdom-2.0.6.1.jar",
+        "proyecto_bingo/lib/kumo-cli-1.28.jar"
+        "proyecto_bingo/lib/jdom-2.0.6.1.jar",
         "proyecto_bingo/lib/jfreechart-1.0.19-demo.jar",
         "proyecto_bingo/lib/jcommon-1.0.23.jar",
         "proyecto_bingo/lib/jfreechart-1.0.14.jar",
