@@ -77,19 +77,10 @@ public class JuegoPanel extends JPanel {
     }
 
     // Métodos para actualizar la información del juego
-    public void actualizarConfiguracion(String configuracion) {
-        configuracionLabel.setText("Configuración del juego: " + configuracion);
-    }
-
-    public void actualizarCartones(String cartones) {
-        cartonesLabel.setText("Cartones actuales: " + cartones);
-    }
-
-    public void actualizarMontoPremio(double montoPremio) {
-        montoPremioLabel.setText("Monto del premio: ₵" + montoPremio);
-    }
-
-    public void actualizarTotalJugadores(int totalJugadores) {
-        totalJugadoresLabel.setText("Total de jugadores: " + totalJugadores);
+    public void actualizarInfo(String configuracion) {
+        configuracionLabel.setText("Configuración del juego: " + logica.getModo());
+        cartonesLabel.setText("Cartones en juego: " + logica.getCartonesEnJuego().size());
+        montoPremioLabel.setText("Monto del premio: ₵" + logica.getPremio());
+        totalJugadoresLabel.setText("Total de jugadores: " + logica.getJugadores().size());
     }
 }
