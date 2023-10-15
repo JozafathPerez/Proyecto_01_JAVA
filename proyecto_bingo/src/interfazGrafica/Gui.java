@@ -15,6 +15,7 @@ public class Gui{
     private EnviarCartonesPanel enviarCartonesPanel;
     private ConsultarCartonPanel consultarCartonPanel;
     private RegistrarJugadorPanel registrarJugadorPanel;
+    private WordCloudPanel wordCloudPanel;
 
     public Gui(Juego pLogica) {
         ventana = new JFrame("Menú de Bingo");
@@ -55,6 +56,10 @@ public class Gui{
         JPanel estadisticasPanel = new JPanel();
         estadisticasPanel.add(new JLabel("En proceso..."));
         registraEscena(estadisticasPanel, "estadisticas");
+
+        // Panel para configurar premios
+        wordCloudPanel = new WordCloudPanel(pLogica);
+        registraEscena(wordCloudPanel, "wordCloud");
 
         ventana.add(cards);
         cardLayout.show(cards, "menu");
