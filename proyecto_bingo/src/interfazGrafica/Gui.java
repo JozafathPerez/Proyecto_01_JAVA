@@ -15,6 +15,7 @@ public class Gui{
     private EnviarCartonesPanel enviarCartonesPanel;
     private ConsultarCartonPanel consultarCartonPanel;
     private RegistrarJugadorPanel registrarJugadorPanel;
+    private EstadisticasPanel estadisticasPanel;
 
     public Gui(Juego pLogica) {
         ventana = new JFrame("Menú de Bingo");
@@ -52,8 +53,8 @@ public class Gui{
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
         // Panel para las estadisticas
-        JPanel estadisticasPanel = new JPanel();
-        estadisticasPanel.add(new JLabel("En proceso..."));
+        estadisticasPanel = new EstadisticasPanel(pLogica);
+        // estadisticasPanel.add(new JLabel("En proceso..."));
         registraEscena(estadisticasPanel, "estadisticas");
 
         ventana.add(cards);
