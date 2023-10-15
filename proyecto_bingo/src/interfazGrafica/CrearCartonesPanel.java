@@ -3,7 +3,7 @@ package interfazGrafica;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import logica.Juego;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,8 +15,12 @@ public class CrearCartonesPanel extends JPanel{
     private JTextField cantidadCartonesField;
     private JButton crearCartonesButton;
     private JButton regresarMenuButton;
-    
-    public CrearCartonesPanel() {
+    private Juego logica;
+
+    public CrearCartonesPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(4, 1));
 
@@ -55,7 +59,9 @@ public class CrearCartonesPanel extends JPanel{
         try {
             int cantidadCartones = Integer.parseInt(cantidadCartonesStr);
             if (cantidadCartones >= 1 && cantidadCartones <= 500) {
+                
                 // aqui se llama la funcion para crearlos
+                logica.crearCartones(cantidadCartones);
                 JOptionPane.showMessageDialog(this, "Creando " + cantidadCartones + " cartones de Bingo.");
             } else {
                 JOptionPane.showMessageDialog(this, "La cantidad debe estar entre 1 y 500.");

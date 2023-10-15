@@ -2,16 +2,19 @@ package interfazGrafica;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import logica.Juego;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class MenuPanel extends JPanel{
+    private Juego logica;
+
     /**
      * 
      */
-    public MenuPanel() {
-        super();
+    public MenuPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
 
         JButton botonJugar = new JButton("Iniciar Juego");
         botonJugar.addActionListener(new ActionListener() {

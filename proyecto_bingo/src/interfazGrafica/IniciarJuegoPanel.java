@@ -1,6 +1,7 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +10,12 @@ public class IniciarJuegoPanel extends JPanel {
     private JComboBox<String> configuracionJuegoComboBox;
     private JTextField montoPremioField;
     private JButton iniciarJuegoButton;
+    private Juego logica;
 
-    public IniciarJuegoPanel() {
+    public IniciarJuegoPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(5, 1));
 
@@ -53,6 +58,7 @@ public class IniciarJuegoPanel extends JPanel {
             double montoPremio = Double.parseDouble(montoPremioStr);
             
             // inicio de juego
+            logica.configurarJuego(configuracionJuego, montoPremio);
             JOptionPane.showMessageDialog(this, "Iniciando juego con configuración: " + configuracionJuego + " y premio de $" + montoPremio);
             Gui.cambiarEscena("juego");
         } catch (NumberFormatException ex) {

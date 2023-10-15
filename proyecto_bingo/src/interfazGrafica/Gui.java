@@ -2,6 +2,7 @@ package interfazGrafica;
 
 import javax.swing.*;
 import java.awt.*;
+import logica.Juego;
 
 public class Gui{
     private static JFrame ventana;
@@ -14,8 +15,8 @@ public class Gui{
     private EnviarCartonesPanel enviarCartonesPanel;
     private ConsultarCartonPanel consultarCartonPanel;
     private RegistrarJugadorPanel registrarJugadorPanel;
-    
-    public Gui() {
+
+    public Gui(Juego pLogica) {
         ventana = new JFrame("Menú de Bingo");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setSize(500, 500);
@@ -24,30 +25,30 @@ public class Gui{
         cards = new JPanel(cardLayout);
         
         // Panel para el menú principal
-        menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel(pLogica);
         registraEscena(menuPanel, "menu");
         
         // Panel para jugar Bingo
-        jugarPanel = new IniciarJuegoPanel();
+        jugarPanel = new IniciarJuegoPanel(pLogica);
         registraEscena(jugarPanel, "jugar");
 
-        juegoPanel = new JuegoPanel();
+        juegoPanel = new JuegoPanel(pLogica);
         registraEscena(juegoPanel, "juego");
         
         // Panel para crear cartones
-        crearCartonesPanel = new CrearCartonesPanel();
+        crearCartonesPanel = new CrearCartonesPanel(pLogica);
         registraEscena(crearCartonesPanel, "crearCartones");
         
         // Panel para enviar cartones
-        enviarCartonesPanel = new EnviarCartonesPanel();
+        enviarCartonesPanel = new EnviarCartonesPanel(pLogica);
         registraEscena(enviarCartonesPanel, "enviarCartones");
         
         // Panel para consultar cartones
-        consultarCartonPanel = new ConsultarCartonPanel();
+        consultarCartonPanel = new ConsultarCartonPanel(pLogica);
         registraEscena(consultarCartonPanel, "consultarCartones");
 
         // Panel para configurar premios
-        registrarJugadorPanel = new RegistrarJugadorPanel();
+        registrarJugadorPanel = new RegistrarJugadorPanel(pLogica);
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
         // Panel para las estadisticas
@@ -66,14 +67,5 @@ public class Gui{
 
     public static void cambiarEscena(String nombre) {
         cardLayout.show(cards, nombre);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Gui();
-            }
-        });
     }
 }

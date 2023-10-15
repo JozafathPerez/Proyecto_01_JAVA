@@ -1,10 +1,11 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 public class JuegoPanel extends JPanel {
     private JLabel configuracionLabel;
@@ -14,8 +15,12 @@ public class JuegoPanel extends JPanel {
     private JLabel numerosCantadosLabel;
     private JTextArea numerosCantadosArea;
     private JButton cantarNumeroButton;
+    private Juego logica;
 
-    public JuegoPanel() {
+    public JuegoPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(6, 1));
 
@@ -50,7 +55,7 @@ public class JuegoPanel extends JPanel {
         cantarNumeroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cantarNumeroAleatorio(); // Método para cantar un número aleatorio
+                cantarNumeroAleatorio();
             }
         });
         add(cantarNumeroButton);
@@ -58,11 +63,17 @@ public class JuegoPanel extends JPanel {
 
     // Método para cantar un número aleatorio
     private void cantarNumeroAleatorio() {
-        Random random = new Random();
-        int numeroCantado = random.nextInt(75) + 1; // random temporal
-        
-        // Agrega el número cantado al espacio de números cantados
-        numerosCantadosArea.append(Integer.toString(numeroCantado) + " ");
+        // cantar el numero
+				int numeroCantado = logica.cantarNumero();
+        String numerosCantadosString = logica.getNumerosCantados().stream().map(String::valueOf)
+            .collect(Collectors.joining(", "));
+        numerosCantadosArea.setText(numerosCantadosString);
+				// rellenar cartones y verificar ganadores
+				logica.marcarCarton(numeroCantado);
+				if (logica.verificarCartones()) {
+					JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream().collect(Collectors.joining(", ")));
+					Gui.cambiarEscena("menu");
+				}
     }
 
     // Métodos para actualizar la información del juego

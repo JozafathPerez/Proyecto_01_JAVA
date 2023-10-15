@@ -1,3 +1,5 @@
+package logica;
+
 import java.util.Properties;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;

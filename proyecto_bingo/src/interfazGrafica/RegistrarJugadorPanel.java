@@ -1,6 +1,7 @@
 package interfazGrafica;
 
 import javax.swing.*;
+import logica.Juego;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +11,12 @@ public class RegistrarJugadorPanel extends JPanel {
     private JTextField correoField;
     private JTextField cedulaField;
     private JButton registrarButton;
+    private Juego logica;
 
-    public RegistrarJugadorPanel() {
+    public RegistrarJugadorPanel(Juego pLogica) {
+        // asignar la clase logica de la interfaz
+        logica = pLogica;
+
         // Configura el diseño del panel
         setLayout(new GridLayout(5, 1));
 
@@ -68,9 +73,9 @@ public class RegistrarJugadorPanel extends JPanel {
 
         // Validación de la cédula (try/catch para eso)
         try {
-            int cedula = Integer.parseInt(cedulaStr);
+            Integer.parseInt(cedulaStr);
             
-            // aqui va la logica (llamado de funcion talvez??)
+            logica.registrarJugador(nombreCompleto, correoElectronico, cedulaStr);
             JOptionPane.showMessageDialog(this, "Registrando jugador: " + nombreCompleto);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "La cédula debe ser un número válido.");
