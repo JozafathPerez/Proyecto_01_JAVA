@@ -1,5 +1,9 @@
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +12,12 @@ import java.util.Set;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
+import java.io.FileWriter;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 public class Juego {
   private ArrayList<CartonBingo> cartones;
   private ArrayList<Jugador> jugadores;
@@ -17,6 +27,8 @@ public class Juego {
   public int[][] matrizVerificadora;
   private String modo;
   private double premio;
+  private String fechaPartida;
+  private String horaPartida;
 
   public Juego() {
     cartones = new ArrayList<>();
@@ -70,6 +82,8 @@ public class Juego {
             {1, 1, 1, 1, 1}
         };
     }
+    // Esto es solo para probar
+    setFecha();
   }
 
   public void agregarCarton(CartonBingo carton) {
@@ -309,8 +323,120 @@ public class Juego {
     }
     return null; // Devuelve null si no se encuentra el jugador
   }
+  
+  public void guardarPartida() {
+    String tipo = modo;
+    
+    String numerosCantadosStr = listaNumAStr();
 
-      // Método para obtener la lista de números cantados
+    String ganadoresStr = listaGanadoresAStr();
+
+    String fecha = fechaPartida;
+
+    String hora  = horaPartida;
+
+    try {
+        SAXBuilder builder = new SAXBuilder();
+        Document doc;
+
+        try {
+            doc = builder.build("partida.xml");
+        } catch (Exception e) {
+            // Si el archivo no existe, creamos un nuevo documento
+            doc = new Document(new Element("partidasJuego"));
+        }
+
+        Element partidaRoot = doc.getRootElement();
+
+        Element partidaElement = new Element("partida");
+        partidaRoot.addContent(partidaElement);
+
+        Element tipoElement = new Element("tipo");
+        tipoElement.setText(tipo);
+
+        Element numsCantadosElement = new Element("numerosCantados");
+        numsCantadosElement.setText(numerosCantadosStr.toString());
+
+        Element ganadoresElement = new Element("ganadores");
+        ganadoresElement.setText(ganadoresStr.toString());
+
+        Element fechaElement = new Element("fecha");
+        fechaElement.setText(fecha);
+
+        Element horaElement = new Element("hora");
+        horaElement.setText(hora);
+
+        partidaElement.addContent(tipoElement);
+        partidaElement.addContent(numsCantadosElement);
+        partidaElement.addContent(ganadoresElement);
+        partidaElement.addContent(fechaElement);
+        partidaElement.addContent(horaElement);
+
+        XMLOutputter xml = new XMLOutputter();
+        xml.setFormat(Format.getPrettyFormat());
+        xml.output(doc, new FileWriter("partida.xml"));
+    } catch (IOException ex) {
+        System.out.println("Fatal error");
+    }
+  }
+
+  private  String listaNumAStr() {
+    StringBuilder numerosCantadosStr = new StringBuilder();
+    for (int i = 0; i < numerosCantados.size(); i++) {
+      numerosCantadosStr.append(numerosCantados.get(i));
+      if (i < numerosCantados.size() - 1) {
+          numerosCantadosStr.append(",");
+      }
+    }
+    return numerosCantadosStr.toString();
+  }
+
+  private String listaGanadoresAStr() {
+
+    ArrayList<String> jugadoresGanadores = new ArrayList<>();
+
+    //Obtener ganadores
+    for (String identificador : ganadores) {
+      String ganador = obtenerJugadorPorIdentificadorCarton(identificador).getCedula();
+      if (ganador != null) {
+          jugadoresGanadores.add(ganador);
+      }
+  }
+    StringBuilder ganadoresStr = new StringBuilder();
+
+    for (int i = 0; i < jugadoresGanadores.size(); i++) {
+        ganadoresStr.append(jugadoresGanadores.get(i));
+
+        if (i < ganadores.size() - 1) {
+            ganadoresStr.append(",");
+        }
+    }
+
+    return ganadoresStr.toString();
+  }
+
+  public void setFecha () {
+  // Obtener la fecha y hora actual
+    LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+    // Separar la fecha y la hora en variables distintas
+    LocalDate fechaActual = fechaHoraActual.toLocalDate();
+    LocalTime horaActual = fechaHoraActual.toLocalTime();
+
+    // Crear formatos para la fecha y la hora
+    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    // Formatear la fecha y la hora como cadenas
+    String fechaComoString = fechaActual.format(formatoFecha);
+    String horaComoString = horaActual.format(formatoHora);
+
+    // Setear los valores de los atributos
+    fechaPartida = fechaComoString;
+    horaPartida = horaComoString;
+  }
+
+  // Método para obtener la lista de números cantados
   public List<Integer> getNumerosCantados() {
     return numerosCantados;
   }

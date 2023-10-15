@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<partidasJuego>
+  <partida>
+    <tipo>Y</tipo>
+    <numerosCantados>2,10,15,30,45</numerosCantados>
+    <ganadores>123456789,987654321</ganadores>
+    <fecha>20231231</fecha>
+    <hora>18:30</hora>
+  </partida>
+  <partida>
+    <tipo>C</tipo>
+    <numerosCantados>2,10,15,30,45,99,33</numerosCantados>
+    <ganadores>987654321</ganadores>
+    <fecha>20231231</fecha>
+    <hora>18:40</hora>
+  </partida>
+  <partida>
+    <tipo>C</tipo>
+    <numerosCantados>2,10,15,30,45,99,33</numerosCantados>
+    <ganadores>987654321</ganadores>
+    <fecha>20231231</fecha>
+    <hora>18:40</hora>
+  </partida>
+  <partida>
+    <tipo />
+    <numerosCantados />
+    <ganadores />
+    <fecha>20231231</fecha>
+    <hora>18:40</hora>
+  </partida>
+  <partida>
+    <tipo />
+    <numerosCantados />
+    <ganadores />
+    <fecha>20231231</fecha>
+    <hora>18:40</hora>
+  </partida>
+  <partida>
+    <tipo>Cuatro esquinas</tipo>
+    <numerosCantados>3,26,59,16,11,61,6,57,41,22,64,38,15,12,72,29,44,32,1,36,48,40,23,56,51,27,28,46,9,5,60,75,53,10,45,14,55,19,65,62,37,42,21,69,35,52,30,70,13,34,49,39,66,</numerosCantados>
+    <ganadores>JJO002,</ganadores>
+    <fecha>14/10/2023</fecha>
+    <hora>15:19:17</hora>
+  </partida>
+  <partida>
+    <tipo>Cuatro esquinas</tipo>
+    <numerosCantados>28,60,12,38,2,70,6,43,55,25,63,3,61,57,26,72,13,73,31,36,32,44,14,56,39,46,5,1,8,62,40,69,66,29,10,49,30,42,68,54,18,41,19,75,17,51,15,64,11,52,7,20,48,58,27,9,53,67,47,45,37,59,50,71,74</numerosCantados>
+    <ganadores>JJO007,JJO001</ganadores>
+    <fecha>14/10/2023</fecha>
+    <hora>15:43:01</hora>
+  </partida>
+  <partida>
+    <tipo>Cuatro esquinas</tipo>
+    <numerosCantados>40,16,65,6,73,7,42,8,54,52,72,74,62,47,38,32,11,71,61,19,56,21,39,46,9,43,48,50,68,10,37,44,36,55,31,59,75,20,1,35,25,12,66,26,4,41,27,29,13,49,57,69,64,24,2</numerosCantados>
+    <ganadores>JJO005</ganadores>
+    <fecha>14/10/2023</fecha>
+    <hora>17:28:33</hora>
+  </partida>
+  <partida>
+    <tipo>Cuatro esquinas</tipo>
+    <numerosCantados>75,35,69,70,24,45,66,12,33,65,57,52,46,47,58,13,40,6,20,37,9,27,3,49,38,19,34,74,63,43,67,60,15,64,30,62,48,11,29,42,16,50,44,26,56,17,2,51,8,31,59,36,18,1,68,21,5,14,54,41,71</numerosCantados>
+    <ganadores>JJO008</ganadores>
+    <fecha>14/10/2023</fecha>
+    <hora>17:30:29</hora>
+  </partida>
+  <partida>
+    <tipo>Cuatro esquinas</tipo>
+    <numerosCantados>41,37,52,13,45,7,58,71,25,68,16,73,3,66,33,9,17,23,8,49,24,56,31,55,43,40,35,53,6,18,69,34,28,61,22,21,11,36,39,2,12,30,27,47,26,46,1,4,15,42,72</numerosCantados>
+    <ganadores>Jefferson Pozo</ganadores>
+    <fecha>14/10/2023</fecha>
+    <hora>17:31:37</hora>
+  </partida>
+</partidasJuego>

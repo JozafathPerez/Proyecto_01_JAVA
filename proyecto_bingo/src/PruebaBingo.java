@@ -49,5 +49,9 @@ public class PruebaBingo {
                 System.out.println("Ganador: " + ganador.getNombre());
             }
         }
+        
+        juego.guardarPartida();
+        System.out.println("Partida registrada en el archivo XML.");
+
     }
 }
