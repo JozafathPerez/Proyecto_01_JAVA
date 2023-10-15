@@ -63,11 +63,16 @@ public class CrearCartonesPanel extends JPanel{
                 // aqui se llama la funcion para crearlos
                 logica.crearCartones(cantidadCartones);
                 JOptionPane.showMessageDialog(this, "Creando " + cantidadCartones + " cartones de Bingo.");
+                setGui();
             } else {
                 JOptionPane.showMessageDialog(this, "La cantidad debe estar entre 1 y 500.");
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Ingresa un número válido.");
         }
+    }
+
+    public void setGui() {
+        cantidadCartonesField.setText("");
     }
 }

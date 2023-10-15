@@ -76,11 +76,14 @@ public class JuegoPanel extends JPanel {
 				}
     }
 
-    // Métodos para actualizar la información del juego
-    public void actualizarInfo(String configuracion) {
-        configuracionLabel.setText("Configuración del juego: " + logica.getModo());
-        cartonesLabel.setText("Cartones en juego: " + logica.getCartonesEnJuego().size());
-        montoPremioLabel.setText("Monto del premio: ₵" + logica.getPremio());
-        totalJugadoresLabel.setText("Total de jugadores: " + logica.getJugadores().size());
+    /**
+		 * Establece todos los elementos para mostrar la información del nuevo juego
+     */
+    public void setGui() {
+			numerosCantadosArea.setText("");
+			configuracionLabel.setText("Configuración del juego: " + logica.getModo());
+			cartonesLabel.setText("Cartones en juego: " + logica.getCartonesEnJuego().size());
+			montoPremioLabel.setText("Monto del premio: ₵" + logica.getPremio());
+			totalJugadoresLabel.setText("Total de jugadores: " + logica.getJugadores().size());
     }
 }
