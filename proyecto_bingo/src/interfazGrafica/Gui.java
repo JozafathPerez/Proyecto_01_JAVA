@@ -19,7 +19,8 @@ public class Gui{
     public Gui(Juego pLogica) {
         ventana = new JFrame("Menú de Bingo");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(500, 500);
+        ventana.setSize(800, 700);
+        ventana.setResizable(false);
         
         cardLayout = new CardLayout();
         cards = new JPanel(cardLayout);
@@ -62,12 +63,17 @@ public class Gui{
         ventana.setVisible(true);
     }
 
+    
     public static void registraEscena(Component comp, Object constraints) {
         cards.add(comp, constraints);
     }
-
+    
     public static void cambiarEscena(String nombre) {
         cardLayout.show(cards, nombre);
+    }
+
+    public static JFrame getVentana() {
+        return ventana;
     }
 
     public MenuPanel getMenuPanel() {
