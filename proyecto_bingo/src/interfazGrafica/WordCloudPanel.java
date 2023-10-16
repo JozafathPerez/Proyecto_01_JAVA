@@ -3,18 +3,11 @@ package interfazGrafica;
 import javax.swing.*;
 import logica.Juego;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import com.kennycason.kumo.*;
 import com.kennycason.kumo.bg.*;
-import com.kennycason.kumo.collide.*;
-import com.kennycason.kumo.collide.checkers.*;
-import com.kennycason.kumo.font.*;
 import com.kennycason.kumo.font.scale.*;
-import com.kennycason.kumo.image.*;
 import com.kennycason.kumo.nlp.FrequencyAnalyzer;
-import com.kennycason.kumo.padding.*;
 import com.kennycason.kumo.palette.*;
 
 import java.util.List;
@@ -25,45 +18,36 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 import logica.CuentaCorreo;
-import javax.mail.Message;
 
 public class WordCloudPanel extends JPanel {
     private Juego logica;
     private JButton regresarMenuButton;
 
     public WordCloudPanel(Juego pLogica) {
-        // asignar la clase logica de la interfaz
         logica = pLogica;
 
-        // Configura el diseño del panel
-        setLayout(new GridLayout(5, 1));
+        // Configurar el diseño del panel a null para posicionamiento manual
+        setLayout(null);
+
+        CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
+        List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
+        List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
+        comentarios.addAll(mensajesAnteriores);
+
+        generateWordCloud(comentarios);
+
+        sobrescribirComentarios("mensajes.txt", comentarios);
 
         regresarMenuButton = new JButton("Regresar al Menú Principal");
         regresarMenuButton.addActionListener(e -> {
             Gui.cambiarEscena("menu");
         });
+
+        // Establecer posición y tamaño del botón
+        regresarMenuButton.setBounds(10, 10, 200, 30);
+
         add(regresarMenuButton);
-
-        // Crear una instancia de la clase CuentaCorreo  bingosocialmold@gmail.com 
-        CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
-
-        // Obtener los comentarios de los mensajes de correo
-        List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
-    
-        // cargar los mensajes anteriores a comentarios
-        List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
-
-        // Agregar los mensajes anteriores a la lista de comentarios
-        comentarios.addAll(mensajesAnteriores);
-
-        // Generar WordCloud
-        generateWordCloud(comentarios);
-
-        // Sobrescribir los comentarios en el archivo original
-        sobrescribirComentarios("mensajes.txt", comentarios);
     }
 
     private static List<String> cargarMensajesAnteriores(String archivo) {
@@ -86,7 +70,7 @@ public class WordCloudPanel extends JPanel {
             BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
             for (String comentario : comentarios) {
                 writer.write(comentario);
-                writer.newLine(); // Agregar un salto de línea entre comentarios
+                writer.newLine();
             }
             writer.close();
         } catch (IOException e) {
@@ -94,36 +78,56 @@ public class WordCloudPanel extends JPanel {
         }
     }
 
-
-
     private void generateWordCloud(List<String> comentarios) {
+        // Ejemplo del word coud rectangular
+        // final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+        // frequencyAnalyzer.setWordFrequenciesToReturn(300);
+        // frequencyAnalyzer.setMinWordLength(4);
+        // final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
+        // final Dimension dimension = new Dimension(600, 600);
+        // final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
+        // wordCloud.setPadding(0);
+        // wordCloud.setBackground(new RectangleBackground(dimension));
+        // wordCloud.setColorPalette(new ColorPalette(Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE));
+        // wordCloud.setFontScalar(new LinearFontScalar(10, 40));
+        // wordCloud.build(wordFrequencies);
+        // wordCloud.writeToFile("kumo-core/output/wordcloud_rectangle.png");
 
-        // Crear un analizador de frecuencia de palabras
+        // Ejemplo del word cloud circular
+        // final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+        // final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
+        // final Dimension dimension = new Dimension(600, 600);
+        // final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+        // wordCloud.setPadding(2);
+        // wordCloud.setBackground(new CircleBackground(300));
+        // wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1), new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
+        // wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
+        // wordCloud.build(wordFrequencies);
+        // wordCloud.writeToFile("kumo-core/output/datarank_wordcloud_circle_sqrt_font.png");
+
+        // Ejemplo del word cloud circular pero con mas palabras de frecuencia
         final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
-        frequencyAnalyzer.setWordFrequenciesToReturn(300); // Número máximo de palabras a mostrar
-        frequencyAnalyzer.setMinWordLength(4); // Longitud mínima de palabras
-
-        //frequencyAnalyzer.addIgnoredWord("juego"); // Palabras ignoradas
-
-        // Analizar los comentarios
+        frequencyAnalyzer.setWordFrequenciesToReturn(500);
+        frequencyAnalyzer.setMinWordLength(4); 
         final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
-
-        // Configurar el WordCloud
         final Dimension dimension = new Dimension(600, 600);
-        final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
-        wordCloud.setPadding(0);
-        wordCloud.setBackground(new RectangleBackground(dimension));
-        wordCloud.setColorPalette(new ColorPalette(Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE));
-        wordCloud.setFontScalar(new LinearFontScalar(10, 40));
+        final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+        wordCloud.setPadding(2);
+        wordCloud.setBackground(new CircleBackground(300));
+        // colors followed by and steps between
+        wordCloud.setColorPalette(new LinearGradientColorPalette(Color.RED, Color.BLUE, Color.GREEN, 30, 30));
+        wordCloud.setFontScalar( new SqrtFontScalar(10, 40));
         wordCloud.build(wordFrequencies);
-        wordCloud.writeToFile("kumo-core/output/wordcloud_rectangle.png");
+        wordCloud.writeToFile("kumo-core/output/wordcloud_gradient_redbluegreen.png");
 
-
-        // Obtener la imagen del WordCloud
+        // Obtener el word cloud y hacerlo imagen
         final BufferedImage wordCloudImage = wordCloud.getBufferedImage();
 
-        // Mostrar el WordCloud en un JLabel
-        final JLabel wordCloudLabel = new JLabel(new ImageIcon(wordCloudImage));
-            add(wordCloudLabel);
+        // Establecer posición y tamaño del JLabel que muestra el WordCloud
+        JLabel wordCloudLabel = new JLabel(new ImageIcon(wordCloudImage));
+        wordCloudLabel.setBounds(10, 50, dimension.width, dimension.height);
+
+        add(wordCloudLabel);
     }
 }
+
