@@ -22,42 +22,58 @@ public class JuegoPanel extends JPanel {
 		logica = pLogica;
 
 		// Configura el diseño del panel
-		setLayout(new GridLayout(6, 1));
+		setLayout(null);
+
+		// Crear una fuente con el tipo Arial y tamaño 24
+		Font fuente = new Font("Arial", Font.PLAIN, 20);
 
 		// Etiqueta para mostrar la configuración del juego
 		configuracionLabel = new JLabel("Configuración del juego: ");
+		configuracionLabel.setBounds(80, 50, 400, 30);
+		configuracionLabel.setFont(fuente); // Cambiar el tamaño de fuente
 		add(configuracionLabel);
 
 		// Etiqueta para mostrar los cartones actuales
-		cartonesLabel = new JLabel("Cantidad de cartones: ");
+		cartonesLabel = new JLabel("Cartones en juego: ");
+		cartonesLabel.setBounds(470, 50, 400, 30);
+		cartonesLabel.setFont(fuente); // Cambiar el tamaño de fuente
 		add(cartonesLabel);
 
 		// Etiqueta para mostrar el monto del premio
 		montoPremioLabel = new JLabel("Monto del premio: ");
+		montoPremioLabel.setBounds(80, 100, 400, 30);
+		montoPremioLabel.setFont(fuente); // Cambiar el tamaño de fuente
 		add(montoPremioLabel);
 
 		// Etiqueta para mostrar el total de jugadores
 		totalJugadoresLabel = new JLabel("Total de jugadores: ");
+		totalJugadoresLabel.setBounds(470, 100, 400, 30);
+		totalJugadoresLabel.setFont(fuente); // Cambiar el tamaño de fuente
 		add(totalJugadoresLabel);
 
 		// Etiqueta para mostrar los números cantados
 		numerosCantadosLabel = new JLabel("Números cantados: \n");
+		numerosCantadosLabel.setBounds(80, 170, 400, 30);
+		numerosCantadosLabel.setFont(fuente); // Cambiar el tamaño de fuente
 		add(numerosCantadosLabel);
 
 		numerosCantadosArea = new JTextArea();
 		numerosCantadosArea.setEditable(false);
+		numerosCantadosArea.setFont(new Font("Arial", Font.PLAIN, 18));
 		numerosCantadosArea.setWrapStyleWord(true);
 		numerosCantadosArea.setLineWrap(true);
+		numerosCantadosArea.setBounds(80, 230, 630, 200);
 		add(numerosCantadosArea);
 
 		// Botón para cantar un número aleatorio
 		cantarNumeroButton = new JButton("Cantar Número Aleatorio");
 		cantarNumeroButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cantarNumeroAleatorio();
-			}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						cantarNumeroAleatorio();
+				}
 		});
+		cantarNumeroButton.setBounds(450, 450, 250, 50);
 		add(cantarNumeroButton);
 	}
 
