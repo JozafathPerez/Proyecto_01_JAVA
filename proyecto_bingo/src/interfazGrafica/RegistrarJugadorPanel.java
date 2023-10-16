@@ -74,6 +74,12 @@ public class RegistrarJugadorPanel extends JPanel {
         // Validación de la cédula (try/catch para eso)
         try {
             Integer.parseInt(cedulaStr);
+
+            //Mostrar mensaje de error si la cedula esta duplicada
+            if (logica.registrarJugador(nombreCompleto, correoElectronico, cedulaStr) == false) {
+              JOptionPane.showMessageDialog(this, "La cécula ingresada ya se encuentra registrada");
+              return;
+            }
             
             logica.registrarJugador(nombreCompleto, correoElectronico, cedulaStr);
             JOptionPane.showMessageDialog(this, "Registrando jugador: " + nombreCompleto);

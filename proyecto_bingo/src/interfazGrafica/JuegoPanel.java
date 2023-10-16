@@ -72,6 +72,7 @@ public class JuegoPanel extends JPanel {
 				logica.marcarCarton(numeroCantado);
 				if (logica.verificarCartones()) {
 					JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream().collect(Collectors.joining(", ")));
+                    logica.guardarPartida(); // Guarda los datos de la partida en el xml
 					Gui.cambiarEscena("menu");
 				}
     }

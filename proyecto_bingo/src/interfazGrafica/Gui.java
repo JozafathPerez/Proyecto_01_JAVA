@@ -104,4 +104,7 @@ public class Gui{
         return registrarJugadorPanel;
     }
 
+    public EstadisticasPanel getEstadisticasPanel() {
+        return estadisticasPanel;
+    }
 }

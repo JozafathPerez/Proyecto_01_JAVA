@@ -66,6 +66,7 @@ public class MenuPanel extends JPanel{
         botonEstadisticas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gui.getEstadisticasPanel().setGui();
                 Gui.cambiarEscena("estadisticas");
             }
         });

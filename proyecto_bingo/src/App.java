@@ -4,6 +4,7 @@ import logica.Juego;
 public class App {
     public static void main(String[] args) throws Exception {
         Juego logica = new Juego();
+        logica.cargarJugadoresDesdeCSV();
         new Gui(logica);
 
         // ESTO ES DE PRU-PRU-PRU-PRUEBAS *sonido de sirenas*
