@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * La clase `ConsultarCartonPanel` representa un panel de la interfaz gráfica
+ * para consultar un cartón de bingo.
+ */
 public class ConsultarCartonPanel extends JPanel {
   private JTextField identificadorField;
   private JButton verImagenButton;
@@ -14,8 +18,13 @@ public class ConsultarCartonPanel extends JPanel {
   private JLabel asignacionLabel;
   private Juego logica;
 
+  /**
+   * Constructor de la clase `ConsultarCartonPanel`.
+   * 
+   * @param pLogica La instancia de la clase `Juego` que contiene la lógica
+   */
   public ConsultarCartonPanel(Juego pLogica) {
-    // asignar la clase logica de la interfaz
+    // Asignar la clase lógica de la interfaz
     logica = pLogica;
 
     // Configura el diseño del panel
@@ -63,6 +72,7 @@ public class ConsultarCartonPanel extends JPanel {
     add(imagenLabel);
     imagenLabel.setBounds(200, 130, 400, 500);
 
+    // Etiqueta para mostrar la asignación del cartón
     asignacionLabel = new JLabel();
     asignacionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
     asignacionLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -70,9 +80,8 @@ public class ConsultarCartonPanel extends JPanel {
     asignacionLabel.setBounds(150, 620, 500, 30);
   }
 
-  // Método para ver la imagen
   /**
-   * 
+   * Consulta y muestra un cartón de bingo basado en el identificador ingresado.
    */
   private void consultar() {
     String nombreImagen = identificadorField.getText();
@@ -93,7 +102,7 @@ public class ConsultarCartonPanel extends JPanel {
       // Mostrar la imagen en la etiqueta
       imagenLabel.setIcon(imagenIcon);
       Jugador jugadorAsignado = logica.obtenerJugadorPorIdentificadorCarton(
-          identificadorField.getText());
+        identificadorField.getText());
       if (jugadorAsignado == null) {
         asignacionLabel.setText("No está asignado a un jugador");
       } else {

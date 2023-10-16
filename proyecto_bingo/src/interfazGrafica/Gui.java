@@ -4,113 +4,136 @@ import javax.swing.*;
 import java.awt.*;
 import logica.Juego;
 
-public class Gui{
-    private static JFrame ventana;
-    private static JPanel cards;
-    private static CardLayout cardLayout;
-    private MenuPanel menuPanel;
-    private IniciarJuegoPanel jugarPanel;
-    private JuegoPanel juegoPanel;
-    private CrearCartonesPanel crearCartonesPanel;
-    private EnviarCartonesPanel enviarCartonesPanel;
-    private ConsultarCartonPanel consultarCartonPanel;
-    private RegistrarJugadorPanel registrarJugadorPanel;
-    private EstadisticasPanel estadisticasPanel;
-    private WordCloudPanel wordCloudPanel;
+/**
+ * La clase `Gui` representa la interfaz gráfica principal de la aplicación de
+ * Bingo.
+ * Contiene paneles (escenas) para diferentes funciones y permite la
+ * comunicación entre ellos.
+ */
+public class Gui {
+	private static JFrame ventana;
+	private static JPanel cards;
+	private static CardLayout cardLayout;
+	private MenuPanel menuPanel;
+	private IniciarJuegoPanel jugarPanel;
+	private JuegoPanel juegoPanel;
+	private CrearCartonesPanel crearCartonesPanel;
+	private EnviarCartonesPanel enviarCartonesPanel;
+	private ConsultarCartonPanel consultarCartonPanel;
+	private RegistrarJugadorPanel registrarJugadorPanel;
+	private EstadisticasPanel estadisticasPanel;
+	private WordCloudPanel wordCloudPanel;
 
-    public Gui(Juego pLogica) {
-        ventana = new JFrame("Menú de Bingo");
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(800, 700);
-        ventana.setResizable(false);
-        
-        cardLayout = new CardLayout();
-        cards = new JPanel(cardLayout);
-        
-        // Panel para el menú principal #1
-        menuPanel = new MenuPanel(this, pLogica);
-        registraEscena(menuPanel, "menu");
-        
-        // Panel para configurar el juego #2
-        jugarPanel = new IniciarJuegoPanel(this, pLogica);
-        registraEscena(jugarPanel, "jugar");
+	/**
+	 * Constructor de la clase `Gui`.
+	 * 
+	 * @param pLogica La instancia de la clase `Juego` que contiene la lógica
+	 */
+	public Gui(Juego pLogica) {
+		ventana = new JFrame("Menú de Bingo");
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.setSize(800, 700);
+		ventana.setResizable(false);
 
-        // Panel para jugar #3
-        juegoPanel = new JuegoPanel(pLogica);
-        registraEscena(juegoPanel, "juego");
-        
-        // Panel para crear cartones #4
-        crearCartonesPanel = new CrearCartonesPanel(pLogica);
-        registraEscena(crearCartonesPanel, "crearCartones");
-        
-        // Panel para enviar cartones #5
-        enviarCartonesPanel = new EnviarCartonesPanel(pLogica);
-        registraEscena(enviarCartonesPanel, "enviarCartones");
-        
-        // Panel para consultar cartones #6
-        consultarCartonPanel = new ConsultarCartonPanel(pLogica);
-        registraEscena(consultarCartonPanel, "consultarCartones");
+		cardLayout = new CardLayout();
+		cards = new JPanel(cardLayout);
 
-        // Panel para configurar premios #7
-        registrarJugadorPanel = new RegistrarJugadorPanel(pLogica);
-        registraEscena(registrarJugadorPanel, "registrarJugador");
+		// Panel para el menú principal #1
+		menuPanel = new MenuPanel(this, pLogica);
+		registraEscena(menuPanel, "menu");
 
-        // Panel para las estadisticas
-        estadisticasPanel = new EstadisticasPanel(pLogica);
-        // estadisticasPanel.add(new JLabel("En proceso..."));
-        registraEscena(estadisticasPanel, "estadisticas");
+		// Panel para configurar el juego #2
+		jugarPanel = new IniciarJuegoPanel(this, pLogica);
+		registraEscena(jugarPanel, "jugar");
 
-        // Panel para configurar premios
-        wordCloudPanel = new WordCloudPanel(pLogica);
-        registraEscena(wordCloudPanel, "wordCloud");
+		// Panel para jugar #3
+		juegoPanel = new JuegoPanel(pLogica);
+		registraEscena(juegoPanel, "juego");
 
-        ventana.add(cards);
-        cardLayout.show(cards, "menu");
-        ventana.setVisible(true);
-    }
+		// Panel para crear cartones #4
+		crearCartonesPanel = new CrearCartonesPanel(pLogica);
+		registraEscena(crearCartonesPanel, "crearCartones");
 
-    
-    public static void registraEscena(Component comp, Object constraints) {
-        cards.add(comp, constraints);
-    }
-    
-    public static void cambiarEscena(String nombre) {
-        cardLayout.show(cards, nombre);
-    }
+		// Panel para enviar cartones #5
+		enviarCartonesPanel = new EnviarCartonesPanel(pLogica);
+		registraEscena(enviarCartonesPanel, "enviarCartones");
 
-    public static JFrame getVentana() {
-        return ventana;
-    }
+		// Panel para consultar cartones #6
+		consultarCartonPanel = new ConsultarCartonPanel(pLogica);
+		registraEscena(consultarCartonPanel, "consultarCartones");
 
-    public MenuPanel getMenuPanel() {
-        return menuPanel;
-    }
+		// Panel para configurar premios #7
+		registrarJugadorPanel = new RegistrarJugadorPanel(pLogica);
+		registraEscena(registrarJugadorPanel, "registrarJugador");
 
-    public IniciarJuegoPanel getJugarPanel() {
-        return jugarPanel;
-    }
+		// Panel para las estadísticas
+		estadisticasPanel = new EstadisticasPanel(pLogica);
+		// estadisticasPanel.add(new JLabel("En proceso..."));
+		registraEscena(estadisticasPanel, "estadisticas");
 
-    public JuegoPanel getJuegoPanel() {
-        return juegoPanel;
-    }
+		// Panel para configurar premios
+		wordCloudPanel = new WordCloudPanel(pLogica);
+		registraEscena(wordCloudPanel, "wordCloud");
 
-    public CrearCartonesPanel getCrearCartonesPanel() {
-        return crearCartonesPanel;
-    }
+		ventana.add(cards);
+		cardLayout.show(cards, "menu");
+		ventana.setVisible(true);
+	}
 
-    public EnviarCartonesPanel getEnviarCartonesPanel() {
-        return enviarCartonesPanel;
-    }
+	/**
+	 * Registra una escena (panel) en el contenedor de escenas.
+	 * 
+	 * @param pComponent El componente que representa la escena.
+	 * @param pNombre Nombre de la escena a registrar.
+	 */
+	public static void registraEscena(Component pComponent, String pNombre) {
+		cards.add(pComponent, pNombre);
+	}
 
-    public ConsultarCartonPanel getConsultarCartonPanel() {
-        return consultarCartonPanel;
-    }
+	/**
+	 * Cambia la escena actual a la escena con el nombre especificado.
+	 * 
+	 * @param nombre El nombre de la escena a la que se debe cambiar.
+	 */
+	public static void cambiarEscena(String nombre) {
+		cardLayout.show(cards, nombre);
+	}
 
-    public RegistrarJugadorPanel getRegistrarJugadorPanel() {
-        return registrarJugadorPanel;
-    }
+	// Getters para acceder a los paneles de la interfaz gráfica
 
-    public EstadisticasPanel getEstadisticasPanel() {
-        return estadisticasPanel;
-    }
+	public static JFrame getVentana() {
+		return ventana;
+	}
+
+	public MenuPanel getMenuPanel() {
+		return menuPanel;
+	}
+
+	public IniciarJuegoPanel getJugarPanel() {
+		return jugarPanel;
+	}
+
+	public JuegoPanel getJuegoPanel() {
+		return juegoPanel;
+	}
+
+	public CrearCartonesPanel getCrearCartonesPanel() {
+		return crearCartonesPanel;
+	}
+
+	public EnviarCartonesPanel getEnviarCartonesPanel() {
+		return enviarCartonesPanel;
+	}
+
+	public ConsultarCartonPanel getConsultarCartonPanel() {
+		return consultarCartonPanel;
+	}
+
+	public RegistrarJugadorPanel getRegistrarJugadorPanel() {
+		return registrarJugadorPanel;
+	}
+
+	public EstadisticasPanel getEstadisticasPanel() {
+		return estadisticasPanel;
+	}
 }

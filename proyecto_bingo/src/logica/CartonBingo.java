@@ -4,20 +4,25 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 
+/**
+ * La clase `CartonBingo` representa un cartón de bingo con números aleatorios.
+ */
 public class CartonBingo {
   private String identificador;
   private int[][] matriz;
   private int[][] matrizMarcado;
   private static int contadorId = 0;
   public static int totalCartones = 0;
-
+  
+  /**
+   * Constructor de la clase `CartonBingo`.
+   * Crea un nuevo cartón con números aleatorios y lo guarda como una imagen PNG.
+   */
   public CartonBingo() {
     matriz = new int[5][5];
     matrizMarcado = new int[5][5];
@@ -27,35 +32,52 @@ public class CartonBingo {
     totalCartones++;
   }
 
+  /**
+   * Genera un cartón de bingo con números aleatorios.
+   */
   private void generarCarton() {
     for (int columna = 0; columna < 5; columna++) {
       generarNumeroAleatorio(columna);
     }
   }
 
-  private void generarNumeroAleatorio(int columna) {
-    int limiteInferior = columna * 15 + 1; 
-    int limiteSuperior = (columna + 1) * 15;   
+  /**
+   * Genera un número aleatorio para una columna del cartón.
+   * @param pColumna El índice de la columna.
+   */
+  private void generarNumeroAleatorio(int pColumna) {
+    int limiteInferior = pColumna * 15 + 1; 
+    int limiteSuperior = (pColumna + 1) * 15;   
 
     for (int fila = 0; fila < 5; fila ++) {
       int numero;
       do {
         numero = (int) (Math.random() * (limiteSuperior - limiteInferior + 1)) + limiteInferior; 
-      } while (contieneNumeroEnColumna(columna, numero)); 
+      } while (contieneNumeroEnColumna(pColumna, numero)); 
 
-      matriz[fila][columna] = numero;
+      matriz[fila][pColumna] = numero;
     }
   }
 
-  private boolean contieneNumeroEnColumna(int columna, int numero) {
+  /**
+   * Verifica si un número ya existe en una columna del cartón.
+   * @param pColumna El índice de la columna.
+   * @param pNumero El número a verificar.
+   * @return `true` si el número ya existe en la columna, `false` en caso contrario.
+   */
+  private boolean contieneNumeroEnColumna(int pColumna, int pNumero) {
     for (int fila = 0; fila < 5; fila++) {
-      if (matriz[fila][columna] == numero) {
+      if (matriz[fila][pColumna] == pNumero) {
         return true; // El número ya existe en la columna
       }
     }
     return false; // El número no existe en la columna
   }
 
+  /**
+   * Genera un identificador único para el cartón.
+   * @return El identificador único.
+   */
   private String generarIdentificadorUnico() {
     String formatoContador = String.format("%03d", contadorId);
     contadorId++;
@@ -63,6 +85,9 @@ public class CartonBingo {
     return "JJO" + formatoContador; // Joza, Jeff, Oscar
   }
 
+    /**
+   * Genera una imagen PNG del cartón de bingo en la carpeta ./cartones/
+   */
   private void generarPNG() {
     int width = 634; // Ancho de la imagen
     int height = 748; // Alto de la imagen
@@ -126,31 +151,23 @@ public class CartonBingo {
       e.printStackTrace();
     }
   }
-  
-        // Getters y setters (métodos para acceder y modificar los atributos)
-  public String getIdentificador() {
-    return identificador;
-  }
 
-  public int[][] getMatriz() {
-    return matriz;
-  }
-
-  public int[][] getMatrizMarcado() {
-    return matrizMarcado;
-  }
-
-  public void setValorCasilla(int fila, int columna, int nuevoValor) {
-    matrizMarcado[fila][columna] = nuevoValor;
-  }
-
-  public static String obtenerIdentificadorPorIndice(int indice) {
-    if (indice >= 0 && indice < totalCartones) {
-        return "JJO" + String.format("%03d", indice);
+  /**
+   * Obtiene el identificador único de un cartón por su índice.
+   *
+   * @param pIndice El índice del cartón.
+   * @return El identificador único del cartón o nulo si el índice está fuera de rango.
+   */
+  public static String obtenerIdentificadorPorIndice(int pIndice) {
+    if (pIndice >= 0 && pIndice < totalCartones) {
+        return "JJO" + String.format("%03d", pIndice);
     }
     return null; // Devuelve nulo si el índice está fuera de rango
   }
 
+  /**
+   * Imprime la matriz de marcado del cartón en la consola.
+   */
   public void imprimirMatrizMarcado() {
     System.out.println("Matriz de Marcado para el cartón " + identificador + ":");
     for (int fila = 0; fila < 5; fila++) {
@@ -160,5 +177,44 @@ public class CartonBingo {
         System.out.println(); // Salto de línea para la siguiente fila
     }
   }
+  
+  // Getters y setters (métodos para acceder y modificar los atributos)
 
+  /**
+   * Obtiene el identificador único del cartón.
+   *
+   * @return El identificador único del cartón.
+   */
+  public String getIdentificador() {
+    return identificador;
+  }
+
+  /**
+   * Obtiene la matriz de números del cartón.
+   *
+   * @return La matriz de números del cartón.
+   */
+  public int[][] getMatriz() {
+      return matriz;
+  }
+
+  /**
+   * Obtiene la matriz de marcado del cartón.
+   *
+   * @return La matriz de marcado del cartón.
+   */
+  public int[][] getMatrizMarcado() {
+      return matrizMarcado;
+  }
+
+  /**
+   * Establece un nuevo valor para una casilla en la matriz de marcado del cartón.
+   *
+   * @param pFila       La fila de la casilla.
+   * @param pColumna    La columna de la casilla.
+   * @param pNuevoValor El nuevo valor para la casilla.
+   */
+  public void setValorCasilla(int pFila, int pColumna, int pNuevoValor) {
+      matrizMarcado[pFila][pColumna] = pNuevoValor;
+  }
 }

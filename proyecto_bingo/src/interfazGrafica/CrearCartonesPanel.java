@@ -12,14 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+/**
+ * La clase `CrearCartonesPanel` representa un panel de la interfaz gráfica para
+ * crear cartones de bingo.
+ */
 public class CrearCartonesPanel extends JPanel {
 	private JTextField cantidadCartonesField;
 	private JButton crearCartonesButton;
 	private JButton regresarMenuButton;
 	private Juego logica;
 
+	/**
+	 * Constructor de la clase `CrearCartonesPanel`.
+	 * 
+	 * @param pLogica La instancia de la clase `Juego` que contiene la lógica
+	 */
 	public CrearCartonesPanel(Juego pLogica) {
-		// asignar la clase logica de la interfaz
+		// Asignar la clase lógica de la interfaz
 		logica = pLogica;
 
 		// Configura el diseño del panel
@@ -27,20 +36,20 @@ public class CrearCartonesPanel extends JPanel {
 
 		// Etiqueta para indicar la entrada
 		JLabel cantidadLabel = new JLabel("Cantidad de cartones a crear (1-500):");
-    cantidadLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		cantidadLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		cantidadLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(cantidadLabel);
 		cantidadLabel.setBounds(100, 230, 600, 50);
 
 		// Campo de texto para la cantidad de cartones
 		cantidadCartonesField = new JTextField();
-    cantidadCartonesField.setFont(new Font("Arial", Font.PLAIN, 20));
+		cantidadCartonesField.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(cantidadCartonesField);
 		cantidadCartonesField.setBounds(350, 285, 100, 50);
 
 		// Botón para crear los cartones
 		crearCartonesButton = new JButton("Crear Cartones");
-    crearCartonesButton.setFont(new Font("Arial", Font.PLAIN, 20));
+		crearCartonesButton.setFont(new Font("Arial", Font.PLAIN, 20));
 		crearCartonesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,6 +71,10 @@ public class CrearCartonesPanel extends JPanel {
 		regresarMenuButton.setBounds(10, 10, 110, 25);
 	}
 
+	/**
+	 * Realiza la acción de crear cartones cuando se presiona el botón
+	 * correspondiente y realiza las validaciones.
+	 */
 	private void accionCrearCartones() {
 		String cantidadCartonesStr = cantidadCartonesField.getText();
 		try {
@@ -72,7 +85,7 @@ public class CrearCartonesPanel extends JPanel {
 					JOptionPane.showMessageDialog(this, "No queda esa cantidad de cartones disponibles para crear");
 					return;
 				}
-				// aqui se llama la funcion para crearlos
+				// aquí se llama la función para crearlos
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				logica.crearCartones(cantidadCartones);
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -86,6 +99,9 @@ public class CrearCartonesPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Restablece la interfaz gráfica al estado inicial.
+	 */
 	public void setGui() {
 		cantidadCartonesField.setText("");
 	}
