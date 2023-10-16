@@ -1,37 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <partidasJuego>
   <partida>
-    <tipo>Y</tipo>
+    <tipo>Carton lleno</tipo>
     <numerosCantados>2,10,15,30,45</numerosCantados>
     <ganadores>123456789,987654321</ganadores>
     <fecha>20231231</fecha>
     <hora>18:30</hora>
   </partida>
   <partida>
-    <tipo>C</tipo>
+    <tipo>Jugar en z</tipo>
     <numerosCantados>2,10,15,30,45,99,33</numerosCantados>
     <ganadores>987654321</ganadores>
     <fecha>20231231</fecha>
     <hora>18:40</hora>
   </partida>
   <partida>
-    <tipo>C</tipo>
+    <tipo>Jugar en x</tipo>
     <numerosCantados>2,10,15,30,45,99,33</numerosCantados>
     <ganadores>987654321</ganadores>
-    <fecha>20231231</fecha>
-    <hora>18:40</hora>
-  </partida>
-  <partida>
-    <tipo />
-    <numerosCantados />
-    <ganadores />
-    <fecha>20231231</fecha>
-    <hora>18:40</hora>
-  </partida>
-  <partida>
-    <tipo />
-    <numerosCantados />
-    <ganadores />
     <fecha>20231231</fecha>
     <hora>18:40</hora>
   </partida>
@@ -69,5 +55,12 @@
     <ganadores>Jefferson Pozo</ganadores>
     <fecha>14/10/2023</fecha>
     <hora>17:31:37</hora>
+  </partida>
+  <partida>
+    <tipo>Jugar en X</tipo>
+    <numerosCantados>36,51,24,67,60,28,43,50,7,19,66,70,45,25,2,44,49,71,32,37,65,39,63,16,62,69,55,14,29,52,12,26,42,64,59,1,74,57,40,31,68,73,23,8,4,22,58,38,34,20,54,46,9,13,75,72,21,53,30,15,33,41,56,35,17,47,48,5</numerosCantados>
+    <ganadores>703040614</ganadores>
+    <fecha>15/10/2023</fecha>
+    <hora>18:17:10</hora>
   </partida>
 </partidasJuego>
