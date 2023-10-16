@@ -1,5 +1,6 @@
 package interfazGrafica;
 
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,8 +69,10 @@ public class CrearCartonesPanel extends JPanel {
 			if (cantidadCartones >= 1 && cantidadCartones <= 500) {
 
 				// aqui se llama la funcion para crearlos
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				logica.crearCartones(cantidadCartones);
-				JOptionPane.showMessageDialog(this, "Creando " + cantidadCartones + " cartones de Bingo.");
+				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				JOptionPane.showMessageDialog(this, "Se han creado " + cantidadCartones + " cartones de Bingo.");
 				setGui();
 			} else {
 				JOptionPane.showMessageDialog(this, "La cantidad debe estar entre 1 y 500.");

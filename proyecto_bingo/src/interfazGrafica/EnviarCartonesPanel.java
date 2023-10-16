@@ -45,7 +45,9 @@ public class EnviarCartonesPanel extends JPanel {
         enviarCartonesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setCursor(new Cursor(Cursor.WAIT_CURSOR));
                 enviarCartones(); // Método para enviar los cartones
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
         enviarCartonesButton.setBounds(510, 300, 150, 40);
