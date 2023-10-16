@@ -18,20 +18,29 @@ public class IniciarJuegoPanel extends JPanel {
         logica = pLogica;
         gui = pGui;
 
-        // Configura el diseño del panel
-        setLayout(new GridLayout(5, 1));
+        // Configurar el diseño del panel
+        setLayout(null);
+
+        // Crear una fuente con el tipo Arial y tamaño 24
+        Font fuente = new Font("Arial", Font.PLAIN, 20);
 
         // Etiqueta y ComboBox para la configuración del juego
         JLabel configuracionLabel = new JLabel("Configuración del juego:");
+        configuracionLabel.setBounds(130, 150, 300, 30);
+        configuracionLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(configuracionLabel);
-        String[] opcionesConfiguracion = {"Jugar en X", "Cuatro esquinas", "Carton lleno", "Jugar en Z"};
+        String[] opcionesConfiguracion = {"Jugar en X", "Cuatro esquinas", "Cartón lleno", "Jugar en Z"};
         configuracionJuegoComboBox = new JComboBox<>(opcionesConfiguracion);
+        configuracionJuegoComboBox.setBounds(410, 150, 300, 30);
         add(configuracionJuegoComboBox);
 
         // Etiqueta y campo de texto para el monto en dinero del premio
         JLabel montoPremioLabel = new JLabel("Monto en dinero del premio:");
+        montoPremioLabel.setBounds(130, 270, 300, 30);
+        montoPremioLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(montoPremioLabel);
         montoPremioField = new JTextField();
+        montoPremioField.setBounds(410, 270, 300, 30);
         add(montoPremioField);
 
         // Botón para iniciar el juego
@@ -42,7 +51,19 @@ public class IniciarJuegoPanel extends JPanel {
                 iniciarJuego(); // Método para iniciar el juego
             }
         });
+        iniciarJuegoButton.setBounds(300, 340, 200, 40);
         add(iniciarJuegoButton);
+
+        // Botón para regresar al menú principal
+        JButton regresarMenuButton = new JButton("◀ REGRESAR");
+        regresarMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.cambiarEscena("menu"); // Método para volver al menú principal
+            }
+        });
+        regresarMenuButton.setBounds(10, 10, 110, 25);
+        add(regresarMenuButton);
     }
 
     // Método para iniciar el juego
@@ -72,6 +93,13 @@ public class IniciarJuegoPanel extends JPanel {
         try {
             // Validacion del monto (que sea numero)
             double montoPremio = Double.parseDouble(montoPremioStr);
+
+            // Validar que no sea mayor que 0
+
+            if (montoPremio <= 0) {
+                JOptionPane.showMessageDialog(this, "El monto del premio debe ser mayor a 0");
+                return;
+            }
             
             // inicio de juego
             logica.configurarJuego(configuracionJuego, montoPremio);

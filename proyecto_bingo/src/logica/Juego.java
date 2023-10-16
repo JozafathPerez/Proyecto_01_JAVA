@@ -2,6 +2,7 @@ package logica;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -523,6 +524,21 @@ public class Juego {
     // Setear los valores de los atributos
     fechaPartida = fechaComoString;
     horaPartida = horaComoString;
+  }
+
+  public void notificarGanador(List<String> listaGanadores) {
+    // Reemplaza con tu dirección de correo electrónico
+    String remitente = "bingosocialmold@gmail.com";
+
+    // Crea una instancia de CuentaCorreo
+    CuentaCorreo cuenta = new CuentaCorreo(remitente);
+
+    for (String identificador: listaGanadores) {
+      Jugador ganador = obtenerJugadorPorIdentificadorCarton(identificador);
+      String mensaje = "Felicidades " + ganador.getNombre() + " ha sido el ganador de " + premio ;
+      cuenta.enviarCorreo(ganador.getCorreo(),"Notificacion de ganador", mensaje);
+    }
+    
   }
 
   public void restablecerValoresDeJuego() {

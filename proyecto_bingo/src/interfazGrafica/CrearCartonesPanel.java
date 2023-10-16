@@ -66,8 +66,12 @@ public class CrearCartonesPanel extends JPanel {
 		String cantidadCartonesStr = cantidadCartonesField.getText();
 		try {
 			int cantidadCartones = Integer.parseInt(cantidadCartonesStr);
-			if (cantidadCartones >= 1 && cantidadCartones <= 500) {
 
+			if (cantidadCartones >= 1 && cantidadCartones <= 500) {
+				if (cantidadCartones + logica.getCartonesCreados().size() > 500) {
+					JOptionPane.showMessageDialog(this, "No queda esa cantidad de cartones disponibles para crear");
+					return;
+				}
 				// aqui se llama la funcion para crearlos
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				logica.crearCartones(cantidadCartones);
