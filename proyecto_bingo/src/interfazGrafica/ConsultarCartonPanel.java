@@ -19,73 +19,51 @@ public class ConsultarCartonPanel extends JPanel {
     logica = pLogica;
 
     // Configura el diseño del panel
-    setLayout(new GridBagLayout());
+    setLayout(null);
 
     // Botón para regresar al menú principal
-    JButton regresarMenuButton = new JButton("Regresar al Menú Principal");
+    JButton regresarMenuButton = new JButton("◀ REGRESAR");
     regresarMenuButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         Gui.cambiarEscena("menu"); // Método para volver al menú principal
       }
     });
-    GridBagConstraints regresarMenuButtoConstraints = new GridBagConstraints();
-    regresarMenuButtoConstraints.gridx = 0;
-    regresarMenuButtoConstraints.gridy = 0;
-    regresarMenuButtoConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-    regresarMenuButtoConstraints.insets = new Insets(10, 10, 10, 10);
-    add(regresarMenuButton, regresarMenuButtoConstraints);
+    add(regresarMenuButton);
+    regresarMenuButton.setBounds(10, 10, 110, 25);
 
     // Etiqueta para indicar la entrada
     JLabel nombreImagenLabel = new JLabel("Identificador:");
     nombreImagenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    GridBagConstraints nombreImagenLabelConstraints = new GridBagConstraints();
-    nombreImagenLabelConstraints.gridx = 0;
-    nombreImagenLabelConstraints.gridy = 1;
-    nombreImagenLabelConstraints.anchor = GridBagConstraints.LINE_END;
-    add(nombreImagenLabel, nombreImagenLabelConstraints);
+    add(nombreImagenLabel);
+    nombreImagenLabel.setBounds(200, 40, 200, 30);
 
     // Campo de texto para el nombre de la imagen
     identificadorField = new JTextField(8);
-    GridBagConstraints identificadorFieldConstraints = new GridBagConstraints();
-    identificadorFieldConstraints.gridx = 1;
-    identificadorFieldConstraints.gridy = 1;
-    identificadorFieldConstraints.anchor = GridBagConstraints.LINE_START;
-    identificadorFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
-    add(identificadorField, identificadorFieldConstraints);
+    add(identificadorField);
+    identificadorField.setBounds(400, 40, 200, 30);
 
     // Botón para ver la imagen
-    verImagenButton = new JButton("Ver Imagen");    
+    verImagenButton = new JButton("Ver Imagen");
     verImagenButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         consultar(); // Método para ver la imagen
       }
     });
-    GridBagConstraints verImagenButtonConstraints = new GridBagConstraints();
-    verImagenButtonConstraints.gridx = 0;
-    verImagenButtonConstraints.gridy = 2;
-    verImagenButtonConstraints.gridwidth = 2;
-    add(verImagenButton, verImagenButtonConstraints);
+    add(verImagenButton);
+    verImagenButton.setBounds(300, 80, 200, 30);
 
     // Etiqueta para mostrar la imagen
     imagenLabel = new JLabel();
     imagenLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    GridBagConstraints imagenLabelConstraints = new GridBagConstraints();
-    imagenLabelConstraints.gridx = 0;
-    imagenLabelConstraints.gridy = 3;
-    imagenLabelConstraints.gridwidth = 2;
-    imagenLabelConstraints.fill = GridBagConstraints.BOTH;
-    add(imagenLabel, imagenLabelConstraints);
+    add(imagenLabel);
+    imagenLabel.setBounds(200, 120, 400, 500);
 
     asignacionLabel = new JLabel();
     asignacionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    GridBagConstraints asignacionLabelConstraint = new GridBagConstraints();
-    asignacionLabelConstraint.gridx = 0;
-    asignacionLabelConstraint.gridy = 4;
-    asignacionLabelConstraint.gridwidth = 2;
-    asignacionLabelConstraint.fill = GridBagConstraints.BOTH;
-    add(asignacionLabel, asignacionLabelConstraint);
+    add(asignacionLabel);
+    asignacionLabel.setBounds(200, 630, 400, 25);
   }
 
   // Método para ver la imagen
