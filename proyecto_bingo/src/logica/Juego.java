@@ -525,6 +525,25 @@ public class Juego {
     horaPartida = horaComoString;
   }
 
+  public void restablecerValoresDeJuego() {
+    //Vaciar los elementos de la lista
+    numerosCantados.clear();
+    ganadores.clear();
+
+    //Vaciar matrices de marcado
+    for (CartonBingo carton: cartones) {
+      restablecerMatrizMarcado(carton);
+    }
+  }
+
+  private void restablecerMatrizMarcado(CartonBingo carton) {
+    for (int i = 0; i < carton.getMatrizMarcado().length; i++) {
+      for (int j = 0; j < carton.getMatrizMarcado()[i].length; j++) {
+          carton.setValorCasilla(i, j, 0);
+      }
+   }
+  }
+
   // Método para obtener la lista de números cantados
   public List<Integer> getNumerosCantados() {
     return numerosCantados;
@@ -533,6 +552,10 @@ public class Juego {
     // Método para obtener la lista de ganadores
   public List<String> getGanadores() {
     return ganadores;
+  }
+
+  public List<CartonBingo> getCartonesCreados() {
+    return cartones;
   }
 
   public List<String> getCartonesEnJuego() {
