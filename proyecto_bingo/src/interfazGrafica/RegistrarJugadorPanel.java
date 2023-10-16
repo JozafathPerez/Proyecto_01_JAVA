@@ -21,11 +21,11 @@ public class RegistrarJugadorPanel extends JPanel {
         setLayout(null);
 
         // Crear una fuente con el tipo Arial y tamaño 24
-        Font fuente = new Font("Arial", Font.PLAIN, 24);
+        Font fuente = new Font("Arial", Font.PLAIN, 20);
 
         // Etiqueta y campo de texto para el nombre completo
         JLabel nombreLabel = new JLabel("Nombre completo:");
-        nombreLabel.setBounds(100, 200, 300, 30);
+        nombreLabel.setBounds(130, 200, 300, 30);
         nombreLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(nombreLabel);
         nombreCompletoField = new JTextField();
@@ -34,7 +34,7 @@ public class RegistrarJugadorPanel extends JPanel {
 
         // Etiqueta y campo de texto para el correo electrónico
         JLabel correoLabel = new JLabel("Correo electrónico:");
-        correoLabel.setBounds(100, 250, 250, 30);
+        correoLabel.setBounds(130, 250, 250, 30);
         correoLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(correoLabel);
         correoField = new JTextField();
@@ -43,7 +43,7 @@ public class RegistrarJugadorPanel extends JPanel {
 
         // Etiqueta y campo de texto para la cédula
         JLabel cedulaLabel = new JLabel("Cédula (número):");
-        cedulaLabel.setBounds(100, 300, 200, 30);
+        cedulaLabel.setBounds(130, 300, 200, 30);
         cedulaLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(cedulaLabel);
         cedulaField = new JTextField();
