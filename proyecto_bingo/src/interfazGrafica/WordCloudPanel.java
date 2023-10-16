@@ -19,10 +19,16 @@ import com.kennycason.kumo.palette.*;
 
 import java.util.List;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import logica.CuentaCorreo;
+import javax.mail.Message;
 
 public class WordCloudPanel extends JPanel {
     private Juego logica;
@@ -41,26 +47,54 @@ public class WordCloudPanel extends JPanel {
         });
         add(regresarMenuButton);
 
-        // Obtener comentarios (reemplaza con tus comentarios reales)
-        List<String> comentarios = obtenerComentarios();
+        // Crear una instancia de la clase CuentaCorreo  bingosocialmold@gmail.com 
+        CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
+
+        // Obtener los comentarios de los mensajes de correo
+        List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
+    
+        // cargar los mensajes anteriores a comentarios
+        List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
+
+        // Agregar los mensajes anteriores a la lista de comentarios
+        comentarios.addAll(mensajesAnteriores);
 
         // Generar WordCloud
         generateWordCloud(comentarios);
+
+        // Sobrescribir los comentarios en el archivo original
+        sobrescribirComentarios("mensajes.txt", comentarios);
     }
 
-    private List<String> obtenerComentarios() {
-        // Reemplaza este ejemplo con tu propia lógica para obtener los comentarios reales
-        List<String> comentarios = new ArrayList<>();
-        comentarios.add("PENE");
-        comentarios.add("PENE");
-        comentarios.add("PENE");
-        comentarios.add("PENE");
-        comentarios.add("Excelente juego de bingo");
-        comentarios.add("Me divertí mucho jugando");
-        comentarios.add("Recomiendo este juego a mis amigos");
-        comentarios.add("Bingo social es genial");
-        return comentarios;
+    private static List<String> cargarMensajesAnteriores(String archivo) {
+        List<String> mensajesAnteriores = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                mensajesAnteriores.add(linea);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mensajesAnteriores;
     }
+
+    private static void sobrescribirComentarios(String archivo, List<String> comentarios) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+            for (String comentario : comentarios) {
+                writer.write(comentario);
+                writer.newLine(); // Agregar un salto de línea entre comentarios
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void generateWordCloud(List<String> comentarios) {
 
@@ -76,13 +110,14 @@ public class WordCloudPanel extends JPanel {
 
         // Configurar el WordCloud
         final Dimension dimension = new Dimension(600, 600);
-        final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
-        wordCloud.setPadding(2);
-        wordCloud.setBackground(new CircleBackground(300));
-        wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1), new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
-        wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
+        final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
+        wordCloud.setPadding(0);
+        wordCloud.setBackground(new RectangleBackground(dimension));
+        wordCloud.setColorPalette(new ColorPalette(Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE));
+        wordCloud.setFontScalar(new LinearFontScalar(10, 40));
         wordCloud.build(wordFrequencies);
-        wordCloud.writeToFile("kumo-core/output/datarank_wordcloud_circle_sqrt_font.png");
+        wordCloud.writeToFile("kumo-core/output/wordcloud_rectangle.png");
+
 
         // Obtener la imagen del WordCloud
         final BufferedImage wordCloudImage = wordCloud.getBufferedImage();
