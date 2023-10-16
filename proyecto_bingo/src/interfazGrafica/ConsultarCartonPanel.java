@@ -35,16 +35,19 @@ public class ConsultarCartonPanel extends JPanel {
     // Etiqueta para indicar la entrada
     JLabel nombreImagenLabel = new JLabel("Identificador:");
     nombreImagenLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    nombreImagenLabel.setFont(new Font("Arial", Font.PLAIN, 20));
     add(nombreImagenLabel);
-    nombreImagenLabel.setBounds(200, 40, 200, 30);
+    nombreImagenLabel.setBounds(200, 40, 200, 50);
 
     // Campo de texto para el nombre de la imagen
     identificadorField = new JTextField(8);
+    identificadorField.setFont(new Font("Arial", Font.PLAIN, 20));
     add(identificadorField);
-    identificadorField.setBounds(400, 40, 200, 30);
+    identificadorField.setBounds(400, 40, 200, 50);
 
     // Botón para ver la imagen
     verImagenButton = new JButton("Ver Imagen");
+    verImagenButton.setFont(new Font("Arial", Font.PLAIN, 20));
     verImagenButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -52,18 +55,19 @@ public class ConsultarCartonPanel extends JPanel {
       }
     });
     add(verImagenButton);
-    verImagenButton.setBounds(300, 80, 200, 30);
+    verImagenButton.setBounds(300, 100, 200, 30);
 
     // Etiqueta para mostrar la imagen
     imagenLabel = new JLabel();
     imagenLabel.setHorizontalAlignment(SwingConstants.CENTER);
     add(imagenLabel);
-    imagenLabel.setBounds(200, 120, 400, 500);
+    imagenLabel.setBounds(200, 130, 400, 500);
 
     asignacionLabel = new JLabel();
+    asignacionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
     asignacionLabel.setHorizontalAlignment(SwingConstants.CENTER);
     add(asignacionLabel);
-    asignacionLabel.setBounds(200, 630, 400, 25);
+    asignacionLabel.setBounds(150, 620, 500, 30);
   }
 
   // Método para ver la imagen
