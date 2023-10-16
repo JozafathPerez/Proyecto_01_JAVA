@@ -50,6 +50,20 @@ public class IniciarJuegoPanel extends JPanel {
         String configuracionJuego = (String) configuracionJuegoComboBox.getSelectedItem();
         String montoPremioStr = montoPremioField.getText();
 
+        // Validacion de que existan cartones creado
+
+        if (logica.getCartonesCreados().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se han creado cartones");
+            return;
+        }
+
+        // Validacion de que existan cartones en juego
+
+        if (logica.getCartonesEnJuego().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se han asignado cartones a jugadores");
+            return;
+        }
+
         if (montoPremioStr.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingresa el monto en dinero del premio.");
             return;

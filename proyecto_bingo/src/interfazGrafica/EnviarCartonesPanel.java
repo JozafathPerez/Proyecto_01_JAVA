@@ -87,6 +87,13 @@ public class EnviarCartonesPanel extends JPanel {
             return;
         }
 
+        // Validar que existan cartones disponibles
+
+        if (logica.getCartonesCreados().size() - logica.getCartonesEnJuego().size() < cantidadCartones) {
+            JOptionPane.showMessageDialog(this, "No existen esa cantidad de cartones disponibles para enviar");
+            return;
+        }
+
         logica.enviarCartonAJugador(cantidadCartones, cedulaStr);;
         JOptionPane.showMessageDialog(this, "Enviando " + cantidadCartonesStr + " cartones al jugador con cédula: " + cedulaStr);
         setGui();
