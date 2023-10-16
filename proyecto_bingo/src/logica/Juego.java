@@ -320,7 +320,7 @@ public class Juego {
     // poner errores de si no se encontro el jugardor en la interfaz
   }
 
-  private Jugador obtenerJugadorPorCedula(String cedula) {
+  public Jugador obtenerJugadorPorCedula(String cedula) {
     for (Jugador jugador : jugadores) {
         if (jugador.getCedula().equals(cedula)) {
             return jugador;

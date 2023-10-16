@@ -17,13 +17,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
-
 import java.util.Map.Entry;
 
 public class EstadisticasPanel extends JPanel{
   //Varas raras
   private Juego logica;
   JFreeChart chart;//declaramos un objeto de la clase JFreeChart para construir el grafico
+  private ChartPanel panel;
+  private ChartPanel panel2;
 
   public EstadisticasPanel(Juego pLogica) {
     logica = pLogica;
@@ -31,18 +32,19 @@ public class EstadisticasPanel extends JPanel{
     // Configura el diseño del panel
     setLayout(new GridLayout(4, 1));
 
+    JLabel nombreLabel = new JLabel("Estadisticas de juego");
+    add(nombreLabel);
+
     crearGrafico();//metodo para cargar los datos y crear el grafico
 
-    ChartPanel panel = new ChartPanel(chart, false);//ChartPanel es una clase del paquete JFreeChart
+    panel = new ChartPanel(chart, false);//ChartPanel es una clase del paquete JFreeChart
     //es igual que JPanel de swing. Sobre el ChartPanel se crea el grafico
     panel.setBounds(10, 20, 760, 520);//damos ubicacion y tamano al panel
     add(panel); //anadimos el panel al JFrame
 
-    setVisible(true); //mostrar el JFrame  
-
     crearGraficoPie();
 
-    ChartPanel panel2 = new ChartPanel(chart, false);
+    panel2 = new ChartPanel(chart, false);
     panel2.setBounds(10, 40, 760, 520);
     add(panel2);
 
@@ -60,6 +62,13 @@ public class EstadisticasPanel extends JPanel{
       
     });
     add(regresarMenuButton);
+  }
+
+  public void setGui() {
+    crearGrafico();
+    panel.setChart(chart);
+    crearGraficoPie();
+    panel2.setChart(chart);
   }
 
   public void crearGrafico() {
@@ -84,10 +93,12 @@ public class EstadisticasPanel extends JPanel{
             dataset,
             PlotOrientation.VERTICAL, 
             false, true, false);
+    
+    // chart.setBackgroundPaint(new Color(249, 231, 236));
 
   }
 
-  public static void crearGraficoPie() {
+  public void crearGraficoPie() {
     DefaultPieDataset data = new DefaultPieDataset();
 
     // Creamos el Array nombres
