@@ -7,7 +7,7 @@ public class App {
         new Gui(logica);
 
         // ESTO ES DE PRU-PRU-PRU-PRUEBAS *sonido de sirenas*
-        //logica.crearCartones(5);
+        logica.crearCartones(5);
 
         // Agregar jugadores al juego
         // logica.registrarJugador("Oscar Roni", "oroni@estudiantec.cr", "102340756");

@@ -1,14 +1,21 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Authenticator;
+import javax.mail.BodyPart;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
 import javax.mail.internet.MimeMultipart;   // para agregar múltiples partes al mensaje con estilo MIME
 import javax.mail.internet.MimeBodyPart;    // para agregar el cuerpo al mensaje con estilo MIME
 import javax.activation.DataSource;         // para recuperar el archivo que adjuntar
@@ -124,5 +131,127 @@ public class CuentaCorreo {
       e.printStackTrace();
     }
   }
+
+  public List<Message> obtenerMensajes() {
+    List<Message> mensajes = new ArrayList<>();
+
+    Properties prop = new Properties();
+
+    // Deshabilitamos TLS
+    prop.setProperty("mail.pop3.starttls.enable", "false");
+
+    // Hay que usar SSL
+    prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    prop.setProperty("mail.pop3.socketFactory.fallback", "false");
+
+    // Puerto 995 para conectarse.
+    prop.setProperty("mail.pop3.port", "995");
+    prop.setProperty("mail.pop3.socketFactory.port", "995");
+
+    Session sesion = Session.getInstance(prop);
+
+    // Para obtener un log más extenso.
+    sesion.setDebug(true);
+
+    try {
+        // Conéctate a la cuenta de correo
+        Store store = sesion.getStore("pop3");
+        store.connect("pop.gmail.com", usuario, clave);
+
+        // Abre la carpeta de entrada
+        Folder folder = store.getFolder("INBOX");
+        folder.open(Folder.READ_ONLY);
+
+        // Obtiene los mensajes y los agrega a la lista
+        Message[] mensajesEnBandeja = folder.getMessages();
+
+        for (Message mensaje : mensajesEnBandeja) {
+            // Analizar el contenido del mensaje
+            analizarContenidoMensaje(mensaje);
+            mensajes.add(mensaje);
+        }
+
+        // Cierra la carpeta y la conexión
+        folder.close(true); // Cierra la carpeta y expunge los mensajes eliminados
+        store.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return mensajes;
+}
+
+
+public List<String> obtenerComentariosDeMensajes() {
+  List<String> comentarios = new ArrayList<>();
+
+  Properties prop = new Properties();
+  
+    // Deshabilitamos TLS
+    prop.setProperty("mail.pop3.starttls.enable", "false");
+
+    // Hay que usar SSL
+    prop.setProperty("mail.pop3.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    prop.setProperty("mail.pop3.socketFactory.fallback", "false");
+
+    // Puerto 995 para conectarse.
+    prop.setProperty("mail.pop3.port", "995");
+    prop.setProperty("mail.pop3.socketFactory.port", "995");
+
+    Session sesion = Session.getInstance(prop);
+
+    // Para obtener un log más extenso.
+    sesion.setDebug(true);
+
+  try {
+      Store store = sesion.getStore("pop3");
+      store.connect("pop.gmail.com", usuario, clave);
+
+      Folder folder = store.getFolder("INBOX");
+      folder.open(Folder.READ_ONLY);
+
+      Message[] mensajesEnBandeja = folder.getMessages();
+
+      for (Message mensaje : mensajesEnBandeja) {
+          String comentario = analizarContenidoMensaje(mensaje);
+          comentarios.add(comentario);
+      }
+
+      folder.close(true);
+      store.close();
+  } catch (Exception e) {
+      e.printStackTrace();
+  }
+
+  return comentarios;
+}
+
+private String analizarContenidoMensaje(Message mensaje) {
+  try {
+      StringBuilder contenidoMensaje = new StringBuilder();
+
+      if (mensaje.isMimeType("text/plain")) {
+          contenidoMensaje.append((String) mensaje.getContent());
+      } else if (mensaje.isMimeType("multipart/*")) {
+          Multipart multiPart = (Multipart) mensaje.getContent();
+
+          for (int i = 0; i < multiPart.getCount(); i++) {
+              BodyPart parte = multiPart.getBodyPart(i);
+
+              if (parte.isMimeType("text/plain")) {
+                  contenidoMensaje.append((String) parte.getContent());
+              }
+          }
+      }
+
+      String comentario = contenidoMensaje.toString().trim();
+      return comentario;
+  } catch (Exception e) {
+      e.printStackTrace();
+      return "";
+  }
+}
+
+
 }
 
