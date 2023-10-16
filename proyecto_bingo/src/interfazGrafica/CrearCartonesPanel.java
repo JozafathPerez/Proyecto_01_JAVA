@@ -1,5 +1,6 @@
 package interfazGrafica;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import logica.Juego;
@@ -25,17 +26,20 @@ public class CrearCartonesPanel extends JPanel {
 
 		// Etiqueta para indicar la entrada
 		JLabel cantidadLabel = new JLabel("Cantidad de cartones a crear (1-500):");
+    cantidadLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 		cantidadLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(cantidadLabel);
-		cantidadLabel.setBounds(100, 240, 600, 30);
+		cantidadLabel.setBounds(100, 230, 600, 50);
 
 		// Campo de texto para la cantidad de cartones
 		cantidadCartonesField = new JTextField();
+    cantidadCartonesField.setFont(new Font("Arial", Font.PLAIN, 20));
 		add(cantidadCartonesField);
-		cantidadCartonesField.setBounds(350, 290, 100, 30);
+		cantidadCartonesField.setBounds(350, 285, 100, 50);
 
 		// Botón para crear los cartones
 		crearCartonesButton = new JButton("Crear Cartones");
+    crearCartonesButton.setFont(new Font("Arial", Font.PLAIN, 20));
 		crearCartonesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -43,7 +47,7 @@ public class CrearCartonesPanel extends JPanel {
 			}
 		});
 		add(crearCartonesButton);
-		crearCartonesButton.setBounds(250, 350, 300, 60);
+		crearCartonesButton.setBounds(250, 350, 300, 50);
 
 		// Botón para regresar al menú principal
 		regresarMenuButton = new JButton("◀ REGRESAR");

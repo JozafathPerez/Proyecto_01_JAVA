@@ -126,7 +126,7 @@ public class WordCloudPanel extends JPanel {
 
         // Establecer posición y tamaño del JLabel que muestra el WordCloud
         JLabel wordCloudLabel = new JLabel(new ImageIcon(wordCloudImage));
-        wordCloudLabel.setBounds(10, 50, dimension.width, dimension.height);
+        wordCloudLabel.setBounds(100, 50, dimension.width, dimension.height);
 
         add(wordCloudLabel);
     }

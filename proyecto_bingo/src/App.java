@@ -8,7 +8,7 @@ public class App {
         new Gui(logica);
 
         // ESTO ES DE PRU-PRU-PRU-PRUEBAS *sonido de sirenas*
-        logica.crearCartones(5);
+        //logica.crearCartones(5);
 
         // // Agregar jugadores al juego
         // logica.registrarJugador("Oscar Roni", "oroni@estudiantec.cr", "102340756");
@@ -18,6 +18,6 @@ public class App {
         // // Enviar cartones a los jugadores
         // logica.enviarCartonAJugador(1, "102340756"); // Envia 5 cartones al jugador 1
         // logica.enviarCartonAJugador(1, "703060281"); // Envia 5 cartones al jugador 2
-        logica.enviarCartonAJugador(1, "1212"); // Envia 5 cartones al jugador 3
+        //logica.enviarCartonAJugador(1, "706750854"); // Envia 5 cartones al jugador 3
     }
 }
