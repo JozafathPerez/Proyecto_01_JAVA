@@ -65,12 +65,25 @@ public class EnviarCartonesPanel extends JPanel {
             return;
         }
 
+        // Validación de jugador existente
+        if (logica.obtenerJugadorPorCedula(cedulaStr) == null) {
+            JOptionPane.showMessageDialog(this, "Jugador no encontrado.");
+            return;
+        }
+
         // Validación de la cantidad (debe ser un número)
         int cantidadCartones;
         try {
             cantidadCartones = Integer.parseInt(cantidadCartonesStr);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "La cantidad de cartones a enviar debe ser un número válido.");
+            return;
+        }
+
+        // Validación que la cantidad de cartones sea al menos 1
+
+        if (cantidadCartones < 1) {
+            JOptionPane.showMessageDialog(this, "Debe de enviar al menos un carton");
             return;
         }
 

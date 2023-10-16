@@ -7,9 +7,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.*;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
@@ -317,7 +320,7 @@ public class Juego {
     // poner errores de si no se encontro el jugardor en la interfaz
   }
 
-  private Jugador obtenerJugadorPorCedula(String cedula) {
+  public Jugador obtenerJugadorPorCedula(String cedula) {
     for (Jugador jugador : jugadores) {
         if (jugador.getCedula().equals(cedula)) {
             return jugador;
@@ -400,6 +403,70 @@ public class Juego {
     } catch (IOException ex) {
         System.out.println("Fatal error");
     }
+  }
+
+  public List<String> cargarNumerosCantados() {
+    // Crear una lista para almacenar todos los números cantados
+    List<String> numerosCantadosList = new ArrayList<>();
+    try {
+      // Crear un analizador SAX para cargar el documento XML
+      SAXBuilder saxBuilder = new SAXBuilder();
+      Document document = saxBuilder.build("partida.xml");
+
+      // Obtener el elemento raíz del documento
+      Element rootElement = document.getRootElement();
+
+      // Obtener todas las etiquetas "partida"
+      List<Element> partidas = rootElement.getChildren("partida");
+
+      // Iterar a través de las etiquetas "partida"
+      for (Element partida : partidas) {
+          // Obtener el elemento "numerosCantados" de cada "partida"
+          Element numerosCantadosElement = partida.getChild("numerosCantados");
+
+          // Obtener el texto del elemento "numerosCantados"
+          String numerosCantados = numerosCantadosElement.getText();
+
+          // Dividir la cadena de números en una lista
+          String[] numerosArray = numerosCantados.split(",");
+          for (String numero : numerosArray) {
+              numerosCantadosList.add(numero);
+          }
+      }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return numerosCantadosList;
+  }
+
+  public List<String> cargarModosPartida() {
+    // Crear una lista para almacenar todos los tipos
+    List<String> modosDeJuego = new ArrayList<>();
+    try {
+      // Crear un analizador SAX para cargar el documento XML
+      SAXBuilder saxBuilder = new SAXBuilder();
+      Document document = saxBuilder.build("partida.xml");
+
+      // Obtener el elemento raíz del documento
+      Element rootElement = document.getRootElement();
+
+      // Obtener todas las etiquetas "partida"
+      List<Element> partidas = rootElement.getChildren("partida");
+
+      // Iterar a través de las etiquetas "partida"
+      for (Element partida : partidas) {
+          // Obtener el elemento "tipo" de cada "partida"
+          Element tipoElement = partida.getChild("tipo");
+
+          // Obtener el texto del elemento "tipo"
+          String tipoValue = tipoElement.getText();
+          modosDeJuego.add(tipoValue);
+      }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    System.out.println(modosDeJuego);
+    return modosDeJuego;    
   }
 
   private  String listaNumAStr() {

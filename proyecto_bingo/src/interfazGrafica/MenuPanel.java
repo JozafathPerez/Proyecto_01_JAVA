@@ -66,9 +66,19 @@ public class MenuPanel extends JPanel{
         botonEstadisticas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                gui.getEstadisticasPanel().setGui();
                 Gui.cambiarEscena("estadisticas");
             }
         });
-        this.add(botonEstadisticas);        
+        this.add(botonEstadisticas);       
+        
+        JButton botonWordCloud = new JButton("WordCloud");
+        botonWordCloud.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.cambiarEscena("wordCloud");
+            }
+        });
+        this.add(botonWordCloud);   
     }
 }

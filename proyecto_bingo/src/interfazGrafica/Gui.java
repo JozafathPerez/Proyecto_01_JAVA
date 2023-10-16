@@ -15,7 +15,9 @@ public class Gui{
     private EnviarCartonesPanel enviarCartonesPanel;
     private ConsultarCartonPanel consultarCartonPanel;
     private RegistrarJugadorPanel registrarJugadorPanel;
-    
+    private EstadisticasPanel estadisticasPanel;
+    private WordCloudPanel wordCloudPanel;
+
     public Gui(Juego pLogica) {
         ventana = new JFrame("Menú de Bingo");
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,10 +55,14 @@ public class Gui{
         registrarJugadorPanel = new RegistrarJugadorPanel(pLogica);
         registraEscena(registrarJugadorPanel, "registrarJugador");
 
-        // Panel para las estadisticas #8
-        JPanel estadisticasPanel = new JPanel();
-        estadisticasPanel.add(new JLabel("En proceso..."));
+        // Panel para las estadisticas
+        estadisticasPanel = new EstadisticasPanel(pLogica);
+        // estadisticasPanel.add(new JLabel("En proceso..."));
         registraEscena(estadisticasPanel, "estadisticas");
+
+        // Panel para configurar premios
+        wordCloudPanel = new WordCloudPanel(pLogica);
+        registraEscena(wordCloudPanel, "wordCloud");
 
         ventana.add(cards);
         cardLayout.show(cards, "menu");
@@ -104,4 +110,7 @@ public class Gui{
         return registrarJugadorPanel;
     }
 
+    public EstadisticasPanel getEstadisticasPanel() {
+        return estadisticasPanel;
+    }
 }
