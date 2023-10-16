@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.stream.Collectors;
 
+/**
+ * Clase que representa el panel de juego de bingo.
+ */
 public class JuegoPanel extends JPanel {
 	private JLabel configuracionLabel;
 	private JLabel cartonesLabel;
@@ -17,6 +20,11 @@ public class JuegoPanel extends JPanel {
 	private JButton cantarNumeroButton;
 	private Juego logica;
 
+	/**
+	 * Constructor de la clase `JuegoPanel`.
+	 * 
+	 * @param pLogica La instancia de la clase `Juego` que contiene la lógica del juego.
+	 */
 	public JuegoPanel(Juego pLogica) {
 		// asignar la clase logica de la interfaz
 		logica = pLogica;
@@ -77,28 +85,36 @@ public class JuegoPanel extends JPanel {
 		add(cantarNumeroButton);
 	}
 
-    // Método para cantar un número aleatorio
-    private void cantarNumeroAleatorio() {
-        // cantar el numero
-				int numeroCantado = logica.cantarNumero();
-        String numerosCantadosString = logica.getNumerosCantados().stream().map(String::valueOf)
-            .collect(Collectors.joining(", "));
-        numerosCantadosArea.setText(numerosCantadosString);
-				// rellenar cartones y verificar ganadores
-				logica.marcarCarton(numeroCantado);
-				if (logica.verificarCartones()) {
-					JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream().collect(Collectors.joining(", ")));
-                    logica.guardarPartida(); // Guarda los datos de la partida en el xml
-                    //Notificar al ganador
-                    logica.notificarGanador(logica.getGanadores());
-                    //Restablecer valores
-                    logica.restablecerValoresDeJuego();
-					Gui.cambiarEscena("menu");
-				}
-    }
+	/**
+	 * Método para cantar un número aleatorio durante el juego de bingo. 
+	 * Marca los cartones, verifica ganadores y redirije a acciones correspondientes.
+	 */
+	private void cantarNumeroAleatorio() {
+		// cantar el numero
+		int numeroCantado = logica.cantarNumero();
+		String numerosCantadosString = logica.getNumerosCantados().stream().map(String::valueOf)
+																				 .collect(Collectors.joining(", "));
+		numerosCantadosArea.setText(numerosCantadosString);
+		
+		// rellenar cartones y verificar ganadores
+		logica.marcarCarton(numeroCantado);
+		if (logica.verificarCartones()) {
+			JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream()
+					.collect(Collectors.joining(", ")));
+			logica.guardarPartida(); // Guarda los datos de la partida en el xml
+			
+			//Notificar al ganador
+			logica.notificarGanador(logica.getGanadores());
+			
+			//Restablecer valores
+			logica.restablecerValoresDeJuego();
+			Gui.cambiarEscena("menu");
+		}
+	}
 
 	/**
-	 * Establece todos los elementos para mostrar la información del nuevo juego
+	 * Establece la interfaz gráfica con información actualizada del juego,
+	 * incluyendo configuración, cartones, monto del premio y total de jugadores.
 	 */
 	public void setGui() {
 		numerosCantadosArea.setText("");
