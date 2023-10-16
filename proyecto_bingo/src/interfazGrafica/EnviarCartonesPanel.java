@@ -17,18 +17,27 @@ public class EnviarCartonesPanel extends JPanel {
         logica = pLogica;
 
         // Configura el diseño del panel
-        setLayout(new GridLayout(4, 1));
+        setLayout(null);
+
+        // Crear una fuente con el tipo Arial y tamaño 24
+        Font fuente = new Font("Arial", Font.PLAIN, 20);
 
         // Etiqueta y campo de texto para la cantidad de cartones
         JLabel cantidadLabel = new JLabel("Cantidad de cartones a enviar:");
+        cantidadLabel.setBounds(80, 200, 300, 30);
+        cantidadLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(cantidadLabel);
         cantidadCartonesField = new JTextField();
+        cantidadCartonesField.setBounds(360, 200, 300, 30);
         add(cantidadCartonesField);
 
         // Etiqueta y campo de texto para la cédula del jugador
         JLabel cedulaLabel = new JLabel("Cédula del jugador (número):");
+        cedulaLabel.setBounds(80, 250, 300, 30);
+        cedulaLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(cedulaLabel);
         cedulaField = new JTextField();
+        cedulaField.setBounds(360, 250, 300, 30);
         add(cedulaField);
 
         // Botón para enviar los cartones
@@ -39,17 +48,20 @@ public class EnviarCartonesPanel extends JPanel {
                 enviarCartones(); // Método para enviar los cartones
             }
         });
+        enviarCartonesButton.setBounds(510, 300, 150, 40);
         add(enviarCartonesButton);
 
         // Botón para regresar al menú principal
-        JButton regresarMenuButton = new JButton("Regresar al Menú Principal");
+        JButton regresarMenuButton = new JButton("◀ REGRESAR");
         regresarMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("menu"); // Método para volver al menú principal
             }
         });
+        regresarMenuButton.setBounds(10, 10, 110, 25);
         add(regresarMenuButton);
+
     }
 
     // Método para enviar los cartones

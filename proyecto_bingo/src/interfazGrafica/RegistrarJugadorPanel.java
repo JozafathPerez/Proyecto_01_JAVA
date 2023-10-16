@@ -18,24 +18,36 @@ public class RegistrarJugadorPanel extends JPanel {
         logica = pLogica;
 
         // Configura el diseño del panel
-        setLayout(new GridLayout(5, 1));
+        setLayout(null);
+
+        // Crear una fuente con el tipo Arial y tamaño 24
+        Font fuente = new Font("Arial", Font.PLAIN, 24);
 
         // Etiqueta y campo de texto para el nombre completo
         JLabel nombreLabel = new JLabel("Nombre completo:");
+        nombreLabel.setBounds(100, 200, 300, 30);
+        nombreLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(nombreLabel);
         nombreCompletoField = new JTextField();
+        nombreCompletoField.setBounds(330, 200, 300, 30);
         add(nombreCompletoField);
 
         // Etiqueta y campo de texto para el correo electrónico
         JLabel correoLabel = new JLabel("Correo electrónico:");
+        correoLabel.setBounds(100, 250, 250, 30);
+        correoLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(correoLabel);
         correoField = new JTextField();
+        correoField.setBounds(330, 250, 300, 30);
         add(correoField);
 
         // Etiqueta y campo de texto para la cédula
         JLabel cedulaLabel = new JLabel("Cédula (número):");
+        cedulaLabel.setBounds(100, 300, 200, 30);
+        cedulaLabel.setFont(fuente); // Cambiar el tamaño de fuente
         add(cedulaLabel);
         cedulaField = new JTextField();
+        cedulaField.setBounds(330, 300, 300, 30);
         add(cedulaField);
 
         // Botón para registrar
@@ -46,16 +58,18 @@ public class RegistrarJugadorPanel extends JPanel {
                 registrarJugador(); // Método para registrar al jugador
             }
         });
+        registrarButton.setBounds(480, 350, 150, 40);
         add(registrarButton);
 
         // Botón para regresar al menú principal
-        JButton regresarMenuButton = new JButton("Regresar al Menú Principal");
+        JButton regresarMenuButton = new JButton("◀ REGRESAR");
         regresarMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("menu"); // Método para volver al menú principal
             }
         });
+        regresarMenuButton.setBounds(10, 10, 110, 25);
         add(regresarMenuButton);
     }
 

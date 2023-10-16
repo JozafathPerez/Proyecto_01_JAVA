@@ -3,13 +3,13 @@ package interfazGrafica;
 import javax.swing.*;
 import logica.Juego;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import com.kennycason.kumo.*;
 import com.kennycason.kumo.bg.*;
 import com.kennycason.kumo.font.scale.*;
 import com.kennycason.kumo.nlp.FrequencyAnalyzer;
 import com.kennycason.kumo.palette.*;
-
 import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -25,7 +25,7 @@ public class WordCloudPanel extends JPanel {
     private JButton regresarMenuButton;
 
     public WordCloudPanel(Juego pLogica) {
-        logica = pLogica;
+        this.logica = pLogica;
 
         // Configurar el diseño del panel a null para posicionamiento manual
         setLayout(null);
@@ -39,15 +39,16 @@ public class WordCloudPanel extends JPanel {
 
         sobrescribirComentarios("mensajes.txt", comentarios);
 
-        regresarMenuButton = new JButton("Regresar al Menú Principal");
-        regresarMenuButton.addActionListener(e -> {
-            Gui.cambiarEscena("menu");
+        // Botón para regresar al menú principal
+        regresarMenuButton = new JButton("◀ REGRESAR");
+        regresarMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            Gui.cambiarEscena("menu"); // Método para volver al menú principal
+            }
         });
-
-        // Establecer posición y tamaño del botón
-        regresarMenuButton.setBounds(10, 10, 200, 30);
-
         add(regresarMenuButton);
+        regresarMenuButton.setBounds(10, 10, 110, 25);
     }
 
     private static List<String> cargarMensajesAnteriores(String archivo) {

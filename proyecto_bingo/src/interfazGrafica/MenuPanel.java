@@ -16,7 +16,17 @@ public class MenuPanel extends JPanel{
         // asignar la clase logica de la interfaz
         logica = pLogica;
 
+        // Configurar el diseño como nulo para posicionar manualmente los botones
+        setLayout(null);
+
+        int buttonWidth = 300; // Ancho de los botones
+        int buttonHeight = 80; // Alto de los botones
+
+        int x = 250; // Centrar horizontalmente
+
+        // Crear botones y agregar acciones
         JButton botonJugar = new JButton("Iniciar Juego");
+        botonJugar.setBounds(x, 20, buttonWidth, buttonHeight);
         botonJugar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -24,45 +34,50 @@ public class MenuPanel extends JPanel{
                 Gui.cambiarEscena("jugar");
             }
         });
-        this.add(botonJugar);
+        add(botonJugar);
 
         JButton botonCrearCartones = new JButton("Crear Cartones");
+        botonCrearCartones.setBounds(x, 110, buttonWidth, buttonHeight);
         botonCrearCartones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("crearCartones");
             }
         });
-        this.add(botonCrearCartones);
+        add(botonCrearCartones);
 
         JButton botonEnviarCartones = new JButton("Enviar Cartones");
+        botonEnviarCartones.setBounds(x, 200, buttonWidth, buttonHeight);
         botonEnviarCartones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("enviarCartones");
             }
         });
-        this.add(botonEnviarCartones);
+        add(botonEnviarCartones);
 
         JButton consultarCartonesButton = new JButton("Consultar Cartones");
+        consultarCartonesButton.setBounds(x, 290, buttonWidth, buttonHeight);
         consultarCartonesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("consultarCartones");
             }
         });
-        this.add(consultarCartonesButton);
+        add(consultarCartonesButton);
 
         JButton botonRegistrarJugador = new JButton("Registrar Jugador");
+        botonRegistrarJugador.setBounds(x, 380, buttonWidth, buttonHeight);
         botonRegistrarJugador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("registrarJugador");
             }
         });
-        this.add(botonRegistrarJugador);
+        add(botonRegistrarJugador);
 
-        JButton botonEstadisticas = new JButton("Estadisticas");
+        JButton botonEstadisticas = new JButton("Estadísticas");
+        botonEstadisticas.setBounds(x, 470, buttonWidth, buttonHeight);
         botonEstadisticas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,15 +85,17 @@ public class MenuPanel extends JPanel{
                 Gui.cambiarEscena("estadisticas");
             }
         });
-        this.add(botonEstadisticas);       
-        
+        add(botonEstadisticas);
+
         JButton botonWordCloud = new JButton("WordCloud");
+        botonWordCloud.setBounds(x, 560, buttonWidth, buttonHeight);
         botonWordCloud.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Gui.cambiarEscena("wordCloud");
             }
         });
-        this.add(botonWordCloud);   
+        add(botonWordCloud);
+
     }
 }
