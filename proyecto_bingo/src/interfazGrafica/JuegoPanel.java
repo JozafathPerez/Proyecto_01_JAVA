@@ -73,6 +73,8 @@ public class JuegoPanel extends JPanel {
 				if (logica.verificarCartones()) {
 					JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream().collect(Collectors.joining(", ")));
                     logica.guardarPartida(); // Guarda los datos de la partida en el xml
+                    //Notificar al ganador
+                    logica.notificarGanador(logica.getGanadores());
                     //Restablecer valores
                     logica.restablecerValoresDeJuego();
 					Gui.cambiarEscena("menu");

@@ -72,6 +72,13 @@ public class IniciarJuegoPanel extends JPanel {
         try {
             // Validacion del monto (que sea numero)
             double montoPremio = Double.parseDouble(montoPremioStr);
+
+            // Validar que no sea mayor que 0
+
+            if (montoPremio <= 0) {
+                JOptionPane.showMessageDialog(this, "El monto del premio debe ser mayor a 0");
+                return;
+            }
             
             // inicio de juego
             logica.configurarJuego(configuracionJuego, montoPremio);
