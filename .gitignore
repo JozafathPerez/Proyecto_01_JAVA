@@ -42,4 +42,7 @@ replay_pid*
 .history
 .ionide
 
+# Directorios del proyecto
+/proyecto_bingo/cartones
+
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode
