@@ -40,7 +40,7 @@ public class IniciarJuegoPanel extends JPanel {
     configuracionLabel.setFont(fuente); // Cambiar el tamaño de fuente
     add(configuracionLabel);
     String[] opcionesConfiguracion = { "Jugar en X", "Cuatro esquinas",
-                                       "Cartón lleno", "Jugar en Z" };
+                                       "Carton lleno", "Jugar en Z" };
     configuracionJuegoComboBox = new JComboBox<>(opcionesConfiguracion);
     configuracionJuegoComboBox.setBounds(410, 150, 300, 30);
     add(configuracionJuegoComboBox);
