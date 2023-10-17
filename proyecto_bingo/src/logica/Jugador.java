@@ -101,6 +101,13 @@ public class Jugador {
   }
 
   /**
+   * Restablece los cartones asignados
+   */
+  public void resetCartoneAsignados() {
+    cartonesAsignados.clear();
+  }
+
+  /**
    * Agrega un identificador de cartón a la lista de cartones asignados al
    * jugador.
    *

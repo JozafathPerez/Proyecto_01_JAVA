@@ -283,21 +283,28 @@ public class Juego {
     // Tener un registro de cartones enviados
     Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
 
-    while (cartonesEnviados.size() < cantCartones) { 
+    System.out.println("Catindad de cartones "+CartonBingo.getTotalCartones());
+    
+    // Contador
+    int contador = 0;
+    while (contador < cantCartones) { 
     
         // Genera un número aleatorio entre 0 y el total de cartones disponibles
         int numeroAleatorio;
         String identificador;
 
         do {
-            numeroAleatorio = (int) (Math.random() * CartonBingo.totalCartones);
+            numeroAleatorio = (int) (Math.random() * CartonBingo.getTotalCartones());
+            System.out.println("Numero aleatorio "+numeroAleatorio);
             identificador = CartonBingo.obtenerIdentificadorPorIndice(numeroAleatorio);
+            
         } while (cartonesEnviados.contains(identificador));
 
 
         if (agregarCartonAJuego(identificador) == (true)) {
           cartonesEnviados.add(identificador);
           jugador.agregarCartonAjugador(identificador);
+          contador++;
         }
     }
 
@@ -547,6 +554,7 @@ public class Juego {
     //Vaciar los elementos de la lista
     numerosCantados.clear();
     ganadores.clear();
+    // cartonesEnJuego
 
     //Vaciar matrices de marcado
     for (CartonBingo carton: cartones) {
@@ -563,38 +571,45 @@ public class Juego {
   }
 
   public void eliminarCartones() {
-        // Se vacia la lista de cartones creados
-        cartones.clear();
-        cartonesEnJuego.clear();
-        //Restablece los identificadores
-        CartonBingo.setCartonId();
-        Path carpeta = Paths.get("proyecto_bingo/cartones");
-        try {
-            Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
+    // Se vacia la lista de cartones creados
+    cartones.clear();
+    cartonesEnJuego.clear();
+    //Restablece los identificadores
+    CartonBingo.setCartonId();
+    //Restablece el total de cartones
+    CartonBingo.setTotalCartones();
+    //Restablece los cartones asignados a jugadores
+    for (Jugador jugador: jugadores) {
+      jugador.resetCartoneAsignados();
+    }
+    
+    Path carpeta = Paths.get("proyecto_bingo/cartones");
+    try {
+      Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+          Files.delete(file);
+          return FileVisitResult.CONTINUE;
+        }
 
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    return FileVisitResult.CONTINUE;
-                }
+        @Override
+        public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+          return FileVisitResult.CONTINUE;
+        }
 
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    if (exc == null) {
-                        Files.delete(dir);
-                        return FileVisitResult.CONTINUE;
-                    } else {
-                        throw exc;
-                    }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }    
+        @Override
+        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+          if (exc == null) {
+              Files.delete(dir);
+              return FileVisitResult.CONTINUE;
+          } else {
+              throw exc;
+          }
+        }
+      });
+    } catch (IOException e) {
+        e.printStackTrace();
+    }    
   }
 
   // Método para obtener la lista de números cantados

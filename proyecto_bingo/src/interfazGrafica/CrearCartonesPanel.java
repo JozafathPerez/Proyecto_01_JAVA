@@ -51,11 +51,11 @@ public class CrearCartonesPanel extends JPanel {
 		crearCartonesButton = new JButton("Crear Cartones");
 		crearCartonesButton.setFont(new Font("Arial", Font.PLAIN, 20));
 		crearCartonesButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				logica.eliminarCartones(); //Elimina los cartones cada vez que se generan otros
-				accionCrearCartones();
-			}
+		  @Override
+		  public void actionPerformed(ActionEvent e) {
+		    logica.eliminarCartones(); //Elimina los cartones cada vez que se generan otros
+			accionCrearCartones();
+		  }
 		});
 		add(crearCartonesButton);
 		crearCartonesButton.setBounds(250, 350, 300, 50);

@@ -100,11 +100,13 @@ public class JuegoPanel extends JPanel {
 		logica.marcarCarton(numeroCantado);
 		if (logica.verificarCartones()) {
 			JOptionPane.showMessageDialog(this, "felicidades: " + logica.getGanadores().stream()
-					.collect(Collectors.joining(", ")));
+					.collect(Collectors.joining(", ")) + " se notificara a los ganadores");
 			logica.guardarPartida(); // Guarda los datos de la partida en el xml
 			
 			//Notificar al ganador
+			setCursor(new Cursor(Cursor.WAIT_CURSOR));
 			logica.notificarGanador(logica.getGanadores());
+			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			
 			//Restablecer valores
 			logica.restablecerValoresDeJuego();

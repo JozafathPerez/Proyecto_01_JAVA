@@ -17,7 +17,7 @@ public class CartonBingo {
   private int[][] matriz;
   private int[][] matrizMarcado;
   private static int contadorId = 0;
-  public static int totalCartones = 0;
+  private static int totalCartones = 0;
   
   /**
    * Constructor de la clase `CartonBingo`.
@@ -160,7 +160,7 @@ public class CartonBingo {
    */
   public static String obtenerIdentificadorPorIndice(int pIndice) {
     if (pIndice >= 0 && pIndice < totalCartones) {
-        return "JJO" + String.format("%03d", pIndice);
+      return "JJO" + String.format("%03d", pIndice);
     }
     return null; // Devuelve nulo si el índice está fuera de rango
   }
@@ -171,10 +171,10 @@ public class CartonBingo {
   public void imprimirMatrizMarcado() {
     System.out.println("Matriz de Marcado para el cartón " + identificador + ":");
     for (int fila = 0; fila < 5; fila++) {
-        for (int columna = 0; columna < 5; columna++) {
-            System.out.print(matrizMarcado[fila][columna] + " ");
-        }
-        System.out.println(); // Salto de línea para la siguiente fila
+      for (int columna = 0; columna < 5; columna++) {
+          System.out.print(matrizMarcado[fila][columna] + " ");
+      }
+      System.out.println(); // Salto de línea para la siguiente fila
     }
   }
   
@@ -195,7 +195,7 @@ public class CartonBingo {
    * @return La matriz de números del cartón.
    */
   public int[][] getMatriz() {
-      return matriz;
+    return matriz;
   }
 
   /**
@@ -204,7 +204,16 @@ public class CartonBingo {
    * @return La matriz de marcado del cartón.
    */
   public int[][] getMatrizMarcado() {
-      return matrizMarcado;
+    return matrizMarcado;
+  }
+
+  /**
+   * Obtiene el numero de cartones
+   *
+   * @return La matriz de marcado del cartón.
+   */
+  public static int getTotalCartones() {
+    return totalCartones;
   }
 
   /**
@@ -215,14 +224,18 @@ public class CartonBingo {
    * @param pNuevoValor El nuevo valor para la casilla.
    */
   public void setValorCasilla(int pFila, int pColumna, int pNuevoValor) {
-      matrizMarcado[pFila][pColumna] = pNuevoValor;
+    matrizMarcado[pFila][pColumna] = pNuevoValor;
   }
 
   /**
    * Establece el nuevo valor el contador de identificadores
    */
 
-   public static void setCartonId() {
+  public static void setCartonId() {
     contadorId = 0;
-   }
+  }
+  public static void setTotalCartones() {
+    totalCartones = 0;
+  }
+  
 }
