@@ -350,31 +350,25 @@ public class Juego {
     // Tener un registro de cartones enviados
     Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
 
-    
     // Contador
     int contador = 0;
-    while (contador < cantCartones) { 
-    
-        // Genera un número aleatorio entre 0 y el total de cartones disponibles
-        String identificador;
-        int numeroAleatorio;
+    while (contador < pCantCartones) {
 
-        do {
-            numeroAleatorio = (int) (Math.random() * CartonBingo.getTotalCartones());
-            identificador = CartonBingo.obtenerIdentificadorPorIndice(numeroAleatorio);
-            
-        } while (cartonesEnviados.contains(identificador));
+      // Genera un número aleatorio entre 0 y el total de cartones disponibles
+      String identificador;
+      int numeroAleatorio;
 
       do {
-        numeroAleatorio = (int) (Math.random() * CartonBingo.totalCartones);
+        numeroAleatorio = (int) (Math.random() * CartonBingo.getTotalCartones());
         identificador = CartonBingo.obtenerIdentificadorPorIndice(numeroAleatorio);
+
       } while (cartonesEnviados.contains(identificador));
 
-        if (agregarCartonAJuego(identificador) == (true)) {
-          cartonesEnviados.add(identificador);
-          jugador.agregarCartonAjugador(identificador);
-          contador++;
-        }
+      if (agregarCartonAJuego(identificador) == (true)) {
+        cartonesEnviados.add(identificador);
+        jugador.agregarCartonAjugador(identificador);
+        contador++;
+      }
     }
 
     // Fuera del bucle, envía el correo con todos los archivos adjuntos
@@ -677,7 +671,8 @@ public class Juego {
   }
 
   /**
-   * Restablece los valores del juego a su estado inicial, incluyendo la lista de números cantados y
+   * Restablece los valores del juego a su estado inicial, incluyendo la lista de
+   * números cantados y
    * las matrices de marcado de los cartones.
    */
   public void restablecerValoresDeJuego() {
@@ -716,42 +711,43 @@ public class Juego {
     // Se vacia la lista de cartones creados
     cartones.clear();
     cartonesEnJuego.clear();
-    //Restablece los identificadores
+    // Restablece los identificadores
     CartonBingo.setCartonId();
-    //Restablece el total de cartones
+    // Restablece el total de cartones
     CartonBingo.setTotalCartones();
-    //Restablece los cartones asignados a jugadores
-    for (Jugador jugador: jugadores) {
+    // Restablece los cartones asignados a jugadores
+    for (Jugador jugador : jugadores) {
       jugador.resetCartoneAsignados();
     }
-    
+
     Path carpeta = Paths.get("proyecto_bingo/cartones");
     try {
-      Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-          Files.delete(file);
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-          if (exc == null) {
-              Files.delete(dir);
+      Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+          new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+              Files.delete(file);
               return FileVisitResult.CONTINUE;
-          } else {
-              throw exc;
-          }
-        }
-      });
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+              return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+              if (exc == null) {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+              } else {
+                throw exc;
+              }
+            }
+          });
     } catch (IOException e) {
-        e.printStackTrace();
-    }    
+      e.printStackTrace();
+    }
   }
 
   // Método para obtener la lista de números cantados

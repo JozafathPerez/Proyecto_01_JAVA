@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  */
 public class MenuPanel extends JPanel {
 
-  /**
+	/**
    * Constructor de la clase `MenuPanel`.
    * 
    * @param gui La instancia de la clase `Gui` que gestiona la interfaz gráfica.
@@ -100,5 +100,5 @@ public class MenuPanel extends JPanel {
       }
     });
     add(botonWordCloud);
-  }
+	}
 }
