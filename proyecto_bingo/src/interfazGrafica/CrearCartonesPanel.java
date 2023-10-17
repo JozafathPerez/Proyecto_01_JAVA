@@ -53,6 +53,7 @@ public class CrearCartonesPanel extends JPanel {
 		crearCartonesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logica.eliminarCartones(); //Elimina los cartones cada vez que se generan otros
 				accionCrearCartones();
 			}
 		});
