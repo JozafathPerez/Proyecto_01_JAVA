@@ -128,10 +128,11 @@ public class Juego {
   /**
    * Valida si un jugador con la misma cédula ya existe en la lista de jugadores.
    *
-   * @param nombre  El nombre del jugador.
-   * @param correo  El correo del jugador.
-   * @param cedula  La cédula del jugador.
-   * @return `true` si ya existe un jugador con la misma cédula, `false` en caso contrario.
+   * @param nombre El nombre del jugador.
+   * @param correo El correo del jugador.
+   * @param cedula La cédula del jugador.
+   * @return `true` si ya existe un jugador con la misma cédula, `false` en caso
+   *         contrario.
    */
   public boolean validarJugador(String nombre, String correo, String cedula) {
     for (Jugador objeto : jugadores) {
@@ -146,10 +147,11 @@ public class Juego {
   /**
    * Registra un nuevo jugador en el juego si no existe previamente.
    *
-   * @param nombre  El nombre del jugador.
-   * @param correo  El correo del jugador.
-   * @param cedula  La cédula del jugador.
-   * @return `true` si el jugador se registra con éxito, `false` si la cédula está duplicada.
+   * @param nombre El nombre del jugador.
+   * @param correo El correo del jugador.
+   * @param cedula La cédula del jugador.
+   * @return `true` si el jugador se registra con éxito, `false` si la cédula está
+   *         duplicada.
    */
   public boolean registrarJugador(String nombre, String correo, String cedula) {
     if (validarJugador(nombre, correo, cedula) == false) {
@@ -161,7 +163,7 @@ public class Juego {
       return false; // Si retorna false significa que la cedula esta duplicada
     }
   }
-  
+
   /**
    * Verifica si algún jugador ha ganado en el juego actual.
    *
@@ -230,7 +232,8 @@ public class Juego {
   }
 
   /**
-   * Marca un cartón de bingo si el número cantado coincide con los valores del cartón.
+   * Marca un cartón de bingo si el número cantado coincide con los valores del
+   * cartón.
    *
    * @param numero El número cantado que se utiliza para marcar los cartones.
    */
@@ -256,6 +259,12 @@ public class Juego {
     }
   } // QUE HORROR VER TANTA VARA ANIDADA.......
 
+  /**
+   * Encuentra un cartón de bingo por su identificador.
+   *
+   * @param identificador El identificador del cartón a buscar.
+   * @return El cartón de bingo encontrado o `null` si no se encuentra.
+   */
   private CartonBingo encontrarCartonPorIdentificador(String identificador) {
     for (CartonBingo carton : cartones) {
       if (carton.getIdentificador().equals(identificador)) {
@@ -265,6 +274,11 @@ public class Juego {
     return null; // Devuelve null si no se encuentra el cartón con el identificador
   }
 
+  /**
+   * Verifica si algún jugador ha ganado en el juego actual.
+   *
+   * @return `true` si hay ganadores, `false` en caso contrario.
+   */
   public boolean verificarCartones() {
     boolean hayGanadores = false;
     for (String identificador : cartonesEnJuego) {
@@ -283,8 +297,14 @@ public class Juego {
     return hayGanadores;
   }
 
+  /**
+   * Compara dos matrices para verificar si son idénticas.
+   *
+   * @param matriz1 La primera matriz a comparar.
+   * @param matriz2 La segunda matriz a comparar.
+   * @return `true` si las matrices son idénticas, `false` si no lo son.
+   */
   private boolean matricesSonIguales(int[][] matriz1, int[][] matriz2) {
-
     for (int i = 0; i < matriz1.length; i++) {
       for (int j = 0; j < matriz1[0].length; j++) {
         if (matriz1[i][j] != matriz2[i][j]) {
@@ -296,6 +316,11 @@ public class Juego {
     return true; // Las matrices son iguales
   }
 
+  /**
+   * verifica si existe al menos un jugador en la lista de ganadores
+   * 
+   * @return `true` existe un Jugador en la lista, `false` en caso contrario
+   */
   public boolean mostrarGanador() {
     return !ganadores.isEmpty();
   }
@@ -357,7 +382,8 @@ public class Juego {
    * Obtiene la dirección de correo de un jugador por su cédula.
    *
    * @param cedula La cédula del jugador.
-   * @return La dirección de correo del jugador o una cadena vacía si no se encuentra.
+   * @return La dirección de correo del jugador o una cadena vacía si no se
+   *         encuentra.
    */
   private String obtenerCorreoPorCedula(String cedula) {
     for (Jugador jugador : jugadores) {
@@ -416,6 +442,12 @@ public class Juego {
     return null; // Devuelve null si no se encuentra el jugador
   }
 
+  /**
+   * Guarda los datos de la partida actual en un archivo XML llamado
+   * "partida.xml".
+   * Los datos incluyen el tipo de partida, números cantados, ganadores, fecha y
+   * hora.
+   */
   public void guardarPartida() {
     String tipo = modo;
 
@@ -472,6 +504,11 @@ public class Juego {
     }
   }
 
+  /**
+   * Carga la lista de números cantados desde un archivo XML de partida.
+   *
+   * @return Una lista de números cantados como cadenas de texto.
+   */
   public List<String> cargarNumerosCantados() {
     // Crear una lista para almacenar todos los números cantados
     List<String> numerosCantadosList = new ArrayList<>();
@@ -506,6 +543,11 @@ public class Juego {
     return numerosCantadosList;
   }
 
+  /**
+   * Carga la lista de modos de partida desde un archivo XML de partida.
+   *
+   * @return Una lista de modos de partida como cadenas de texto.
+   */
   public List<String> cargarModosPartida() {
     // Crear una lista para almacenar todos los tipos
     List<String> modosDeJuego = new ArrayList<>();
@@ -536,6 +578,12 @@ public class Juego {
     return modosDeJuego;
   }
 
+  /**
+   * Convierte la lista de números cantados en una cadena de texto separada por
+   * comas.
+   *
+   * @return Una cadena de texto con los números cantados.
+   */
   private String listaNumAStr() {
     StringBuilder numerosCantadosStr = new StringBuilder();
     for (int i = 0; i < numerosCantados.size(); i++) {
@@ -547,6 +595,11 @@ public class Juego {
     return numerosCantadosStr.toString();
   }
 
+  /**
+   * Convierte la lista de ganadores en una cadena de texto separada por comas.
+   *
+   * @return Una cadena de texto con las cédulas de los ganadores.
+   */
   private String listaGanadoresAStr() {
 
     ArrayList<String> jugadoresGanadores = new ArrayList<>();
@@ -571,6 +624,11 @@ public class Juego {
     return ganadoresStr.toString();
   }
 
+  /**
+   * Establece la fecha y hora actual en el formato "dd/MM/yyyy" y "HH:mm:ss"
+   * respectivamente,
+   * y guarda estos valores en los atributos "fechaPartida" y "horaPartida".
+   */
   public void setFecha() {
     // Obtener la fecha y hora actual
     LocalDateTime fechaHoraActual = LocalDateTime.now();
@@ -592,6 +650,11 @@ public class Juego {
     horaPartida = horaComoString;
   }
 
+  /**
+   * Notifica a los ganadores por correo electrónico.
+   *
+   * @param listaGanadores Una lista de identificadores de ganadores.
+   */
   public void notificarGanador(List<String> listaGanadores) {
     // Reemplaza con tu dirección de correo electrónico
     String remitente = "bingosocialmold@gmail.com";
@@ -607,6 +670,11 @@ public class Juego {
 
   }
 
+  /**
+   * Notifica a los ganadores por correo electrónico.
+   *
+   * @param listaGanadores Una lista de identificadores de ganadores.
+   */
   public void restablecerValoresDeJuego() {
     // Vaciar los elementos de la lista
     numerosCantados.clear();
@@ -618,47 +686,60 @@ public class Juego {
     }
   }
 
+  /**
+   * Restablece la matriz de marcado de un cartón a su estado inicial, marcando
+   * todas las casillas como no marcadas.
+   *
+   * @param carton El cartón de Bingo a restablecer.
+   */
   private void restablecerMatrizMarcado(CartonBingo carton) {
     for (int i = 0; i < carton.getMatrizMarcado().length; i++) {
       for (int j = 0; j < carton.getMatrizMarcado()[i].length; j++) {
         carton.setValorCasilla(i, j, 0);
       }
-   }
+    }
   }
 
+  /**
+   * Elimina todos los cartones del juego y restablece los identificadores de
+   * cartón.
+   * También elimina los archivos de cartones guardados en la carpeta
+   * "proyecto_bingo/cartones".
+   */
   public void eliminarCartones() {
-        // Se vacia la lista de cartones creados
-        cartones.clear();
-        cartonesEnJuego.clear();
-        //Restablece los identificadores
-        CartonBingo.setCartonId();
-        Path carpeta = Paths.get("proyecto_bingo/cartones");
-        try {
-            Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Files.delete(file);
-                    return FileVisitResult.CONTINUE;
-                }
+    // Se vacia la lista de cartones creados
+    cartones.clear();
+    cartonesEnJuego.clear();
+    // Restablece los identificadores
+    CartonBingo.setCartonId();
+    Path carpeta = Paths.get("proyecto_bingo/cartones");
+    try {
+      Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+          new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+              Files.delete(file);
+              return FileVisitResult.CONTINUE;
+            }
 
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                    return FileVisitResult.CONTINUE;
-                }
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+              return FileVisitResult.CONTINUE;
+            }
 
-                @Override
-                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                    if (exc == null) {
-                        Files.delete(dir);
-                        return FileVisitResult.CONTINUE;
-                    } else {
-                        throw exc;
-                    }
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }    
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+              if (exc == null) {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+              } else {
+                throw exc;
+              }
+            }
+          });
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   // Método para obtener la lista de números cantados
