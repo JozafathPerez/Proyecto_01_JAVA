@@ -29,6 +29,7 @@ import logica.CuentaCorreo;
 public class WordCloudPanel extends JPanel {
   private Juego logica;
   private JButton regresarMenuButton;
+  private JLabel wordCloudLabel;
 
   /**
    * Constructor de la clase WordCloudPanel.
@@ -42,14 +43,10 @@ public class WordCloudPanel extends JPanel {
     // Configurar el diseño del panel a null para posicionamiento manual
     setLayout(null);
 
-    CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
-    List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
-    List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
-    comentarios.addAll(mensajesAnteriores);
-
-    generateWordCloud(comentarios);
-
-    sobrescribirComentarios("mensajes.txt", comentarios);
+    // Establecer posición y tamaño del JLabel que muestra el WordCloud
+    wordCloudLabel = new JLabel();
+    wordCloudLabel.setBounds(100, 50, 600, 600);
+    add(wordCloudLabel);
 
     // Botón para regresar al menú principal
     regresarMenuButton = new JButton("◀ REGRESAR");
@@ -109,7 +106,15 @@ public class WordCloudPanel extends JPanel {
    *
    * @param comentarios La lista de comentarios para generar el WordCloud.
    */
-  private void generateWordCloud(List<String> comentarios) {
+  public void generateWordCloud() {
+    // Obtener los mensajes de cuenta correo
+    CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
+    List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
+
+    // Carga los mensajes anteriores
+    List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
+    comentarios.addAll(mensajesAnteriores);
+
     // Ejemplo del word cloud circular pero con mas palabras de frecuencia
     final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
     frequencyAnalyzer.setWordFrequenciesToReturn(500);
@@ -125,13 +130,12 @@ public class WordCloudPanel extends JPanel {
     wordCloud.build(wordFrequencies);
     wordCloud.writeToFile("kumo-core/output/wordcloud_gradient_redbluegreen.png");
 
+    // Guardar de vuelta todos los mensajes
+    sobrescribirComentarios("mensajes.txt", comentarios);
+
     // Obtener el word cloud y hacerlo imagen
     final BufferedImage wordCloudImage = wordCloud.getBufferedImage();
-
-    // Establecer posición y tamaño del JLabel que muestra el WordCloud
-    JLabel wordCloudLabel = new JLabel(new ImageIcon(wordCloudImage));
-    wordCloudLabel.setBounds(100, 50, dimension.width, dimension.height);
-
-    add(wordCloudLabel);
+    
+    wordCloudLabel.setIcon(new ImageIcon(wordCloudImage));
   }
 }

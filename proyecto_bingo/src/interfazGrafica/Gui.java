@@ -136,4 +136,8 @@ public class Gui {
 	public EstadisticasPanel getEstadisticasPanel() {
 		return estadisticasPanel;
 	}
+
+	public WordCloudPanel getWordCloudPanel() {
+		return wordCloudPanel;
+	}
 }
