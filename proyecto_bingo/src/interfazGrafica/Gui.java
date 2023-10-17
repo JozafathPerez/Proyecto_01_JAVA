@@ -39,7 +39,7 @@ public class Gui {
 		cards = new JPanel(cardLayout);
 
 		// Panel para el menú principal #1
-		menuPanel = new MenuPanel(this, pLogica);
+		menuPanel = new MenuPanel(this);
 		registraEscena(menuPanel, "menu");
 
 		// Panel para configurar el juego #2
