@@ -54,14 +54,14 @@ public class Juego {
   /**
    * Configura el modo de juego y el premio.
    *
-   * @param modo   El modo de juego.
-   * @param premio El monto del premio en dinero.
+   * @param pModo   El modo de juego.
+   * @param pPremio El monto del premio en dinero.
    */
-  public void configurarJuego(String modo, double premio) {
-    this.modo = modo;
-    this.premio = premio;
+  public void configurarJuego(String pModo, double pPremio) {
+    this.modo = pModo;
+    this.premio = pPremio;
 
-    if (modo.equals("Jugar en X")) {
+    if (pModo.equals("Jugar en X")) {
       matrizVerificadora = new int[][] {
           { 1, 0, 0, 0, 1 },
           { 0, 1, 0, 1, 0 },
@@ -71,7 +71,7 @@ public class Juego {
       };
     }
 
-    if (modo.equals("Cuatro esquinas")) {
+    if (pModo.equals("Cuatro esquinas")) {
       matrizVerificadora = new int[][] {
           { 1, 0, 0, 0, 1 },
           { 0, 0, 0, 0, 0 },
@@ -81,7 +81,7 @@ public class Juego {
       };
     }
 
-    if (modo.equals("Carton lleno")) {
+    if (pModo.equals("Carton lleno")) {
       matrizVerificadora = new int[][] {
           { 1, 1, 1, 1, 1 },
           { 1, 1, 1, 1, 1 },
@@ -91,7 +91,7 @@ public class Juego {
       };
     }
 
-    if (modo.equals("Jugar en Z")) {
+    if (pModo.equals("Jugar en Z")) {
       matrizVerificadora = new int[][] {
           { 1, 1, 1, 1, 1 },
           { 0, 0, 0, 1, 0 },
@@ -107,10 +107,10 @@ public class Juego {
   /**
    * Agrega un cartón al juego.
    *
-   * @param carton El cartón de bingo a agregar al juego.
+   * @param pCarton El cartón de bingo a agregar al juego.
    */
-  public void agregarCarton(CartonBingo carton) {
-    cartones.add(carton);
+  public void agregarCarton(CartonBingo pCarton) {
+    cartones.add(pCarton);
   }
 
   /**
@@ -128,15 +128,15 @@ public class Juego {
   /**
    * Valida si un jugador con la misma cédula ya existe en la lista de jugadores.
    *
-   * @param nombre El nombre del jugador.
-   * @param correo El correo del jugador.
-   * @param cedula La cédula del jugador.
+   * @param pNombre El nombre del jugador.
+   * @param pCorreo El correo del jugador.
+   * @param pCedula La cédula del jugador.
    * @return `true` si ya existe un jugador con la misma cédula, `false` en caso
    *         contrario.
    */
-  public boolean validarJugador(String nombre, String correo, String cedula) {
+  public boolean validarJugador(String pNombre, String pCorreo, String pCedula) {
     for (Jugador objeto : jugadores) {
-      if (objeto.getCedula().equals(cedula)) {
+      if (objeto.getCedula().equals(pCedula)) {
 
         return true;
       }
@@ -147,15 +147,15 @@ public class Juego {
   /**
    * Registra un nuevo jugador en el juego si no existe previamente.
    *
-   * @param nombre El nombre del jugador.
-   * @param correo El correo del jugador.
-   * @param cedula La cédula del jugador.
+   * @param pNombre El nombre del jugador.
+   * @param pCorreo El correo del jugador.
+   * @param pCedula La cédula del jugador.
    * @return `true` si el jugador se registra con éxito, `false` si la cédula está
    *         duplicada.
    */
-  public boolean registrarJugador(String nombre, String correo, String cedula) {
-    if (validarJugador(nombre, correo, cedula) == false) {
-      Jugador jugador = new Jugador(nombre, correo, cedula);
+  public boolean registrarJugador(String pNombre, String pCorreo, String pCedula) {
+    if (validarJugador(pNombre, pCorreo, pCedula) == false) {
+      Jugador jugador = new Jugador(pNombre, pCorreo, pCedula);
       jugador.agregarJugadorACSV();
       jugadores.add(jugador);
       return true;
@@ -219,12 +219,12 @@ public class Juego {
   /**
    * Valida si un número ya ha sido cantado durante el juego.
    *
-   * @param numero El número a validar.
+   * @param pNumero El número a validar.
    * @return `true` si el número ya ha sido cantado, `false` en caso contrario.
    */
-  private boolean validarNumCantado(int numero) {
+  private boolean validarNumCantado(int pNumero) {
     for (int numCantado : numerosCantados) {
-      if (numCantado == numero) {
+      if (numCantado == pNumero) {
         return true; // El número ya existe en la columna
       }
     }
@@ -235,9 +235,9 @@ public class Juego {
    * Marca un cartón de bingo si el número cantado coincide con los valores del
    * cartón.
    *
-   * @param numero El número cantado que se utiliza para marcar los cartones.
+   * @param pNumero El número cantado que se utiliza para marcar los cartones.
    */
-  public void marcarCarton(int numero) {
+  public void marcarCarton(int pNumero) {
     for (String identificador : cartonesEnJuego) {
 
       CartonBingo carton = encontrarCartonPorIdentificador(identificador);
@@ -248,7 +248,7 @@ public class Juego {
         // Recorrer por columnas
         for (int columna = 0; columna < 5; columna += 1) {
           // Compara si hay coincidencias con el numero marcado
-          if (matriz[fila][columna] == numero) {
+          if (matriz[fila][columna] == pNumero) {
             if (matrizVerificadora[fila][columna] == 1) {
               carton.setValorCasilla(fila, columna, 1);
               break;
@@ -262,12 +262,12 @@ public class Juego {
   /**
    * Encuentra un cartón de bingo por su identificador.
    *
-   * @param identificador El identificador del cartón a buscar.
+   * @param pIdentificador El identificador del cartón a buscar.
    * @return El cartón de bingo encontrado o `null` si no se encuentra.
    */
-  private CartonBingo encontrarCartonPorIdentificador(String identificador) {
+  private CartonBingo encontrarCartonPorIdentificador(String pIdentificador) {
     for (CartonBingo carton : cartones) {
-      if (carton.getIdentificador().equals(identificador)) {
+      if (carton.getIdentificador().equals(pIdentificador)) {
         return carton;
       }
     }
@@ -300,14 +300,14 @@ public class Juego {
   /**
    * Compara dos matrices para verificar si son idénticas.
    *
-   * @param matriz1 La primera matriz a comparar.
-   * @param matriz2 La segunda matriz a comparar.
+   * @param pMatriz1 La primera matriz a comparar.
+   * @param pMatriz2 La segunda matriz a comparar.
    * @return `true` si las matrices son idénticas, `false` si no lo son.
    */
-  private boolean matricesSonIguales(int[][] matriz1, int[][] matriz2) {
-    for (int i = 0; i < matriz1.length; i++) {
-      for (int j = 0; j < matriz1[0].length; j++) {
-        if (matriz1[i][j] != matriz2[i][j]) {
+  private boolean matricesSonIguales(int[][] pMatriz1, int[][] pMatriz2) {
+    for (int i = 0; i < pMatriz1.length; i++) {
+      for (int j = 0; j < pMatriz1[0].length; j++) {
+        if (pMatriz1[i][j] != pMatriz2[i][j]) {
           return false; // Las matrices no son iguales
         }
       }
@@ -328,10 +328,10 @@ public class Juego {
   /**
    * Función para enviar cartones a un jugador por correo electrónico.
    *
-   * @param cantCartones Cantidad de cartones a enviar.
-   * @param cedula       La cédula del jugador al que se le envían los cartones.
+   * @param pCantCartones Cantidad de cartones a enviar.
+   * @param pCedula       La cédula del jugador al que se le envían los cartones.
    */
-  public void enviarCartonAJugador(int cantCartones, String cedula) {
+  public void enviarCartonAJugador(int pCantCartones, String pCedula) {
     // Reemplaza con tu dirección de correo electrónico
     String remitente = "bingosocialmold@gmail.com";
 
@@ -339,18 +339,18 @@ public class Juego {
     CuentaCorreo cuenta = new CuentaCorreo(remitente);
 
     // Obtiene la dirección de correo del jugador con la cédula
-    String destinatario = obtenerCorreoPorCedula(cedula);
+    String destinatario = obtenerCorreoPorCedula(pCedula);
 
     // Datos del correo
     String asunto = "Cartones solicitados";
     String cuerpo = "Este es un correo de Bingo Tico desde Java.";
 
-    Jugador jugador = obtenerJugadorPorCedula(cedula);
+    Jugador jugador = obtenerJugadorPorCedula(pCedula);
 
     // Tener un registro de cartones enviados
     Set<String> cartonesEnviados = new HashSet<>(jugador.getCartonesAsignados());
 
-    while (cartonesEnviados.size() < cantCartones) {
+    while (cartonesEnviados.size() < pCantCartones) {
 
       // Genera un número aleatorio entre 0 y el total de cartones disponibles
       int numeroAleatorio;
@@ -381,13 +381,13 @@ public class Juego {
   /**
    * Obtiene la dirección de correo de un jugador por su cédula.
    *
-   * @param cedula La cédula del jugador.
+   * @param pCedula La cédula del jugador.
    * @return La dirección de correo del jugador o una cadena vacía si no se
    *         encuentra.
    */
-  private String obtenerCorreoPorCedula(String cedula) {
+  private String obtenerCorreoPorCedula(String pCedula) {
     for (Jugador jugador : jugadores) {
-      if (jugador.getCedula().equals(cedula)) {
+      if (jugador.getCedula().equals(pCedula)) {
         return jugador.getCorreo();
       }
     }
@@ -398,12 +398,12 @@ public class Juego {
   /**
    * Obtiene un jugador por su cédula.
    *
-   * @param cedula La cédula del jugador.
+   * @param pCedula La cédula del jugador.
    * @return El jugador encontrado o `null` si no se encuentra.
    */
-  public Jugador obtenerJugadorPorCedula(String cedula) {
+  public Jugador obtenerJugadorPorCedula(String pCedula) {
     for (Jugador jugador : jugadores) {
-      if (jugador.getCedula().equals(cedula)) {
+      if (jugador.getCedula().equals(pCedula)) {
         return jugador;
       }
     }
@@ -414,13 +414,13 @@ public class Juego {
   /**
    * Agrega un cartón al juego si aún no ha sido asignado.
    *
-   * @param identificadorCarton El identificador del cartón a agregar.
+   * @param pIdentificadorCarton El identificador del cartón a agregar.
    * @return `true` si se agrega con éxito, `false` si ya ha sido asignado.
    */
-  public boolean agregarCartonAJuego(String identificadorCarton) {
+  public boolean agregarCartonAJuego(String pIdentificadorCarton) {
     // Verificar si el cartón ya ha sido asignado
-    if (!cartonesEnJuego.contains(identificadorCarton)) {
-      cartonesEnJuego.add(identificadorCarton);
+    if (!cartonesEnJuego.contains(pIdentificadorCarton)) {
+      cartonesEnJuego.add(pIdentificadorCarton);
       return true;
     } else {
       return false;
@@ -430,12 +430,12 @@ public class Juego {
   /**
    * Obtiene un jugador por el identificador de un cartón.
    *
-   * @param identificadorCarton El identificador del cartón.
+   * @param pIdentificadorCarton El identificador del cartón.
    * @return El jugador que tiene el cartón o `null` si no se encuentra.
    */
-  public Jugador obtenerJugadorPorIdentificadorCarton(String identificadorCarton) {
+  public Jugador obtenerJugadorPorIdentificadorCarton(String pIdentificadorCarton) {
     for (Jugador jugador : jugadores) {
-      if (jugador.tieneCarton(identificadorCarton)) {
+      if (jugador.tieneCarton(pIdentificadorCarton)) {
         return jugador;
       }
     }
@@ -450,13 +450,9 @@ public class Juego {
    */
   public void guardarPartida() {
     String tipo = modo;
-
     String numerosCantadosStr = listaNumAStr();
-
     String ganadoresStr = listaGanadoresAStr();
-
     String fecha = fechaPartida;
-
     String hora = horaPartida;
 
     try {
@@ -653,16 +649,16 @@ public class Juego {
   /**
    * Notifica a los ganadores por correo electrónico.
    *
-   * @param listaGanadores Una lista de identificadores de ganadores.
+   * @param pListaGanadores Una lista de identificadores de ganadores.
    */
-  public void notificarGanador(List<String> listaGanadores) {
+  public void notificarGanador(List<String> pListaGanadores) {
     // Reemplaza con tu dirección de correo electrónico
     String remitente = "bingosocialmold@gmail.com";
 
     // Crea una instancia de CuentaCorreo
     CuentaCorreo cuenta = new CuentaCorreo(remitente);
 
-    for (String identificador : listaGanadores) {
+    for (String identificador : pListaGanadores) {
       Jugador ganador = obtenerJugadorPorIdentificadorCarton(identificador);
       String mensaje = "Felicidades " + ganador.getNombre() + " ha sido el ganador de " + premio;
       cuenta.enviarCorreo(ganador.getCorreo(), "Notificacion de ganador", mensaje);
@@ -671,9 +667,8 @@ public class Juego {
   }
 
   /**
-   * Notifica a los ganadores por correo electrónico.
-   *
-   * @param listaGanadores Una lista de identificadores de ganadores.
+   * Restablece los valores del juego a su estado inicial, incluyendo la lista de números cantados y
+   * las matrices de marcado de los cartones.
    */
   public void restablecerValoresDeJuego() {
     // Vaciar los elementos de la lista
@@ -690,12 +685,12 @@ public class Juego {
    * Restablece la matriz de marcado de un cartón a su estado inicial, marcando
    * todas las casillas como no marcadas.
    *
-   * @param carton El cartón de Bingo a restablecer.
+   * @param pCarton El cartón de Bingo a restablecer.
    */
-  private void restablecerMatrizMarcado(CartonBingo carton) {
-    for (int i = 0; i < carton.getMatrizMarcado().length; i++) {
-      for (int j = 0; j < carton.getMatrizMarcado()[i].length; j++) {
-        carton.setValorCasilla(i, j, 0);
+  private void restablecerMatrizMarcado(CartonBingo pCarton) {
+    for (int i = 0; i < pCarton.getMatrizMarcado().length; i++) {
+      for (int j = 0; j < pCarton.getMatrizMarcado()[i].length; j++) {
+        pCarton.setValorCasilla(i, j, 0);
       }
     }
   }
