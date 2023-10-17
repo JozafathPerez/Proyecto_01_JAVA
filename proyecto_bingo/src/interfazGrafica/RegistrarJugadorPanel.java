@@ -6,6 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Esta clase representa un panel de registro de jugadores que permite a los
+ * jugadores registrarse en el juego.
+ * Los jugadores proporcionan su nombre completo, correo electrónico y número de
+ * cédula.
+ */
 public class RegistrarJugadorPanel extends JPanel {
 	private JTextField nombreCompletoField;
 	private JTextField correoField;
@@ -13,6 +19,12 @@ public class RegistrarJugadorPanel extends JPanel {
 	private JButton registrarButton;
 	private Juego logica;
 
+	/**
+	 * Constructor de la clase RegistrarJugadorPanel.
+	 *
+	 * @param pLogica La instancia de la clase Juego que se utiliza para llevar a
+	 *                cabo la lógica del juego.
+	 */
 	public RegistrarJugadorPanel(Juego pLogica) {
 		// asignar la clase logica de la interfaz
 		logica = pLogica;
@@ -23,32 +35,32 @@ public class RegistrarJugadorPanel extends JPanel {
 		// Crear una fuente con el tipo Arial y tamaño 24
 		Font fuente = new Font("Arial", Font.PLAIN, 20);
 
-        // Etiqueta y campo de texto para el nombre completo
-        JLabel nombreLabel = new JLabel("Nombre completo:");
-        nombreLabel.setBounds(130, 200, 300, 30);
-        nombreLabel.setFont(fuente); // Cambiar el tamaño de fuente
-        add(nombreLabel);
-        nombreCompletoField = new JTextField();
-        nombreCompletoField.setBounds(330, 200, 300, 30);
-        add(nombreCompletoField);
+		// Etiqueta y campo de texto para el nombre completo
+		JLabel nombreLabel = new JLabel("Nombre completo:");
+		nombreLabel.setBounds(130, 200, 300, 30);
+		nombreLabel.setFont(fuente); // Cambiar el tamaño de fuente
+		add(nombreLabel);
+		nombreCompletoField = new JTextField();
+		nombreCompletoField.setBounds(330, 200, 300, 30);
+		add(nombreCompletoField);
 
-        // Etiqueta y campo de texto para el correo electrónico
-        JLabel correoLabel = new JLabel("Correo electrónico:");
-        correoLabel.setBounds(130, 250, 250, 30);
-        correoLabel.setFont(fuente); // Cambiar el tamaño de fuente
-        add(correoLabel);
-        correoField = new JTextField();
-        correoField.setBounds(330, 250, 300, 30);
-        add(correoField);
+		// Etiqueta y campo de texto para el correo electrónico
+		JLabel correoLabel = new JLabel("Correo electrónico:");
+		correoLabel.setBounds(130, 250, 250, 30);
+		correoLabel.setFont(fuente); // Cambiar el tamaño de fuente
+		add(correoLabel);
+		correoField = new JTextField();
+		correoField.setBounds(330, 250, 300, 30);
+		add(correoField);
 
-        // Etiqueta y campo de texto para la cédula
-        JLabel cedulaLabel = new JLabel("Cédula (número):");
-        cedulaLabel.setBounds(130, 300, 200, 30);
-        cedulaLabel.setFont(fuente); // Cambiar el tamaño de fuente
-        add(cedulaLabel);
-        cedulaField = new JTextField();
-        cedulaField.setBounds(330, 300, 300, 30);
-        add(cedulaField);
+		// Etiqueta y campo de texto para la cédula
+		JLabel cedulaLabel = new JLabel("Cédula (número):");
+		cedulaLabel.setBounds(130, 300, 200, 30);
+		cedulaLabel.setFont(fuente); // Cambiar el tamaño de fuente
+		add(cedulaLabel);
+		cedulaField = new JTextField();
+		cedulaField.setBounds(330, 300, 300, 30);
+		add(cedulaField);
 
 		// Botón para registrar
 		registrarButton = new JButton("Registrar");
@@ -73,7 +85,10 @@ public class RegistrarJugadorPanel extends JPanel {
 		add(regresarMenuButton);
 	}
 
-	// Método para registrar al jugador
+	/**
+	 * Método que registra a un jugador con la información proporcionada y valida
+	 * los datos ingresados.
+	 */
 	private void registrarJugador() {
 		String nombreCompleto = nombreCompletoField.getText();
 		String correoElectronico = correoField.getText();
@@ -105,6 +120,10 @@ public class RegistrarJugadorPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Restablece los campos de entrada de texto a sus valores iniciales después del
+	 * registro.
+	 */
 	public void setGui() {
 		cedulaField.setText("");
 		correoField.setText("");
