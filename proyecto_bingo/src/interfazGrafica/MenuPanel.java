@@ -1,5 +1,6 @@
 package interfazGrafica;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -93,6 +94,9 @@ public class MenuPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         Gui.cambiarEscena("wordCloud");
+        gui.getWordCloudPanel().setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        gui.getWordCloudPanel().generateWordCloud();
+        gui.getWordCloudPanel().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
       }
     });
     add(botonWordCloud);
