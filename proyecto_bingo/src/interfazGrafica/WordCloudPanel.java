@@ -20,115 +20,122 @@ import java.io.IOException;
 import java.util.ArrayList;
 import logica.CuentaCorreo;
 
+/**
+ * Esta clase representa un panel que muestra un WordCloud generado a partir de
+ * comentarios de mensajes de correo.
+ * Los comentarios se obtienen de una cuenta de correo y se generan en forma de
+ * nube de palabras.
+ */
 public class WordCloudPanel extends JPanel {
-    private Juego logica;
-    private JButton regresarMenuButton;
+  private Juego logica;
+  private JButton regresarMenuButton;
+  private JLabel wordCloudLabel;
 
-    public WordCloudPanel(Juego pLogica) {
-        this.logica = pLogica;
+  /**
+   * Constructor de la clase WordCloudPanel.
+   *
+   * @param pLogica La instancia de la clase Juego que se utiliza para obtener los
+   *                datos del juego.
+   */
+  public WordCloudPanel(Juego pLogica) {
+    this.logica = pLogica;
 
-        // Configurar el diseño del panel a null para posicionamiento manual
-        setLayout(null);
+    // Configurar el diseño del panel a null para posicionamiento manual
+    setLayout(null);
 
-        CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
-        List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
-        List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
-        comentarios.addAll(mensajesAnteriores);
+    // Establecer posición y tamaño del JLabel que muestra el WordCloud
+    wordCloudLabel = new JLabel();
+    wordCloudLabel.setBounds(100, 50, 600, 600);
+    add(wordCloudLabel);
 
-        generateWordCloud(comentarios);
+    // Botón para regresar al menú principal
+    regresarMenuButton = new JButton("◀ REGRESAR");
+    regresarMenuButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        Gui.cambiarEscena("menu"); // Método para volver al menú principal
+      }
+    });
+    add(regresarMenuButton);
+    regresarMenuButton.setBounds(10, 10, 110, 25);
+  }
 
-        sobrescribirComentarios("mensajes.txt", comentarios);
-
-        // Botón para regresar al menú principal
-        regresarMenuButton = new JButton("◀ REGRESAR");
-        regresarMenuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            Gui.cambiarEscena("menu"); // Método para volver al menú principal
-            }
-        });
-        add(regresarMenuButton);
-        regresarMenuButton.setBounds(10, 10, 110, 25);
+  /**
+   * Carga mensajes anteriores desde un archivo de texto.
+   *
+   * @param archivo El nombre del archivo de texto.
+   * @return Una lista de mensajes anteriores.
+   */
+  private static List<String> cargarMensajesAnteriores(String archivo) {
+    List<String> mensajesAnteriores = new ArrayList<>();
+    try {
+      BufferedReader reader = new BufferedReader(new FileReader(archivo));
+      String linea;
+      while ((linea = reader.readLine()) != null) {
+        mensajesAnteriores.add(linea);
+      }
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return mensajesAnteriores;
+  }
 
-    private static List<String> cargarMensajesAnteriores(String archivo) {
-        List<String> mensajesAnteriores = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(archivo));
-            String linea;
-            while ((linea = reader.readLine()) != null) {
-                mensajesAnteriores.add(linea);
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return mensajesAnteriores;
+  /**
+   * Sobrescribe comentarios en un archivo de texto.
+   *
+   * @param archivo     El nombre del archivo de texto.
+   * @param comentarios La lista de comentarios a sobrescribir.
+   */
+  private static void sobrescribirComentarios(String pArchivo, List<String> pComentarios) {
+    try {
+      BufferedWriter writer = new BufferedWriter(new FileWriter(pArchivo));
+      for (String comentario : pComentarios) {
+        writer.write(comentario);
+        writer.newLine();
+      }
+      writer.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 
-    private static void sobrescribirComentarios(String archivo, List<String> comentarios) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
-            for (String comentario : comentarios) {
-                writer.write(comentario);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+  /**
+   * Genera un WordCloud a partir de los comentarios proporcionados y lo muestra
+   * en el panel.
+   *
+   * @param comentarios La lista de comentarios para generar el WordCloud.
+   */
+  public void generateWordCloud() {
+    // Obtener los mensajes de cuenta correo
+    CuentaCorreo cuenta = new CuentaCorreo("bingosocialmold@gmail.com");
+    List<String> comentarios = cuenta.obtenerComentariosDeMensajes();
 
-    private void generateWordCloud(List<String> comentarios) {
-        // Ejemplo del word coud rectangular
-        // final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
-        // frequencyAnalyzer.setWordFrequenciesToReturn(300);
-        // frequencyAnalyzer.setMinWordLength(4);
-        // final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
-        // final Dimension dimension = new Dimension(600, 600);
-        // final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.RECTANGLE);
-        // wordCloud.setPadding(0);
-        // wordCloud.setBackground(new RectangleBackground(dimension));
-        // wordCloud.setColorPalette(new ColorPalette(Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE));
-        // wordCloud.setFontScalar(new LinearFontScalar(10, 40));
-        // wordCloud.build(wordFrequencies);
-        // wordCloud.writeToFile("kumo-core/output/wordcloud_rectangle.png");
+    // Carga los mensajes anteriores
+    List<String> mensajesAnteriores = cargarMensajesAnteriores("mensajes.txt");
+    comentarios.addAll(mensajesAnteriores);
 
-        // Ejemplo del word cloud circular
-        // final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
-        // final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
-        // final Dimension dimension = new Dimension(600, 600);
-        // final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
-        // wordCloud.setPadding(2);
-        // wordCloud.setBackground(new CircleBackground(300));
-        // wordCloud.setColorPalette(new ColorPalette(new Color(0x4055F1), new Color(0x408DF1), new Color(0x40AAF1), new Color(0x40C5F1), new Color(0x40D3F1), new Color(0xFFFFFF)));
-        // wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
-        // wordCloud.build(wordFrequencies);
-        // wordCloud.writeToFile("kumo-core/output/datarank_wordcloud_circle_sqrt_font.png");
+    // Ejemplo del word cloud circular pero con mas palabras de frecuencia
+    final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+    frequencyAnalyzer.setWordFrequenciesToReturn(500);
+    frequencyAnalyzer.setMinWordLength(4);
+    final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
+    final Dimension dimension = new Dimension(600, 600);
+    final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
+    wordCloud.setPadding(2);
+    wordCloud.setBackground(new CircleBackground(300));
+    // colors followed by and steps between
+    wordCloud.setColorPalette(new LinearGradientColorPalette(Color.RED, Color.BLUE, Color.GREEN, 30, 30));
+    wordCloud.setFontScalar(new SqrtFontScalar(10, 40));
+    wordCloud.build(wordFrequencies);
+    wordCloud.writeToFile("kumo-core/output/wordcloud_gradient_redbluegreen.png");
 
-        // Ejemplo del word cloud circular pero con mas palabras de frecuencia
-        final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
-        frequencyAnalyzer.setWordFrequenciesToReturn(500);
-        frequencyAnalyzer.setMinWordLength(4); 
-        final List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(comentarios);
-        final Dimension dimension = new Dimension(600, 600);
-        final WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);
-        wordCloud.setPadding(2);
-        wordCloud.setBackground(new CircleBackground(300));
-        // colors followed by and steps between
-        wordCloud.setColorPalette(new LinearGradientColorPalette(Color.RED, Color.BLUE, Color.GREEN, 30, 30));
-        wordCloud.setFontScalar( new SqrtFontScalar(10, 40));
-        wordCloud.build(wordFrequencies);
-        wordCloud.writeToFile("kumo-core/output/wordcloud_gradient_redbluegreen.png");
+    // Guardar de vuelta todos los mensajes
+    sobrescribirComentarios("mensajes.txt", comentarios);
 
-        // Obtener el word cloud y hacerlo imagen
-        final BufferedImage wordCloudImage = wordCloud.getBufferedImage();
-
-        // Establecer posición y tamaño del JLabel que muestra el WordCloud
-        JLabel wordCloudLabel = new JLabel(new ImageIcon(wordCloudImage));
-        wordCloudLabel.setBounds(100, 50, dimension.width, dimension.height);
-
-        add(wordCloudLabel);
-    }
+    // Obtener el word cloud y hacerlo imagen
+    final BufferedImage wordCloudImage = wordCloud.getBufferedImage();
+    
+    wordCloudLabel.setIcon(new ImageIcon(wordCloudImage));
+  }
 }
-

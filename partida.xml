@@ -133,4 +133,11 @@
     <fecha>16/10/2023</fecha>
     <hora>02:20:37</hora>
   </partida>
+  <partida>
+    <tipo>Jugar en X</tipo>
+    <numerosCantados>6,14,64,47,58,35,46,66,2,62,17,7,24,70,31,34,71,59,10,72,52,67,44,26,22,43,8,5,61,36,48,16,21,32,39,68,38,75,18,3,57,53,63,20,49,1,13,23,74,55,42,69,41,19,65,30,56,50,12,4,33,37,27,73,45,9,40,54</numerosCantados>
+    <ganadores>706750854</ganadores>
+    <fecha>16/10/2023</fecha>
+    <hora>20:59:52</hora>
+  </partida>
 </partidasJuego>
