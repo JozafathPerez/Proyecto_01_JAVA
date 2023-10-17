@@ -2,14 +2,19 @@ package logica;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.FileWriter;
@@ -618,7 +623,42 @@ public class Juego {
       for (int j = 0; j < carton.getMatrizMarcado()[i].length; j++) {
         carton.setValorCasilla(i, j, 0);
       }
-    }
+   }
+  }
+
+  public void eliminarCartones() {
+        // Se vacia la lista de cartones creados
+        cartones.clear();
+        cartonesEnJuego.clear();
+        //Restablece los identificadores
+        CartonBingo.setCartonId();
+        Path carpeta = Paths.get("proyecto_bingo/cartones");
+        try {
+            Files.walkFileTree(carpeta, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.delete(file);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    if (exc == null) {
+                        Files.delete(dir);
+                        return FileVisitResult.CONTINUE;
+                    } else {
+                        throw exc;
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }    
   }
 
   // Método para obtener la lista de números cantados

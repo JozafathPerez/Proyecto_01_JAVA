@@ -217,4 +217,12 @@ public class CartonBingo {
   public void setValorCasilla(int pFila, int pColumna, int pNuevoValor) {
       matrizMarcado[pFila][pColumna] = pNuevoValor;
   }
+
+  /**
+   * Establece el nuevo valor el contador de identificadores
+   */
+
+   public static void setCartonId() {
+    contadorId = 0;
+   }
 }
