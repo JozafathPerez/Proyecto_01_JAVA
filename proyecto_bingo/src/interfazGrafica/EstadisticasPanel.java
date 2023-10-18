@@ -23,7 +23,7 @@ import java.util.Map.Entry;
  */
 public class EstadisticasPanel extends JPanel {
   private Juego logica;
-  JFreeChart chart;// declaramos un objeto de la clase JFreeChart para construir el grafico
+  private JFreeChart chart;// declaramos un objeto de la clase JFreeChart para construir el grafico
   private ChartPanel panel;
   private ChartPanel panel2;
   private JButton regresarMenuButton;
