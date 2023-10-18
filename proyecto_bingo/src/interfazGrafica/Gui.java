@@ -93,10 +93,10 @@ public class Gui {
 	/**
 	 * Cambia la escena actual a la escena con el nombre especificado.
 	 * 
-	 * @param nombre El nombre de la escena a la que se debe cambiar.
+	 * @param pNombre El nombre de la escena a la que se debe cambiar.
 	 */
-	public static void cambiarEscena(String nombre) {
-		cardLayout.show(cards, nombre);
+	public static void cambiarEscena(String pNombre) {
+		cardLayout.show(cards, pNombre);
 	}
 
 	// Getters para acceder a los paneles de la interfaz gráfica
