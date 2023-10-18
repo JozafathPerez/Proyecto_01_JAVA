@@ -99,16 +99,28 @@ public class Gui {
 		cardLayout.show(cards, nombre);
 	}
 
+	
+	/** 
+	 * @return JFrame
+	 */
 	// Getters para acceder a los paneles de la interfaz gráfica
 
 	public static JFrame getVentana() {
 		return ventana;
 	}
 
+	
+	/** 
+	 * @return MenuPanel
+	 */
 	public MenuPanel getMenuPanel() {
 		return menuPanel;
 	}
 
+	
+	/** 
+	 * @return IniciarJuegoPanel
+	 */
 	public IniciarJuegoPanel getJugarPanel() {
 		return jugarPanel;
 	}

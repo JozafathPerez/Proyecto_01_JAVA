@@ -2,6 +2,11 @@ import interfazGrafica.Gui;
 import logica.Juego;
 
 public class App {
+    
+    /** 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         Juego logica = new Juego();
         logica.cargarJugadoresDesdeCSV();

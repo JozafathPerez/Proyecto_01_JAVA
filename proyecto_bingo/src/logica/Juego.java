@@ -750,15 +750,27 @@ public class Juego {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   // Método para obtener la lista de números cantados
   public String getModo() {
     return modo;
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getPremio() {
     return premio;
   }
 
+  
+  /** 
+   * @return List<Integer>
+   */
   public List<Integer> getNumerosCantados() {
     return numerosCantados;
   }
