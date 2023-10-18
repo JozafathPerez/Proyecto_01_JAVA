@@ -14,9 +14,9 @@ public class MenuPanel extends JPanel {
 	/**
    * Constructor de la clase `MenuPanel`.
    * 
-   * @param gui La instancia de la clase `Gui` que gestiona la interfaz gráfica.
+   * @param pGui La instancia de la clase `Gui` que gestiona la interfaz gráfica.
    */
-  public MenuPanel(Gui gui) {
+  public MenuPanel(Gui pGui) {
     // Configurar el diseño como nulo para posicionar manualmente los botones
     setLayout(null);
 
@@ -31,7 +31,7 @@ public class MenuPanel extends JPanel {
     botonJugar.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        gui.getJugarPanel().setGui();
+        pGui.getJugarPanel().setGui();
         Gui.cambiarEscena("jugar");
       }
     });
@@ -82,7 +82,7 @@ public class MenuPanel extends JPanel {
     botonEstadisticas.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        gui.getEstadisticasPanel().setGui();
+        pGui.getEstadisticasPanel().setGui();
         Gui.cambiarEscena("estadisticas");
       }
     });
@@ -94,9 +94,9 @@ public class MenuPanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         Gui.cambiarEscena("wordCloud");
-        gui.getWordCloudPanel().setCursor(new Cursor(Cursor.WAIT_CURSOR));
-        gui.getWordCloudPanel().generateWordCloud();
-        gui.getWordCloudPanel().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        pGui.getWordCloudPanel().setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        pGui.getWordCloudPanel().generateWordCloud();
+        pGui.getWordCloudPanel().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
       }
     });
     add(botonWordCloud);
