@@ -131,6 +131,11 @@ public class CuentaCorreo {
     }
   }
 
+  /**
+   * Obtiene una lista de mensajes de correo electrónico desde la bandeja de entrada.
+   *
+   * @return Lista de mensajes de correo electrónico.
+   */
   public List<Message> obtenerMensajes() {
     List<Message> mensajes = new ArrayList<>();
 
@@ -180,6 +185,11 @@ public class CuentaCorreo {
     return mensajes;
   }
 
+  /**
+   * Obtiene una lista de comentarios de los mensajes de correo electrónico en la bandeja de entrada.
+   *
+   * @return Lista de comentarios de los mensajes.
+   */
   public List<String> obtenerComentariosDeMensajes() {
     List<String> comentarios = new ArrayList<>();
 
@@ -224,6 +234,12 @@ public class CuentaCorreo {
     return comentarios;
   }
 
+  /**
+   * Analiza el contenido de un mensaje de correo electrónico y extrae el comentario.
+   *
+   * @param mensaje Mensaje de correo electrónico a analizar.
+   * @return Comentario extraído del mensaje.
+   */
   private String analizarContenidoMensaje(Message mensaje) {
     try {
       StringBuilder contenidoMensaje = new StringBuilder();
