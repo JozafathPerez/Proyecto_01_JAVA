@@ -2,7 +2,6 @@ package logica;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -750,15 +749,27 @@ public class Juego {
     }
   }
 
+  
+  /** 
+   * @return String
+   */
   // Método para obtener la lista de números cantados
   public String getModo() {
     return modo;
   }
 
+  
+  /** 
+   * @return double
+   */
   public double getPremio() {
     return premio;
   }
 
+  
+  /** 
+   * @return List<Integer>
+   */
   public List<Integer> getNumerosCantados() {
     return numerosCantados;
   }

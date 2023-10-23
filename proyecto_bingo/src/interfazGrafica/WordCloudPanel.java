@@ -27,7 +27,6 @@ import logica.CuentaCorreo;
  * nube de palabras.
  */
 public class WordCloudPanel extends JPanel {
-  private Juego logica;
   private JButton regresarMenuButton;
   private JLabel wordCloudLabel;
 
@@ -38,8 +37,6 @@ public class WordCloudPanel extends JPanel {
    *                datos del juego.
    */
   public WordCloudPanel(Juego pLogica) {
-    this.logica = pLogica;
-
     // Configurar el diseño del panel a null para posicionamiento manual
     setLayout(null);
 

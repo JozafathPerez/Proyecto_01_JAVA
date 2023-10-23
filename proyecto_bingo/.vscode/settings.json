@@ -1,7 +1,11 @@
 {
+    "javadoc-tools.generateJavadoc.workspaceSourceFolder": "src",
+    "javadoc-tools.generateJavadoc.targetFolder": "${workspaceRoot}/javadoc",
+    "javadoc-tools.generateJavadoc.runMode": "-public",
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
+
     ]
 }
