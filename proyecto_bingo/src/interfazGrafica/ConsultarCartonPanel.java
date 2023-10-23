@@ -85,6 +85,7 @@ public class ConsultarCartonPanel extends JPanel {
    */
   private void consultar() {
     String nombreImagen = identificadorField.getText();
+    nombreImagen.toUpperCase();
     if (nombreImagen.isEmpty()) {
       JOptionPane.showMessageDialog(this, "Ingresa un nombre de imagen válido.");
       return;

@@ -123,6 +123,6 @@ public class JuegoPanel extends JPanel {
 		configuracionLabel.setText("Configuración del juego: " + logica.getModo());
 		cartonesLabel.setText("Cartones en juego: " + logica.getCartonesEnJuego().size());
 		montoPremioLabel.setText("Monto del premio: ₵" + logica.getPremio());
-		totalJugadoresLabel.setText("Total de jugadores: " + logica.getJugadores().size());
+		totalJugadoresLabel.setText("Total de jugadores: " + logica.getJugadoresEnJuego());
 	}
 }

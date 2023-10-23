@@ -780,4 +780,13 @@ public class Juego {
     return jugadores;
   }
 
+  public int getJugadoresEnJuego() {
+    int contador = 0;
+    for (Jugador jugador : jugadores) {
+      if (jugador.getCartonesAsignados().size() > 1){
+        contador++;
+      }
+    }
+    return contador;
+ }
 }
